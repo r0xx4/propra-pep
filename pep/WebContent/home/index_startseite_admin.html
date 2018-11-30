@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap CSS-->
-        <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/vendor/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!-- Font Awesome CSS-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <!-- Google fonts - Popppins for copy-->
@@ -73,29 +73,27 @@
             //Hier Javascript Code
             document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
             function klickLinkHomeEvent(){
-                window.open("/pep/home", "_self");
+            	window.open("/pep/home", "_self");
             }
             document.querySelector('#link_logout').addEventListener("click", klickLinkLogoutEvent); 
             function klickLinkLogoutEvent(){
-            	window.open("/pep/home/logout", "_self");
+                window.open("/pep/home/logout", "_self");
             }
             document.querySelector('#link_show_all_groups').addEventListener("click", klickLinkShowAllGroupsEvent); 
             function klickLinkShowAllGroupsEvent(){
-                window.open("/pep/home/show_groups", "_self");
+            	window.open("/pep/home/show_groups", "_self");
             }
             document.querySelector('#link_show_all_teams').addEventListener("click", klickLinkShowAllTeamsEvent); 
             function klickLinkShowAllTeamsEvent(){
-                window.open("/pep/home/show_teams", "_self");
+            	window.open("/pep/home/show_teams", "_self");
             }
             document.querySelector('#link_show_all_accounts').addEventListener("click", klickLinkShowAllAccountsEvent); 
             function klickLinkShowAllAccountsEvent(){
-                //Hier Code für zeige alle Accounts Button gedrückt
-                window.alert("Show all Accounts");
+            	window.open("/pep/home/show_accounts", "_self");
             }
             document.querySelector('#link_project_settings').addEventListener("click", klickLinkGeneralSettingsEvent); 
             function klickLinkGeneralSettingsEvent(){
-                //Hier Code für zeige Projekt Einstellungen Button gedrückt
-                window.alert("Project Settings");
+            	window.open("/pep/home/show_project_settings", "_self");
             }
             document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
             function klickLinkPersonalSettingsEvent(){

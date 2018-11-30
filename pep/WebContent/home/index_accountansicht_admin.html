@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Teamansicht</title>
+        <title>Accountansicht</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap CSS-->
@@ -40,8 +40,8 @@
                 <ul class="sidebar-menu list-unstyled">
                     <li id="link_home" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
                     <li id="link_show_all_groups" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-archive-folder-1 mr-3 text-gray"></i><span>Gruppen</span></a></li>
-                    <li id="link_show_all_teams" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted active"><i class="o-archive-1 mr-3 text-gray"></i><span>Teams</span></a></li>
-                    <li id="link_show_all_accounts" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-profile-1 mr-3 text-gray"></i><span>Accounts</span></a></li>
+                    <li id="link_show_all_teams" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-archive-1 mr-3 text-gray"></i><span>Teams</span></a></li>
+                    <li id="link_show_all_accounts" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted active"><i class="o-profile-1 mr-3 text-gray"></i><span>Accounts</span></a></li>
                     <li id="link_project_settings" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>Projekt Settings</span></a></li>
                 </ul>
                 <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Meine Daten</div>
@@ -52,54 +52,62 @@
             <div class="page-holder w-100 d-flex flex-wrap">
                 <div class="container-fluid px-xl-5">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Teamansicht</h1>
+                        <h1 class="h2">Accountansicht</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
-                            <button id="btn_new_team" class="btn btn-sm btn-outline-secondary">Neues Team</button>
+                            <button id="btn_new_account" class="btn btn-sm btn-outline-secondary">Neuer Account</button>
                         </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Kennnummer</th>
-                                    <th scope="col">Studenten</th>
-                                    <th scope="col">Gruppe</th>
-                                    <th scope="col">Betreuer 1</th>
-                                    <th scope="col">Betreuer 2</th>
-                                    <th scope="col">Projekt</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Rolle</th>
+                                    <th scope="col">Vorname</th>
+                                    <th scope="col">Nachname</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Matrikelnummer</th>
+                                    <th scope="col">Studiengang</th>
+                                    <th scope="col">Lehrstuhl</th>
+                                    <th scope="col">Team</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>Team 1</td>
-                                    <td>010118</td>
-                                    <td>5</td>
-                                    <td>Gruppe 1</td>
-                                    <td>Karl Günther</td>
-                                    <td>Sandra Delinger</td>
-                                    <td>Projekt 1</td>
+                                    <th scope="row">1</th>
+                                    <td>Teammitglied</th>
+                                    <td>Max</td>
+                                    <td>Mustermann</td>
+                                    <td>max.mustermann@student.uni-siegen.de</td>
+                                    <td>1234567</td>
+                                    <td>Bachelor Maschinenbau</td>
+                                    <td>-</td>
+                                    <td>Team 3</td>
                                     <td><button id="group_setup" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
                                 </tr>
                                 <tr>
-                                    <th>Team 2</td>
-                                    <td>010218</td>
-                                    <td>6</td>
-                                    <td>Gruppe 1</td>
-                                    <td>Betina Bäcker</td>
-                                    <td>Jochen Schenker</td>
-                                    <td>Projekt 2</td>
+                                    <th scope="row">2</th>
+                                    <td>Juror</th>
+                                    <td>Peter</td>
+                                    <td>Müller</td>
+                                    <td>peter.müller@uni-siegen.de</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>Lehrstuhl für ???</td>
+                                    <td>-</td>
                                     <td><button id="group_setup" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
                                 </tr>
                                 <tr>
-                                    <th>Team 3</td>
-                                    <td>020118</td>
-                                    <td>5</td>
-                                    <td>Gruppe 2</td>
-                                    <td>Karl Günther</td>
-                                    <td>Thorsten Ebert</td>
-                                    <td>Projekt 3</td>
+                                    <th scope="row">3</th>
+                                    <td>Teamvorsitzender</th>
+                                    <td>Beate</td>
+                                    <td>Besemer</td>
+                                    <td>beate.besemer@student.uni-siegen.de</td>
+                                    <td>2344543</td>
+                                    <td>Master Maschinenbau</td>
+                                    <td>-</td>
+                                    <td>Team 1</td>
                                     <td><button id="group_setup" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
                                 </tr>
                             </tbody>
@@ -147,12 +155,12 @@
             document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
             function klickLinkPersonalSettingsEvent(){
                 //Hier Code für zeige persönliche Daten Button gedrückt
-                window.alert("Personal Settings");
+                window.alert("Personal Settings"); 
             }
-            document.querySelector('#btn_new_team').addEventListener("click", klickBtnNewTeamEvent);
-            function klickBtnNewTeamEvent(){
+            document.querySelector('#btn_new_account').addEventListener("click", klickBtnNewAccountEvent);
+            function klickBtnNewAccountEvent(){
                 //Hier Code für neue Gruppe anlegen Button gedrückt
-                window.alert("New Team");
+                window.alert("New Account");
             }
         </script>
         

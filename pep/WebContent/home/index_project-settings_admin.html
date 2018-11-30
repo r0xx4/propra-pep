@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Projekt Einstellungen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- CSS Files -->
+        <!-- Bootstrap CSS-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <!-- Font Awesome CSS-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <!-- Google fonts - Popppins for copy-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
+        <!-- orion icons-->
+        <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/css/orionicons.css">
+        <!-- theme stylesheet-->
+        <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/css/style.default.css" id="theme-stylesheet">
+        <!-- Custom stylesheet - for your changes-->
+        <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/css/custom.css">
+        
+        <!-- JavaScript files-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/vendor/popper.js/umd/popper.min.js"> </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/vendor/jquery.cookie/jquery.cookie.js"> </script>
+        <script src="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/vendor/chart.js/Chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <script src="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/js/charts-custom.js"></script>
+        <script src="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/js/front.js"></script>
+    </head>
+
+    <body>
+        <!-- navbar-->
+        <header class="header">
+            <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="#" class="navbar-brand font-weight-bold text-uppercase text-base">Planungs- und Entwicklungsprojekt</a>
+                <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
+                    <li class="nav-item">
+                        <a id="link_logout" class="nav-link text-gray" href="#">Abmelden</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="d-flex align-items-stretch">
+            <div id="sidebar" class="sidebar py-3">
+                <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Main</div>
+                <ul class="sidebar-menu list-unstyled">
+                    <li id="link_home" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
+                    <li id="link_show_all_groups" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-archive-folder-1 mr-3 text-gray"></i><span>Gruppen</span></a></li>
+                    <li id="link_show_all_teams" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-archive-1 mr-3 text-gray"></i><span>Teams</span></a></li>
+                    <li id="link_show_all_accounts" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-profile-1 mr-3 text-gray"></i><span>Accounts</span></a></li>
+                    <li id="link_project_settings" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted active"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>Projekt Settings</span></a></li>
+                </ul>
+                <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Meine Daten</div>
+                <ul class="sidebar-menu list-unstyled">
+                    <li id="link_personal_settings" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-user-1 mr-3 text-gray"></i><span>Mein Account</span></a></li>
+                </ul>
+            </div>
+            <div class="page-holder w-100 d-flex flex-wrap">
+                <div class="container-fluid px-xl-5">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Projekt Einstellungen</h1>
+                    </div>
+
+                    <!-- Allgemein -->
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-1 mb-3 border-bottom">
+                        <h1 class="h4">Allgemein</h1>
+                    </div>
+                    <div>
+                        <label for="range_min_participants">Legen Sie die minimale Teilnehmerzahl pro Team fest</label>
+                        <div class="row pb-3">
+                            <div class="col-sm-11"><input id="range_min_participants" type="range" class="custom-range" value="0" min="0" max="15" step="1"></input></div>
+                            <div class="col-sm-1"><label id="lbl_min_participants" for="range_min_participants"></label></div>
+                        </div>
+                        <label for="range_max_participants">Legen Sie die maximale Teilnehmerzahl pro Team fest</label>
+                        <div class="row">
+                            <div class="col-sm-11"><input id="range_max_participants" type="range" class="custom-range" value="15" min="0" max="15" step="1"></input></div>
+                            <div class="col-sm-1"><label id="lbl_max_participants" for="range_max_participants"></label></div>
+                        </div> 
+                    </div>
+
+                    <!-- Phasen -->
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
+                        <h1 class="h4">Phasen</h1>
+                    </div>
+                    <div>
+
+                    </div>
+
+                    <!-- Listen -->
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
+                        <h1 class="h4">Listen</h1>
+                    </div>
+                    <div>
+                        <label>Vervollständigen Sie die Listen mit den für das Projekt gebrauchten Daten</label>
+                        <div class="row pt-2">
+
+                            <!-- Liste Studiengänge -->
+                            <div class="col-sm-6">
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-dark">
+                                        <div class="row">
+                                            <h5 class="col-sm-9">Studiengänge</h5>
+                                            <button id="btn_new_course_of_studies" data-toggle="modal" data-target="#modal_new_course_of_studies" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                        </div>       
+                                    </div>    
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <label class="col-sm-9">Bachelor Maschinenbau</label>
+                                            <button id="btn_delete_course_of_studies_1" class="btn btn-sm btn-outline-danger col-sm">Löschen</button>
+                                        </div>       
+                                    </div>  
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <label class="col-sm-9">Master Maschinenbau</label>
+                                            <button id="btn_delete_course_of_studies_2" class="btn btn-sm btn-outline-danger col-sm">Löschen</button>
+                                        </div>       
+                                    </div>     
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <label class="col-sm-9">Bachelor Architektur</label>
+                                            <button id="btn_delete_course_of_studies_3" class="btn btn-sm btn-outline-danger col-sm">Löschen</button>
+                                        </div>       
+                                    </div>     
+                                </div>
+                            </div>
+
+                            <!-- Modal Studiengang hinzufügen -->
+                            <div class="modal fade" id="modal_new_course_of_studies" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Studiengang hinzufügen</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="input_name_new_course_of_studies" class="col-form-label">Name Studiengang:</label>
+                                                    <input type="text" class="form-control" id="input_name_new_course_of_studies">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Liste Lehrstühle -->
+                            <div class="col-sm-6">
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-dark">
+                                        <div class="row">
+                                            <h5 class="col-sm-9">Lehrstühle</h5>
+                                            <button id="btn_new_university_chair" data-toggle="modal" data-target="#modal_new_university_chair" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                        </div>       
+                                    </div>                        
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <label class="col-sm-9">Lehrstuhl für ???</label>
+                                            <button id="btn_delete_university_chair_1" class="btn btn-sm btn-outline-danger text-center col-sm">Löschen</button>
+                                        </div>       
+                                    </div>  
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <label class="col-sm-9">Lehrstuhl für ???</label>
+                                            <button id="btn_delete_university_chair_2" class="btn btn-sm btn-outline-danger col-sm">Löschen</button>
+                                        </div>       
+                                    </div>     
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <label class="col-sm-9">Lehrstuhl für ???</label>
+                                            <button id="btn_delete_university_chair_3" class="btn btn-sm btn-outline-danger col-sm">Löschen</button>
+                                        </div>       
+                                    </div>     
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <label class="col-sm-9">Lehrstuhl für ???</label>
+                                            <button id="btn_delete_university_chair_4" class="btn btn-sm btn-outline-danger col-sm">Löschen</button>
+                                        </div>       
+                                    </div>     
+                                </div>
+                            </div>
+
+                            <!-- Modal Lehrstuhl hinzufügen -->
+                            <div class="modal fade" id="modal_new_university_chair" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Lehrstuhl hinzufügen</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="input_name_new_university_chair" class="col-form-label">Name Lehrstuhl:</label>
+                                                    <input type="text" class="form-control" id="input_name_new_university_chair">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bewertung -->
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
+                        <h1 class="h4">Bewertung</h1>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="list-group-item list-group-item-dark">
+                                        <div class="row">
+                                            <h5 class="col-sm-9">Hauptkriterien</h5>
+                                            <button id="btn_new_main_criterion" data-toggle="modal" data-target="#modal_new_main_criterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action" id="list-documentation-list" data-toggle="list" href="#list-documentation" role="tab">
+                                        <div class="row">
+                                            <a class="col-sm-9">Dokumentation</a>
+                                            <button id="btn_delete_main_criterion_1" class="btn btn-sm btn-outline-danger text-center col-sm"><strong>Löschen</strong></button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action" id="list-presentation-list" data-toggle="list" href="#list-presentation" role="tab">
+                                        <div class="row">
+                                            <a class="col-sm-9">Präsentation</a>
+                                            <button id="btn_delete_main_criterion_2" class="btn btn-sm btn-outline-danger text-center col-sm"><strong>Löschen</strong></button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action" id="list-poster-list" data-toggle="list" href="#list-poster" role="tab">
+                                        <div class="row">
+                                            <a class="col-sm-9">Poster</a>
+                                            <button id="btn_delete_main_criterion_3" class="btn btn-sm btn-outline-danger text-center col-sm"><strong>Löschen</strong></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade" id="list-documentation" role="tabpanel" aria-labelledby="list-documentation-list">
+                                        <div class="list-group">
+                                            <div class="list-group-item list-group-item-dark">
+                                                <div class="row">
+                                                    <h5 class="col-sm-9">Teilkriterien</h5>
+                                                    <button id="btn_new_documentation_subcriterion" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                                </div>       
+                                            </div>                        
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <label class="col-sm-9">Ablaufplan</label>
+                                                    <button id="btn_delete_documentation_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
+                                                </div>       
+                                            </div>  
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <label class="col-sm-9">Literraturrecherche</label>
+                                                    <button id="btn_delete_documentation_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
+                                                </div>       
+                                            </div>     
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="list-presentation" role="tabpanel" aria-labelledby="list-presentation-list">
+                                        <div class="list-group">
+                                            <div class="list-group-item list-group-item-dark">
+                                                <div class="row">
+                                                    <h5 class="col-sm-9">Teilkriterien</h5>
+                                                    <button id="btn_new_presentation_subcriterion" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                                </div>       
+                                            </div>                        
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <label class="col-sm-9">Sprachstil</label>
+                                                    <button id="btn_delete_presentation_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
+                                                </div>       
+                                            </div>  
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <label class="col-sm-9">Zeitaufteilung</label>
+                                                    <button id="btn_delete_presentation_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
+                                                </div>       
+                                            </div>     
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="list-poster" role="tabpanel" aria-labelledby="list-poster-list">
+                                        <div class="list-group">
+                                            <div class="list-group-item list-group-item-dark">
+                                                <div class="row">
+                                                    <h5 class="col-sm-9">Teilkriterien</h5>
+                                                    <button id="btn_new_poster_subcriterion" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                                </div>       
+                                            </div>                        
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <label class="col-sm-9">Bilderqualität</label>
+                                                    <button id="btn_delete_poster_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
+                                                </div>       
+                                            </div>  
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <label class="col-sm-9">Information über Vollständigkeit</label>
+                                                    <button id="btn_delete_poster_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
+                                                </div>       
+                                            </div>     
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal Hauptkriterium hinzufügen -->
+                            <div class="modal fade" id="modal_new_main_criterion" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Hauptkriterium hinzufügen</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="input_name_new_main_criterion" class="col-form-label">Name Hauptkriterium:</label>
+                                                    <input type="text" class="form-control" id="input_name_new_main_criterion">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal Teilkriterium hinzufügen -->
+                            <div class="modal fade" id="modal_new_subcriterion" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Teilkriterium hinzufügen</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="input_name_new_subcriterion" class="col-form-label">Name Teilkriterium:</label>
+                                                    <input type="text" class="form-control" id="input_name_new_subcriterion">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Startbildschirme -->
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
+                        <h1 class="h4">Startbildschirme</h1>
+                    </div>
+                    <div>
+                        <label>Fügen Sie HTML Dateien hinzu, um die Startseiten der Nutzer zu den unterschiedlichen Phasen zu individualisieren und Infos bekannt zu geben</label>
+                        <form>
+                            <div class="form-group row pt-3">
+                                <div class="col-sm-3"><label for="inputFileStudentRegistrationPhase">Projektteilnehmer - Registrierungsphase</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_project_participant_registration_phase">
+                                        <label class="custom-file-label" for="customFile">HTML Datei suchen</label>
+                                    </div>
+                                </div>                    
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"><label>Projektteilnehmer - Projektanmeldung</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_project_participant_project_registration_phase">
+                                        <label class="custom-file-label" for="customFile">HTML Datei suchen</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"><label>Projektteilnehmer - Projektphase</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_project_participant_project_phase">
+                                        <label class="custom-file-label" for="customFile">HTML Datei suchen</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"><label>Teamvorsitzender - Projektanmeldung</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_team_chairman_project_registration_phase">
+                                        <label class="custom-file-label" for="customFile">HTML Datei suchen</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"><label>Betreuer - Allgemein</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_supervisor_general">
+                                        <label class="custom-file-label" for="customFile">HTML Datei suchen</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"><label>Juror - Allgemein</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_juror_general">
+                                        <label class="custom-file-label" for="customFile">HTML Datei suchen</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Button Ändern -->
+                    <div class="float-sm-right btn-toolbar mb-md-0 pt-3 pb-3 border-top">
+                        <button id="btn_submit" class="btn font-weight-bold text-light btn-lg btn-primary">Ändern</button>
+                    </div>
+
+                <!-- Footer -->   
+                </div>
+                <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 text-center text-md-left text-primary">
+                                <p class="mb-2 mb-md-0">Universität Siegen Department Maschinenbau &copy; 2018</p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <script>   
+            //Hier Javascript Code
+            document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
+            function klickLinkHomeEvent(){
+            	window.open("/pep/home", "_self");
+            }
+            document.querySelector('#link_logout').addEventListener("click", klickLinkLogoutEvent); 
+            function klickLinkLogoutEvent(){
+                window.open("/pep/home/logout", "_self");
+            }
+            document.querySelector('#link_show_all_groups').addEventListener("click", klickLinkShowAllGroupsEvent); 
+            function klickLinkShowAllGroupsEvent(){
+            	window.open("/pep/home/show_groups", "_self");
+            }
+            document.querySelector('#link_show_all_teams').addEventListener("click", klickLinkShowAllTeamsEvent); 
+            function klickLinkShowAllTeamsEvent(){
+            	window.open("/pep/home/show_teams", "_self");
+            }
+            document.querySelector('#link_show_all_accounts').addEventListener("click", klickLinkShowAllAccountsEvent); 
+            function klickLinkShowAllAccountsEvent(){
+            	window.open("/pep/home/show_accounts", "_self");
+            }
+            document.querySelector('#link_project_settings').addEventListener("click", klickLinkGeneralSettingsEvent); 
+            function klickLinkGeneralSettingsEvent(){
+            	window.open("/pep/home/show_project_settings", "_self");
+            }
+            document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
+            function klickLinkPersonalSettingsEvent(){
+                //Hier Code für zeige persönliche Daten Button gedrückt
+                window.alert("Personal Settings");
+            }
+
+            //Slider
+            var minSlider = document.getElementById("range_min_participants");
+            var minOutput = document.getElementById("lbl_min_participants");
+            var maxSlider = document.getElementById("range_max_participants");
+            var maxOutput = document.getElementById("lbl_max_participants");
+            minOutput.innerHTML = minSlider.value;
+            maxOutput.innerHTML = maxSlider.value; 
+            
+            minSlider.oninput = function() {
+                if(parseInt(minSlider.value) > parseInt(maxSlider.value)){
+                    minSlider.value = maxSlider.value;
+                }
+                minOutput.innerHTML = minSlider.value;
+            } 
+
+            maxSlider.oninput = function() {
+                if(parseInt(maxSlider.value) < parseInt(minSlider.value)){
+                    maxSlider.value = minSlider.value;
+                }
+                maxOutput.innerHTML = maxSlider.value;
+            }          
+        </script>
+    </body>
+</html>
