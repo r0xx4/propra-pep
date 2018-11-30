@@ -51,19 +51,28 @@ public class TransferLoginData extends HttpServlet {
 			String pw = Driver.getHash(account_data.get("password").getBytes(StandardCharsets.UTF_8));
 			HttpSession session = request.getSession();  
 			String sessionID = datenhaltung.login(account_data.get("accountname_ID"), pw);
-		    session.setAttribute("session_id", sessionID);
+			if (sessionID != null)
+			{
+				session.setAttribute("session_id", sessionID);
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("window.open(\"/pep/home\", \"_self\")");
+				out.println("</script>");
+				out.close();
+			}
+			else
+			{
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("window.open(\"/pep/login\", \"_self\")");
+				out.println("</script>");
+				out.close();
+			}
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
-		
-		
-		PrintWriter out = response.getWriter();
-		out.println("<script>");
-		out.println("window.open(\"/pep/home\", \"_self\")");
-		out.println("</script>");
-		out.close();
 	}
 
 	/**
