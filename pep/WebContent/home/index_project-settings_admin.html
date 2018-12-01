@@ -85,7 +85,59 @@
                         <h1 class="h4">Phasen</h1>
                     </div>
                     <div>
-
+                        <label>Tragen Sie die Start- und Enddaten für die einzelnen Phasen ein</label>
+                        <div class="form-group row">
+                            <div class="form-group col-sm-3">
+                                <label>Registrierungs Phase</label>
+                            </div> 
+                            <div class="form-group col-sm-4">
+                                <label for="input_start_date_registration_phase">Beginn:</label>
+                                <input id="input_start_date_registration_phase" type="date" class="form-control">
+                            </div> 
+                            <div class="form-group col-sm-4">
+                                <label for="input_end_date_registration_phase">Ende:</label>
+                                <input id="input_end_date_registration_phase" type="date" class="form-control">
+                            </div> 
+                        </div>  
+                        <div class="form-group row">
+                            <div class="form-group col-sm-3">
+                                <label>Projekt Anemlde Phase </label>
+                            </div> 
+                            <div class="form-group col-sm-4">
+                                <label for="input_start_date_project_registration_phase">Beginn:</label>
+                                <input id="input_start_date_project_registration_phase" type="date" class="form-control">
+                            </div> 
+                            <div class="form-group col-sm-4">
+                                <label for="input_end_date_project_registration_phase">Ende:</label>
+                                <input id="input_end_date_project_registration_phase" type="date" class="form-control">
+                            </div> 
+                        </div> 
+                        <div class="form-group row">
+                            <div class="form-group col-sm-3">
+                                <label>Projekt Erarbeitungs Phase</label>
+                            </div> 
+                            <div class="form-group col-sm-4">
+                                <label for="input_start_date_project_phase">Beginn:</label>
+                                <input id="input_start_date_project_phase" type="date" class="form-control">
+                            </div> 
+                            <div class="form-group col-sm-4">
+                                <label for="input_end_date_project_phase">Ende:</label>
+                                <input id="input_end_date_project_phase" type="date" class="form-control">
+                            </div> 
+                        </div>   
+                        <div class="form-group row">
+                            <div class="form-group col-sm-3">
+                                <label>Projekt Bewertungsphase Phase</label>
+                            </div> 
+                            <div class="form-group col-sm-4">
+                                <label for="input_start_date_valuation_phase">Beginn:</label>
+                                <input id="input_start_date_valuation_phase" type="date" class="form-control">
+                            </div> 
+                            <div class="form-group col-sm-4">
+                                <label for="input_end_date_valuation_phase">Ende:</label>
+                                <input id="input_end_date_valuation_phase" type="date" class="form-control">
+                            </div> 
+                        </div>                               
                     </div>
 
                     <!-- Listen -->
@@ -460,32 +512,38 @@
 
         <script>   
             //Hier Javascript Code
-            document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
-            function klickLinkHomeEvent(){
-            	window.open("/pep/home", "_self");
+            document.querySelector('#link_home').addEventListener("click", clickLinkHomeEvent); 
+            function clickLinkHomeEvent(){
+                //Hier Code für aufrufen von Startseite
+                window.alert("Home");
             }
-            document.querySelector('#link_logout').addEventListener("click", klickLinkLogoutEvent); 
-            function klickLinkLogoutEvent(){
-                window.open("/pep/home/logout", "_self");
+            document.querySelector('#link_logout').addEventListener("click", clickLinkLogoutEvent); 
+            function clickLinkLogoutEvent(){
+                //Hier Code für Logout Button gedrückt
+                window.alert("Logout");
             }
-            document.querySelector('#link_show_all_groups').addEventListener("click", klickLinkShowAllGroupsEvent); 
-            function klickLinkShowAllGroupsEvent(){
-            	window.open("/pep/home/show_groups", "_self");
+            document.querySelector('#link_show_all_groups').addEventListener("click", clickLinkShowAllGroupsEvent); 
+            function clickLinkShowAllGroupsEvent(){
+                //Hier Code für zeige alle Organisationseinheiten Button gedrückt
+                window.alert("Show all Groups");
             }
-            document.querySelector('#link_show_all_teams').addEventListener("click", klickLinkShowAllTeamsEvent); 
-            function klickLinkShowAllTeamsEvent(){
-            	window.open("/pep/home/show_teams", "_self");
+            document.querySelector('#link_show_all_teams').addEventListener("click", clickLinkShowAllTeamsEvent); 
+            function clickLinkShowAllTeamsEvent(){
+                //Hier Code für zeige alle Teams Button gedrückt
+                window.alert("Show all Teams");
             }
-            document.querySelector('#link_show_all_accounts').addEventListener("click", klickLinkShowAllAccountsEvent); 
-            function klickLinkShowAllAccountsEvent(){
-            	window.open("/pep/home/show_accounts", "_self");
+            document.querySelector('#link_show_all_accounts').addEventListener("click", clickLinkShowAllAccountsEvent); 
+            function clickLinkShowAllAccountsEvent(){
+                //Hier Code für zeige alle Accounts Button gedrückt
+                window.alert("Show all Accounts");
             }
-            document.querySelector('#link_project_settings').addEventListener("click", klickLinkGeneralSettingsEvent); 
-            function klickLinkGeneralSettingsEvent(){
-            	window.open("/pep/home/show_project_settings", "_self");
+            document.querySelector('#link_project_settings').addEventListener("click", clickLinkGeneralSettingsEvent); 
+            function clickLinkGeneralSettingsEvent(){
+                //Hier Code für zeige Projekt Einstellungen Button gedrückt
+                window.alert("Project Settings");
             }
-            document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
-            function klickLinkPersonalSettingsEvent(){
+            document.querySelector('#link_personal_settings').addEventListener("click", clickLinkPersonalSettingsEvent); 
+            function clickLinkPersonalSettingsEvent(){
                 //Hier Code für zeige persönliche Daten Button gedrückt
                 window.alert("Personal Settings");
             }
@@ -510,7 +568,31 @@
                     maxSlider.value = minSlider.value;
                 }
                 maxOutput.innerHTML = maxSlider.value;
-            }          
+            }    
+
+            //Datum
+            var inputStartDateRegistrationPhase = document.getElementById("input_start_date_registration_phase");
+            var inputEndDateRegistrationPhase = document.getElementById("input_end_date_registration_phase");
+            var inputStartDateProjectRegistrationPhase = document.getElementById("input_start_date_project_registration_phase");
+            var inputEndDateProjectRegistrationPhase = document.getElementById("input_end_date_project_registration_phase");
+            var inputStartDateProjectPhase = document.getElementById("input_start_date_project_phase");
+            var inputEndDateProjectPhase = document.getElementById("input_end_date_project_phase");
+            var inputStartDateValuationPhase = document.getElementById("input_start_date_valuation_phase");
+            var inputEndDateValuationPhase = document.getElementById("input_end_date_valuation_phase");
+            var startDateRegistrationPhase;
+
+            inputStartDateRegistrationPhase.oninput = function() {
+                var split1 = (inputStartDateRegistrationPhase.value).split("-");
+                startDateRegistrationPhase = new Date(split1[0], split1[1], split1[2]);
+                var a = startDateRegistrationPhase.getMilliseconds;
+                window.alert(a);
+            }
+
+            //Ändern Button
+            document.querySelector('#btn_submit').addEventListener("click", clickBtnSubmitEvent);
+            function clickBtnSubmitEvent(){
+                
+            }   
         </script>
     </body>
 </html>
