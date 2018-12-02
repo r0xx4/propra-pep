@@ -178,32 +178,6 @@
                                 </div>
                             </div>
 
-                            <!-- Modal Studiengang hinzufügen -->
-                            <div class="modal fade" id="modal_new_course_of_studies" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Studiengang hinzufügen</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="input_name_new_course_of_studies" class="col-form-label">Name Studiengang:</label>
-                                                    <input type="text" class="form-control" id="input_name_new_course_of_studies">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                                            <button type="button" class="btn btn-primary">Änderungen speichern</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Liste Lehrstühle -->
                             <div class="col-sm-6">
                                 <div class="list-group">
@@ -237,32 +211,6 @@
                                             <button id="btn_delete_university_chair_4" class="btn btn-sm btn-outline-danger col-sm">Löschen</button>
                                         </div>       
                                     </div>     
-                                </div>
-                            </div>
-
-                            <!-- Modal Lehrstuhl hinzufügen -->
-                            <div class="modal fade" id="modal_new_university_chair" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Lehrstuhl hinzufügen</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="input_name_new_university_chair" class="col-form-label">Name Lehrstuhl:</label>
-                                                    <input type="text" class="form-control" id="input_name_new_university_chair">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                                            <button type="button" class="btn btn-primary">Änderungen speichern</button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -315,13 +263,13 @@
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Ablaufplan</label>
-                                                    <button id="btn_delete_documentation_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
+                                                    <button id="btn_edit_documentation_subcriterion_1" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
                                                 </div>       
                                             </div>  
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Literraturrecherche</label>
-                                                    <button id="btn_delete_documentation_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
+                                                    <button id="btn_edit_documentation_subcriterion_2" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
                                                 </div>       
                                             </div>     
                                         </div>
@@ -337,13 +285,13 @@
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Sprachstil</label>
-                                                    <button id="btn_delete_presentation_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
+                                                    <button id="btn_edit_presentation_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
                                                 </div>       
                                             </div>  
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Zeitaufteilung</label>
-                                                    <button id="btn_delete_presentation_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
+                                                    <button id="btn_edit_presentation_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
                                                 </div>       
                                             </div>     
                                         </div>
@@ -359,67 +307,15 @@
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Bilderqualität</label>
-                                                    <button id="btn_delete_poster_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
+                                                    <button id="btn_edit_poster_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
                                                 </div>       
                                             </div>  
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Information über Vollständigkeit</label>
-                                                    <button id="btn_delete_poster_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
+                                                    <button id="btn_edit_poster_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
                                                 </div>       
                                             </div>     
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Modal Hauptkriterium hinzufügen -->
-                            <div class="modal fade" id="modal_new_main_criterion" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Hauptkriterium hinzufügen</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="input_name_new_main_criterion" class="col-form-label">Name Hauptkriterium:</label>
-                                                    <input type="text" class="form-control" id="input_name_new_main_criterion">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                                            <button type="button" class="btn btn-primary">Änderungen speichern</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Modal Teilkriterium hinzufügen -->
-                            <div class="modal fade" id="modal_new_subcriterion" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Teilkriterium hinzufügen</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="input_name_new_subcriterion" class="col-form-label">Name Teilkriterium:</label>
-                                                    <input type="text" class="form-control" id="input_name_new_subcriterion">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                                            <button type="button" class="btn btn-primary">Änderungen speichern</button>
                                         </div>
                                     </div>
                                 </div>
@@ -495,9 +391,9 @@
                     <div class="float-sm-right btn-toolbar mb-md-0 pt-3 pb-3 border-top">
                         <button id="btn_submit" class="btn font-weight-bold text-light btn-lg btn-primary">Änderungen speichern</button>
                     </div>
+                </div>
 
                 <!-- Footer -->   
-                </div>
                 <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
                     <div class="container-fluid">
                         <div class="row">
@@ -507,6 +403,191 @@
                         </div>
                     </div>
                 </footer>
+            </div>
+        </div>
+
+        <!-- Modal Studiengang hinzufügen -->
+        <div class="modal fade" id="modal_new_course_of_studies" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Studiengang hinzufügen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input_name_new_course_of_studies" class="col-form-label">Name Studiengang:</label>
+                                <input type="text" class="form-control" id="input_name_new_course_of_studies">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Lehrstuhl hinzufügen -->
+        <div class="modal fade" id="modal_new_university_chair" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Lehrstuhl hinzufügen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input_name_new_university_chair" class="col-form-label">Name Lehrstuhl:</label>
+                                <input type="text" class="form-control" id="input_name_new_university_chair">
+                            </div>
+                            <div class="form-group">
+                                <label for="input_name_new_university_chair_owner" class="col-form-label">Lehrstuhlinhaber:</label>
+                                <select id="input_name_new_university_chair_owner" class="custom-select form-control">
+                                    <option selected>Lehrstuhlinhaber</option>
+                                    <option>Martin Kessler</option>
+                                    <option>Frauke Hänßler</option>
+                                    <option>Benjamin Koch</option>
+                               </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Hauptkriterium hinzufügen -->
+        <div class="modal fade" id="modal_new_main_criterion" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hauptkriterium hinzufügen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input_name_new_main_criterion" class="col-form-label">Name Hauptkriterium:</label>
+                                <input type="text" class="form-control" id="input_name_new_main_criterion">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Teilkriterium hinzufügen -->
+        <div class="modal fade" id="modal_new_subcriterion" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Teilkriterium hinzufügen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input_name_new_subcriterion" class="col-form-label">Name Teilkriterium:</label>
+                                <input type="text" class="form-control" id="input_name_new_subcriterion">
+                            </div>
+                            <div class="form-group">
+                                <label for="select_main_criterion" class="col-form-label">Hauptkriterium::</label>
+                                <select id="select_main_criterion" class="custom-select form-control">
+                                    <option selected>Hauptkriterium</option>
+                                    <option>Dokumentaion</option>
+                                    <option>Poster</option>
+                                    <option>Präsentation</option>
+                               </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="range_min_valuation_scale" class="col-form-label">Bewertungsskala Minimum</label>
+                                <div class="row pb-3">
+                                    <div class="col-sm-11"><input id="range_min_valuation_scale" type="range" class="custom-range" value="0" min="0" max="20" step="1"></input></div>
+                                    <div class="col-sm-1"><label id="lbl_min_valuation_scale" for="range_min_valuation_scale"></label></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="range_max_valuation_scale" class="col-form-label">Bewertungsskala Maximum</label>
+                                <div class="row pb-3">
+                                    <div class="col-sm-11"><input id="range_max_valuation_scale" type="range" class="custom-range" value="20" min="0" max="20" step="1"></input></div>
+                                    <div class="col-sm-1"><label id="lbl_max_valuation_scale" for="range_max_valuation_scale"></label></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Teilkriterium bearbeiten -->
+        <div class="modal fade" id="modal_edit_subcriterion" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Teilkriterium bearbeiten</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input_name_subcriterion_editmode" class="col-form-label">Name Teilkriterium:</label>
+                                <input type="text" class="form-control" id="input_name_subcriterion_editmode">
+                            </div>
+                            <div class="form-group">
+                                <label for="select_main_criterion_editmode" class="col-form-label">Hauptkriterium::</label>
+                                <select id="select_main_criterion_editmode" class="custom-select form-control">
+                                    <option selected>Hauptkriterium</option>
+                                    <option>Dokumentaion</option>
+                                    <option>Poster</option>
+                                    <option>Präsentation</option>
+                               </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="range_min_valuation_scale_editmode" class="col-form-label">Bewertungsskala Minimum</label>
+                                <div class="row pb-3">
+                                    <div class="col-sm-11"><input id="range_min_valuation_scale_editmode" type="range" class="custom-range" value="0" min="0" max="20" step="1"></input></div>
+                                    <div class="col-sm-1"><label id="lbl_min_valuation_scale_editmode" for="range_min_valuation_scale_editmode"></label></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="range_max_valuation_scale_editmode" class="col-form-label">Bewertungsskala Maximum</label>
+                                <div class="row pb-3">
+                                    <div class="col-sm-11"><input id="range_max_valuation_scale_editmode" type="range" class="custom-range" value="20" min="0" max="20" step="1"></input></div>
+                                    <div class="col-sm-1"><label id="lbl_max_valuation_scale_editmode" for="range_max_valuation_scale_editmode"></label></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary">Änderungen speichern</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -548,26 +629,26 @@
                 window.alert("Personal Settings");
             }
 
-            //Slider
-            var minSlider = document.getElementById("range_min_participants");
-            var minOutput = document.getElementById("lbl_min_participants");
-            var maxSlider = document.getElementById("range_max_participants");
-            var maxOutput = document.getElementById("lbl_max_participants");
-            minOutput.innerHTML = minSlider.value;
-            maxOutput.innerHTML = maxSlider.value; 
+            //Slider Anzahl Teilnehmer
+            var minSliderParticipents = document.getElementById("range_min_participants");
+            var minOutputParticipents = document.getElementById("lbl_min_participants");
+            var maxSliderParticipents = document.getElementById("range_max_participants");
+            var maxOutputParticipents = document.getElementById("lbl_max_participants");
+            minOutputParticipents.innerHTML = minSliderParticipents.value;
+            maxOutputParticipents.innerHTML = maxSliderParticipents.value; 
             
-            minSlider.oninput = function() {
-                if(parseInt(minSlider.value) > parseInt(maxSlider.value)){
-                    minSlider.value = maxSlider.value;
+            minSliderParticipents.oninput = function() {
+                if(parseInt(minSliderParticipents.value) > parseInt(maxSliderParticipents.value)){
+                    minSliderParticipents.value = maxSliderParticipents.value;
                 }
-                minOutput.innerHTML = minSlider.value;
+                minOutputParticipents.innerHTML = minSliderParticipents.value;
             } 
 
-            maxSlider.oninput = function() {
-                if(parseInt(maxSlider.value) < parseInt(minSlider.value)){
-                    maxSlider.value = minSlider.value;
+            maxSliderParticipents.oninput = function() {
+                if(parseInt(maxSliderParticipents.value) < parseInt(minSliderParticipents.value)){
+                    maxSliderParticipents.value = minSliderParticipents.value;
                 }
-                maxOutput.innerHTML = maxSlider.value;
+                maxOutputParticipents.innerHTML = maxSliderParticipents.value;
             }    
 
             //Datum
@@ -580,19 +661,131 @@
             var inputStartDateValuationPhase = document.getElementById("input_start_date_valuation_phase");
             var inputEndDateValuationPhase = document.getElementById("input_end_date_valuation_phase");
             var startDateRegistrationPhase;
+            var endDateRegistrationPhase;
+            var startDateProjectRegistrationPhase;
+            var endDateProjectRegistrationPhase;
+            var startDateProjectPhase;
+            var endDateProjectPhase;
+            var startDateValuationPhase;
+            var endDateValuationPhase;
+            var dateToday = new Date();
+            var dateTomorrow = new Date(dateToday);
+            dateTomorrow.setDate(dateToday.getDate()+1);
 
             inputStartDateRegistrationPhase.oninput = function() {
                 var split1 = (inputStartDateRegistrationPhase.value).split("-");
-                startDateRegistrationPhase = new Date(split1[0], split1[1], split1[2]);
-                var a = startDateRegistrationPhase.getMilliseconds;
-                window.alert(a);
+                startDateRegistrationPhase = new Date(split1[0], split1[1] - 1, split1[2]);
+                if(startDateRegistrationPhase < dateToday){
+                    window.alert("Das Startdatum für die Registrierungsphase kann nicht in der Vergangenheit liegen!");
+                    inputStartDateRegistrationPhase.value = (dateTomorrow.getDate() + "." + (dateTomorrow.getMonth()+1) + "." + (dateTomorrow.getFullYear()-30));
+                }
             }
+
+            inputEndDateRegistrationPhase.oninput = function() {
+                var split2 = (inputEndDateRegistrationPhase.value).split("-");
+                endDateRegistrationPhase = new Date(split1[0], split1[1] - 1, split1[2]);
+            }
+
+            inputStartDateProjectRegistrationPhase.oninput = function() {
+                var split3 = (inputStartDateProjectRegistrationPhase.value).split("-");
+                startDateProjectRegistrationPhase = new Date(split1[0], split1[1] - 1, split1[2]);
+            }
+
+            inputEndDateProjectRegistrationPhase.oninput = function() {
+                var split4 = (inputEndDateProjectRegistrationPhase.value).split("-");
+                endDateProjectRegistrationPhase = new Date(split1[0], split1[1] - 1, split1[2]);
+            }
+
+            inputStartDateProjectPhase.oninput = function() {
+                var split5 = (inputStartDateProjectPhase.value).split("-");
+                startDateProjectPhase = new Date(split1[0], split1[1] - 1, split1[2]);
+            }
+
+            inputEndDateProjectPhase.oninput = function() {
+                var split6 = (inputEndDateProjectPhase.value).split("-");
+                endDateProjectPhase = new Date(split1[0], split1[1] - 1, split1[2]);
+            }
+
+            inputStartDateValuationPhase.oninput = function() {
+                var split7 = (inputStartDateValuationPhase.value).split("-");
+                startDateValuationPhase = new Date(split1[0], split1[1] - 1, split1[2]);
+            }
+
+            inputEndDateValuationPhase.oninput = function() {
+                var split8 = (inputEndDateValuationPhase.value).split("-");
+                endDateValuationPhase = new Date(split1[0], split1[1] - 1, split1[2]);
+            }
+
+            //Slider Neues Bewertungskriterium
+            var minSliderValuationScale = document.getElementById("range_min_valuation_scale");
+            var minOutputValuationScale = document.getElementById("lbl_min_valuation_scale");
+            var maxSliderValuationScale = document.getElementById("range_max_valuation_scale");
+            var maxOutputValuationScale = document.getElementById("lbl_max_valuation_scale");
+            minOutputValuationScale.innerHTML = minSliderValuationScale.value;
+            maxOutputValuationScale.innerHTML = maxSliderValuationScale.value; 
+            
+            minSliderValuationScale.oninput = function() {
+                if(parseInt(minSliderValuationScale.value) > parseInt(maxSliderValuationScale.value)){
+                    minSliderValuationScale.value = maxSliderValuationScale.value;
+                }
+                minOutputValuationScale.innerHTML = minSliderValuationScale.value;
+            } 
+
+            maxSliderValuationScale.oninput = function() {
+                if(parseInt(maxSliderValuationScale.value) < parseInt(minSliderValuationScale.value)){
+                    maxSliderValuationScale.value = minSliderValuationScale.value;
+                }
+                maxOutputValuationScale.innerHTML = maxSliderValuationScale.value;
+            }    
 
             //Ändern Button
             document.querySelector('#btn_submit').addEventListener("click", clickBtnSubmitEvent);
             function clickBtnSubmitEvent(){
                 
             }   
+
+            //Modal Teilkriterien bearbeiten
+            document.querySelector('#btn_edit_documentation_subcriterion_1').addEventListener("click", clickBtnEditDocumentationSubcriterion1); 
+            function clickBtnEditDocumentationSubcriterion1(){
+                document.querySelector('#input_name_subcriterion_editmode').value = "Ablaufplan";
+                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
+                document.querySelector('#range_min_valuation_scale_editmode').value = 3;
+                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "3";
+                document.querySelector('#range_max_valuation_scale_editmode').value = 8;
+                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "8";
+            }
+
+            document.querySelector('#btn_edit_documentation_subcriterion_2').addEventListener("click", clickBtnEditDocumentationSubcriterion2); 
+            function clickBtnEditDocumentationSubcriterion2(){
+                document.querySelector('#input_name_subcriterion_editmode').value = "Literraturrecherche";
+                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
+                document.querySelector('#range_min_valuation_scale_editmode').value = 0;
+                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "0";
+                document.querySelector('#range_max_valuation_scale_editmode').value = 10;
+                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "10";
+            }
+
+            //Slider Bewertungskriterium bearbeiten
+            var minSliderValuationScaleEditMode = document.getElementById("range_min_valuation_scale_editmode");
+            var minOutputValuationScaleEditMode = document.getElementById("lbl_min_valuation_scale_editmode");
+            var maxSliderValuationScaleEditMode = document.getElementById("range_max_valuation_scale_editmode");
+            var maxOutputValuationScaleEditMode = document.getElementById("lbl_max_valuation_scale_editmode");
+            minOutputValuationScaleEditMode.innerHTML = minSliderValuationScaleEditMode.value;
+            maxOutputValuationScaleEditMode.innerHTML = maxSliderValuationScaleEditMode.value; 
+            
+            minSliderValuationScaleEditMode.oninput = function() {
+                if(parseInt(minSliderValuationScaleEditMode.value) > parseInt(maxSliderValuationScaleEditMode.value)){
+                    minSliderValuationScaleEditMode.value = maxSliderValuationScaleEditMode.value;
+                }
+                minOutputValuationScaleEditMode.innerHTML = minSliderValuationScaleEditMode.value;
+            } 
+
+            maxSliderValuationScaleEditMode.oninput = function() {
+                if(parseInt(maxSliderValuationScaleEditMode.value) < parseInt(minSliderValuationScaleEditMode.value)){
+                    maxSliderValuationScaleEditMode.value = minSliderValuationScaleEditMode.value;
+                }
+                maxOutputValuationScaleEditMode.innerHTML = maxSliderValuationScaleEditMode.value;
+            }    
         </script>
     </body>
 </html>
