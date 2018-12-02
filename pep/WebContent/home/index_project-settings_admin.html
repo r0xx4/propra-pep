@@ -57,6 +57,8 @@
                     <li id="link_personal_settings" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-user-1 mr-3 text-gray"></i><span>Mein Account</span></a></li>
                 </ul>
             </div>
+
+            <!-- Haupt Container -->
             <div class="page-holder w-100 d-flex flex-wrap">
                 <div class="container-fluid px-xl-5">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -138,6 +140,29 @@
                                 <input id="input_end_date_valuation_phase" type="date" class="form-control">
                             </div> 
                         </div>                               
+                    </div>
+
+                    <!-- Masterkeys -->
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
+                        <h1 class="h4">Masterkeys</h1>
+                    </div>
+                    <div>
+                        <div class="form-group row">
+                            <div class="form-group col-sm-3">
+                                <label>Betreuer</label>
+                            </div> 
+                            <div class="form-group col-sm">
+                                <input id="input_masterkey_supervisor" type="text" class="form-control">
+                            </div>     
+                        </div> 
+                        <div class="form-group row">
+                            <div class="form-group col-sm-3">
+                                <label>Juror</label>
+                            </div> 
+                            <div class="form-group col-sm">
+                                <input id="input_masterkey_juror" type="text" class="form-control">
+                            </div>     
+                        </div> 
                     </div>
 
                     <!-- Listen -->
@@ -252,68 +277,71 @@
                             </div>
                             <div class="col-6">
                                 <div class="tab-content" id="nav-tabContent">
+                                    <!-- Teilkriterien für Hauptkriterium 1 -->
                                     <div class="tab-pane fade" id="list-documentation" role="tabpanel" aria-labelledby="list-documentation-list">
                                         <div class="list-group">
                                             <div class="list-group-item list-group-item-dark">
                                                 <div class="row">
                                                     <h5 class="col-sm-9">Teilkriterien</h5>
-                                                    <button id="btn_new_documentation_subcriterion" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                                    <button id="btn_new_subcriterion_1" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
                                                 </div>       
                                             </div>                        
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Ablaufplan</label>
-                                                    <button id="btn_edit_documentation_subcriterion_1" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
+                                                    <button id="btn_edit_subcriterion_1_1" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
                                                 </div>       
                                             </div>  
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Literraturrecherche</label>
-                                                    <button id="btn_edit_documentation_subcriterion_2" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
+                                                    <button id="btn_edit_subcriterion_1_2" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
                                                 </div>       
                                             </div>     
                                         </div>
                                     </div>
+                                    <!-- Teilkriterien für Hauptkriterium 2 -->
                                     <div class="tab-pane fade" id="list-presentation" role="tabpanel" aria-labelledby="list-presentation-list">
                                         <div class="list-group">
                                             <div class="list-group-item list-group-item-dark">
                                                 <div class="row">
                                                     <h5 class="col-sm-9">Teilkriterien</h5>
-                                                    <button id="btn_new_presentation_subcriterion" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                                    <button id="btn_new_subcriterion_2" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
                                                 </div>       
                                             </div>                        
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Sprachstil</label>
-                                                    <button id="btn_edit_presentation_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
+                                                    <button id="btn_edit_subcriterion_2_1" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
                                                 </div>       
                                             </div>  
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Zeitaufteilung</label>
-                                                    <button id="btn_edit_presentation_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
+                                                    <button id="btn_edit_subcriterion_2_2" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
                                                 </div>       
                                             </div>     
                                         </div>
                                     </div>
+                                    <!-- Teilkriterien für Hauptkriterium 3 -->
                                     <div class="tab-pane fade" id="list-poster" role="tabpanel" aria-labelledby="list-poster-list">
                                         <div class="list-group">
                                             <div class="list-group-item list-group-item-dark">
                                                 <div class="row">
                                                     <h5 class="col-sm-9">Teilkriterien</h5>
-                                                    <button id="btn_new_poster_subcriterion" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                                    <button id="btn_new_subcriterion_3" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
                                                 </div>       
                                             </div>                        
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Bilderqualität</label>
-                                                    <button id="btn_edit_poster_subcriterion_1" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
+                                                    <button id="btn_edit_subcriterion_3_1" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
                                                 </div>       
                                             </div>  
                                             <div class="list-group-item">
                                                 <div class="row">
                                                     <label class="col-sm-9">Information über Vollständigkeit</label>
-                                                    <button id="btn_edit_poster_subcriterion_2" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
+                                                    <button id="btn_edit_subcriterion_3_2" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
                                                 </div>       
                                             </div>     
                                         </div>
@@ -584,8 +612,11 @@
                         </form>
                     </div>
                     <div class="modal-footer">
+                        <button id="btn_delete_subcriterion" type="button" class="btn btn-danger">Löschen</button>
+                    </div>
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button type="button" class="btn btn-primary">Änderungen speichern</button>
+                        <button id="btn_save_changes_subcriterion" type="button" class="btn btn-primary">Änderungen speichern</button>
                     </div>
                 </div>
             </div>
@@ -593,6 +624,11 @@
 
         <script>   
             //Hier Javascript Code
+
+            //Globale Variablen
+            var currentSubcriterion = null;
+
+            //Navbar
             document.querySelector('#link_home').addEventListener("click", clickLinkHomeEvent); 
             function clickLinkHomeEvent(){
                 //Hier Code für aufrufen von Startseite
@@ -716,7 +752,13 @@
                 endDateValuationPhase = new Date(split1[0], split1[1] - 1, split1[2]);
             }
 
-            //Slider Neues Bewertungskriterium
+            //Ändern Button
+            document.querySelector('#btn_submit').addEventListener("click", clickBtnSubmitEvent);
+            function clickBtnSubmitEvent(){
+                
+            }   
+
+            //Modal Neues Bewertungskriterium Slider
             var minSliderValuationScale = document.getElementById("range_min_valuation_scale");
             var minOutputValuationScale = document.getElementById("lbl_min_valuation_scale");
             var maxSliderValuationScale = document.getElementById("range_max_valuation_scale");
@@ -738,25 +780,22 @@
                 maxOutputValuationScale.innerHTML = maxSliderValuationScale.value;
             }    
 
-            //Ändern Button
-            document.querySelector('#btn_submit').addEventListener("click", clickBtnSubmitEvent);
-            function clickBtnSubmitEvent(){
-                
-            }   
-
-            //Modal Teilkriterien bearbeiten
-            document.querySelector('#btn_edit_documentation_subcriterion_1').addEventListener("click", clickBtnEditDocumentationSubcriterion1); 
-            function clickBtnEditDocumentationSubcriterion1(){
+            //Modal Teilkriterium bearbeiten
+            document.querySelector('#btn_edit_subcriterion_1_1').addEventListener("click", clickBtnEditSubcriterion1_1); 
+            function clickBtnEditSubcriterion1_1(){
+                currentSubcriterion = "1_1";
                 document.querySelector('#input_name_subcriterion_editmode').value = "Ablaufplan";
                 document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
                 document.querySelector('#range_min_valuation_scale_editmode').value = 3;
                 document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "3";
                 document.querySelector('#range_max_valuation_scale_editmode').value = 8;
                 document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "8";
+                window.alert(currentSubcriterion);
             }
 
-            document.querySelector('#btn_edit_documentation_subcriterion_2').addEventListener("click", clickBtnEditDocumentationSubcriterion2); 
-            function clickBtnEditDocumentationSubcriterion2(){
+            document.querySelector('#btn_edit_subcriterion_1_2').addEventListener("click", clickBtnEditSubcriterion1_2); 
+            function clickBtnEditSubcriterion1_2(){
+                currentSubcriterion = "1_2";
                 document.querySelector('#input_name_subcriterion_editmode').value = "Literraturrecherche";
                 document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
                 document.querySelector('#range_min_valuation_scale_editmode').value = 0;
@@ -765,7 +804,51 @@
                 document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "10";
             }
 
-            //Slider Bewertungskriterium bearbeiten
+            document.querySelector('#btn_edit_subcriterion_2_1').addEventListener("click", clickBtnEditSubcriterion2_1); 
+            function clickBtnEditSubcriterion2_1(){
+                currentSubcriterion = "2_1";
+                document.querySelector('#input_name_subcriterion_editmode').value = "Ablaufplan";
+                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
+                document.querySelector('#range_min_valuation_scale_editmode').value = 3;
+                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "3";
+                document.querySelector('#range_max_valuation_scale_editmode').value = 8;
+                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "8";
+            }
+
+            document.querySelector('#btn_edit_subcriterion_2_2').addEventListener("click", clickBtnEditSubcriterion2_2); 
+            function clickBtnEditSubcriterion2_2(){
+                currentSubcriterion = "2_2";
+                document.querySelector('#input_name_subcriterion_editmode').value = "Literraturrecherche";
+                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
+                document.querySelector('#range_min_valuation_scale_editmode').value = 0;
+                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "0";
+                document.querySelector('#range_max_valuation_scale_editmode').value = 10;
+                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "10";
+            }
+
+            document.querySelector('#btn_edit_subcriterion_3_1').addEventListener("click", clickBtnEditSubcriterion3_1); 
+            function clickBtnEditSubcriterion3_1(){
+                currentSubcriterion = "3_1";
+                document.querySelector('#input_name_subcriterion_editmode').value = "Ablaufplan";
+                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
+                document.querySelector('#range_min_valuation_scale_editmode').value = 3;
+                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "3";
+                document.querySelector('#range_max_valuation_scale_editmode').value = 8;
+                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "8";
+            }
+
+            document.querySelector('#btn_edit_subcriterion_3_2').addEventListener("click", clickBtnEditSubcriterion3_2); 
+            function clickBtnEditSubcriterion3_2(){
+                currentSubcriterion = "3_2";
+                document.querySelector('#input_name_subcriterion_editmode').value = "Literraturrecherche";
+                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
+                document.querySelector('#range_min_valuation_scale_editmode').value = 0;
+                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "0";
+                document.querySelector('#range_max_valuation_scale_editmode').value = 10;
+                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "10";
+            }
+
+            //Modal Teilkriterium bearbeiten Slider
             var minSliderValuationScaleEditMode = document.getElementById("range_min_valuation_scale_editmode");
             var minOutputValuationScaleEditMode = document.getElementById("lbl_min_valuation_scale_editmode");
             var maxSliderValuationScaleEditMode = document.getElementById("range_max_valuation_scale_editmode");
