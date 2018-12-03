@@ -127,38 +127,31 @@
             //Hier Javascript Code
             document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
             function klickLinkHomeEvent(){
-                //Hier Code für aufrufen von Startseite
-                window.alert("Home");
+            	window.open("/pep/home", "_self");
             }
             document.querySelector('#link_logout').addEventListener("click", klickLinkLogoutEvent); 
             function klickLinkLogoutEvent(){
-                //Hier Code für Logout Button gedrückt
-                window.alert("Logout");
+                window.open("/pep/home/logout", "_self");
             }
             document.querySelector('#link_show_all_groups').addEventListener("click", klickLinkShowAllGroupsEvent); 
             function klickLinkShowAllGroupsEvent(){
-                //Hier Code für zeige alle Organisationseinheiten Button gedrückt
-                window.alert("Show all Groups");
+            	window.open("/pep/home/show_groups", "_self");
             }
             document.querySelector('#link_show_all_teams').addEventListener("click", klickLinkShowAllTeamsEvent); 
             function klickLinkShowAllTeamsEvent(){
-                //Hier Code für zeige alle Teams Button gedrückt
-                window.alert("Show all Teams");
+            	window.open("/pep/home/show_teams", "_self");
             }
             document.querySelector('#link_show_all_accounts').addEventListener("click", klickLinkShowAllAccountsEvent); 
             function klickLinkShowAllAccountsEvent(){
-                //Hier Code für zeige alle Accounts Button gedrückt
-                window.alert("Show all Accounts");
+            	window.open("/pep/home/show_accounts", "_self");
             }
             document.querySelector('#link_project_settings').addEventListener("click", klickLinkGeneralSettingsEvent); 
             function klickLinkGeneralSettingsEvent(){
-                //Hier Code für zeige Projekt Einstellungen Button gedrückt
-                window.alert("Project Settings");
+            	window.open("/pep/home/show_project_settings", "_self");
             }
             document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
             function klickLinkPersonalSettingsEvent(){
-                //Hier Code für zeige persönliche Daten Button gedrückt
-                window.alert("Personal Settings");
+            	window.open("/pep/home/view_personal_info", "_self");
             }
         </script>
     </body>
