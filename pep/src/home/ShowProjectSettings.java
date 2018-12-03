@@ -27,7 +27,7 @@ public class ShowProjectSettings extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/home/index_project-settings_admin.html");
+		RequestDispatcher rd = request.getRequestDispatcher("/home/index_project-settings_admin.jsp");
 		rd.forward(request,  response);
 	}
 

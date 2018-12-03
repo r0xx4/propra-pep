@@ -194,7 +194,16 @@
                 else if ((role == "Tutor" || role == "Juror") && masterkey == "")
                 	window.alert("Bitte passenden Masterkey angeben!");
                 else
-          			window.open("/pep/registration/transfer_account_data?" + "vorname=" + firstName + "&nachname=" + lastName + "&accountname_ID=" + email + "&password=" + password + "&rollename_ID=" + role + "&studiengangname_ID=" + courseOfStudies + "&lehrstuhlname_ID=" + universityChair + "&matrikelnummer=" + matriculationNumber + "&masterkey=" + masterkey, "_self");
+          			window.open("/pep/registration/transfer_account_data?"
+          						+ "vorname=" + firstName 
+          						+ "&nachname=" + lastName 
+          						+ "&accountname_ID=" + email 
+          						+ "&password=" + password 
+          						+ "&rollename_ID=" + role 
+          						+ "&studiengangname_ID=" + courseOfStudies 
+          						+ "&lehrstuhlname_ID=" + universityChair 
+          						+ "&matrikelnummer=" + matriculationNumber 
+          						+ "&masterkey=" + masterkey, "_self");
             }    
 
             document.querySelector('#btnLogIn').addEventListener('click', btnLogInEvent);  
