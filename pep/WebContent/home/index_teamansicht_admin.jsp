@@ -84,8 +84,36 @@
 	                                    <td><% out.print(row.get("teamname_ID")); %></th>
 	                                    <td>-</td>
 	                                    <td><% out.print(row.get("organisationseinheitname_ID")); %></td>
-	                                    <td>-</td>
-	                                    <td>-</td>
+	                                    <%
+	                                    ArrayList<HashMap<String, String>> accounts_in_team = datenhaltung.getSubCat("teammap", "teamname_ID", row.get("teamname_ID"), "accountname_ID");
+	                                    String tutor_1 = null;
+	                                    for (HashMap<String, String> account : accounts_in_team)
+	                                    {
+	                                    	if (datenhaltung.getSubCat("account", "accountname_ID", account.get("accountname_ID"), "rollename_ID").get(0).get("rollename_ID").equals("Tutor"))
+	                                    	{
+	                                    		tutor_1 = account.get("accountname_ID");
+	                                    		break;
+	                                    	}
+	                                    }
+	                                    %>
+	                                    <td><% out.print(tutor_1); %></td>
+	                                    <%
+	                                    String tutor_2 = null;
+	                                    boolean appeared = false;
+	                                    for (HashMap<String, String> account : accounts_in_team)
+	                                    {
+	                                    	if (datenhaltung.getSubCat("account", "accountname_ID", account.get("accountname_ID"), "rollename_ID").get(0).get("rollename_ID").equals("Tutor"))
+	                                    	{
+	                                    		if (appeared)
+	                                    		{
+	                                    			tutor_2 = account.get("accountname_ID");
+		                                    		break;
+	                                    		}
+	                                    		appeared = true;
+	                                    	}
+	                                    }
+	                                    %>
+	                                    <td><% out.print(tutor_2); %></td>
 	                                    <td><% out.print(row.get("projekttitel")); %></td>
                                     	<td><button id="btn_edit_team_1" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
 	                                </tr>

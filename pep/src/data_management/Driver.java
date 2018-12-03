@@ -110,10 +110,10 @@ public class Driver {
 	}
 
 	// Method getSubCat
-	public ArrayList<HashMap<String, String>> getSubCat(String table, String iD, String column) throws SQLException {
-		String sql = "Select " + column + " From " + table + " Where " + table + "name_ID Like '" + iD + "'";
-		return returnArrayList(sql);
-	}
+	public ArrayList<HashMap<String, String>> getSubCat(String table, String iDA,  String iDV, String column) throws SQLException {
+        String sql = "Select " + column + " From " + table + " Where " + iDA + " Like '" + iDV + "'";
+        return returnArrayList(sql);
+    }
 
 	public ArrayList<HashMap<String, String>> getSubCat(String table, String iD) throws SQLException {
 		String sql = "Select * From " + table + " Where " + table + "name_ID Like '" + iD + "'";

@@ -83,17 +83,33 @@
 								{
 								%>
 									<tr>
-							        <th scope="row"><% out.print(counter); %></th>
-							        <td><% out.print(row.get("rollename_ID")); %></th>
-							        <td><% out.print(row.get("vorname")); %></td>
-							        <td><% out.print(row.get("nachname")); %></td>
-							        <td><% out.print(row.get("accountname_ID")); %></td>
-							        <td><% out.print(row.get("matrikelnummer")); %></td>
-							        <td><% out.print(row.get("studiengangname_ID")); %></td>
-							        <td><% out.print(row.get("lehrstuhlname_ID")); %></td>
-							        <td>-</td>
-                                    <td><button id="btn_edit_account_2" data-toggle="modal" data-target="#modal_edit_account" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
-							    </tr>
+								        <th scope="row"><% out.print(counter); %></th>
+								        <td><% out.print(row.get("rollename_ID")); %></th>
+								        <td><% out.print(row.get("vorname")); %></td>
+								        <td><% out.print(row.get("nachname")); %></td>
+								        <td><% out.print(row.get("accountname_ID")); %></td>
+								        <td><% out.print(row.get("matrikelnummer")); %></td>
+								        <td><% out.print(row.get("studiengangname_ID")); %></td>
+								        <td><% out.print(row.get("lehrstuhlname_ID")); %></td>
+							        <% 
+							        String team = "";
+							        ArrayList<HashMap<String, String>> teamname_ID_List = datenhaltung.getSubCat("teammap", "accountname_ID", row.get("accountname_ID"), "teamname_ID");
+							        if (!teamname_ID_List.isEmpty())
+							        {
+										for (HashMap<String, String> in_team : teamname_ID_List)
+							        	{
+							        		String teamname_ID = in_team.get("teamname_ID");
+									        team = team += "Team" + datenhaltung.getSubCat("team", "teamname_ID", teamname_ID, "teamnummer").get(0).get("teamnummer") + " ";
+							        	}
+							        }
+							        else
+							        {
+							        	team = null;
+							        }
+							        %>
+								        <td><% out.print(team); %></td>
+	                                    <td><button id="btn_edit_account_2" data-toggle="modal" data-target="#modal_edit_account" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
+							    	</tr>
 									<%
 									counter++;
 								}
