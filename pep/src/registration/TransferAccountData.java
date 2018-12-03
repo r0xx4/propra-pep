@@ -58,7 +58,7 @@ public class TransferAccountData extends HttpServlet {
 		
 		try 
 		{
-			if (account_data.get("rollename_ID").equals("Teilnehmer")) //|| account_data.get("masterkey").equals(datenhaltung.getMasterPassword(account_data.get("rollename_ID"))))
+			if (account_data.get("rollename_ID").equals("Teilnehmer") || account_data.get("masterkey").equals(datenhaltung.getMasterPassword(account_data.get("rollename_ID"))))
 			{
 				account_data.remove("masterkey");
 				datenhaltung.insertHashMap("account", account_data);

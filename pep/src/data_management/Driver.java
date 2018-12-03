@@ -231,9 +231,9 @@ public class Driver {
 	public static String getHash(byte inputBytes[]) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
         messageDigest.reset();
+        messageDigest.update(inputBytes);
         messageDigest.update(salt);
         byte digestedBytes[] = messageDigest.digest();
         return DatatypeConverter.printHexBinary(digestedBytes);
     }
-
 }
