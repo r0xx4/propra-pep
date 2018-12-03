@@ -54,7 +54,7 @@
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="h2">Teamansicht</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
-                            <button id="btn_new_team" class="btn btn-sm btn-outline-secondary">Neues Team</button>
+                            <button id="btn_new_team" data-toggle="modal" data-target="#modal_new_team" class="btn btn-sm btn-outline-secondary">Neues Team</button>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -80,7 +80,7 @@
                                     <td>Karl Günther</td>
                                     <td>Sandra Delinger</td>
                                     <td>Projekt 1</td>
-                                    <td><button id="group_setup" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
+                                    <td><button id="btn_edit_team_1" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
                                 </tr>
                                 <tr>
                                     <th>Team 2</td>
@@ -90,7 +90,7 @@
                                     <td>Betina Bäcker</td>
                                     <td>Jochen Schenker</td>
                                     <td>Projekt 2</td>
-                                    <td><button id="group_setup" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
+                                    <td><button id="btn_edit_team_2" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
                                 </tr>
                                 <tr>
                                     <th>Team 3</td>
@@ -100,7 +100,7 @@
                                     <td>Karl Günther</td>
                                     <td>Thorsten Ebert</td>
                                     <td>Projekt 3</td>
-                                    <td><button id="group_setup" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
+                                    <td><button id="btn_edit_team_3" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -118,6 +118,129 @@
             </div>
         </div>
 
+        <!-- Modal Team hinzufügen -->
+        <div class="modal fade" id="modal_new_team" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Team hinzufügen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input_team_name" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" readonly id="input_team_name" placeholder="Team 4">
+                            </div>
+                            <div class="form-group">
+                                <label for="select_group" class="col-form-label">Gruppe:</label>
+                                <select id="select_group" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Gruppe 1</option>
+                                    <option>Gruppe 2</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select_supervisor_1" class="col-form-label">Betreuer 1:</label>
+                                <select id="select_supervisor_1" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Karl Günther</option>
+                                    <option>Sandra Delinger</option>
+                                    <option>Betina Bäcker</option>
+                                    <option>Jochen Schenker</option>
+                                    <option>Thorsten Ebert</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select_supervisor_2" class="col-form-label">Betreuer 2:</label>
+                                <select id="select_supervisor_2" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Karl Günther</option>
+                                    <option>Sandra Delinger</option>
+                                    <option>Betina Bäcker</option>
+                                    <option>Jochen Schenker</option>
+                                    <option>Thorsten Ebert</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="input_project_name" class="col-form-label">Projektname:</label>
+                                <input type="text" class="form-control" id="input_project_name">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Team bearbeiten -->
+        <div class="modal fade" id="modal_edit_team" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Team bearbeiten</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input_team_name_editmode" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" readonly id="input_team_name_editmode">
+                            </div>
+                            <div class="form-group">
+                                <label for="select_group_editmode" class="col-form-label">Gruppe:</label>
+                                <select id="select_group_editmode" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Gruppe 1</option>
+                                    <option>Gruppe 2</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select_supervisor_1_editmode" class="col-form-label">Betreuer 1:</label>
+                                <select id="select_supervisor_1_editmode" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Karl Günther</option>
+                                    <option>Sandra Delinger</option>
+                                    <option>Betina Bäcker</option>
+                                    <option>Jochen Schenker</option>
+                                    <option>Thorsten Ebert</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select_supervisor_2_editmode" class="col-form-label">Betreuer 2:</label>
+                                <select id="select_supervisor_2_editmode" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Karl Günther</option>
+                                    <option>Sandra Delinger</option>
+                                    <option>Betina Bäcker</option>
+                                    <option>Jochen Schenker</option>
+                                    <option>Thorsten Ebert</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="input_project_name_editmode" class="col-form-label">Projektname:</label>
+                                <input type="text" class="form-control" id="input_project_name_editmode">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn_delete_groupe" type="button" class="btn btn-danger">Löschen</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
         <script>   
             //Hier Javascript Code
             document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
@@ -152,8 +275,32 @@
             document.querySelector('#btn_new_team').addEventListener("click", klickBtnNewTeamEvent);
             function klickBtnNewTeamEvent(){
                 //Hier Code für neue Gruppe anlegen Button gedrückt
-                window.alert("New Team");
             }
+            document.querySelector('#btn_edit_team_1').addEventListener("click", klickBtnEditTeam1);
+            function klickBtnEditTeam1(){
+                document.querySelector('#input_team_name_editmode').value = "Team 1";
+                document.querySelector('#select_group_editmode').selectedIndex = 1;
+                document.querySelector('#select_supervisor_1_editmode').selectedIndex = 1;
+                document.querySelector('#select_supervisor_2_editmode').selectedIndex = 2;
+                document.querySelector('#input_project_name_editmode').value = "Projekt 1";
+            }
+            document.querySelector('#btn_edit_team_2').addEventListener("click", klickBtnEditTeam2);
+            function klickBtnEditTeam2(){
+                document.querySelector('#input_team_name_editmode').value = "Team 2";
+                document.querySelector('#select_group_editmode').selectedIndex = 1;
+                document.querySelector('#select_supervisor_1_editmode').selectedIndex = 3;
+                document.querySelector('#select_supervisor_2_editmode').selectedIndex = 4;
+                document.querySelector('#input_project_name_editmode').value = "Projekt 2";
+            }
+            document.querySelector('#btn_edit_team_3').addEventListener("click", klickBtnEditTeam3);
+            function klickBtnEditTeam3(){
+                document.querySelector('#input_team_name_editmode').value = "Team 3";
+                document.querySelector('#select_group_editmode').selectedIndex = 2;
+                document.querySelector('#select_supervisor_1_editmode').selectedIndex = 1;
+                document.querySelector('#select_supervisor_2_editmode').selectedIndex = 5;
+                document.querySelector('#input_project_name_editmode').value = "Projekt 3";
+            }
+            
         </script>
         
         <!-- JavaScript files-->

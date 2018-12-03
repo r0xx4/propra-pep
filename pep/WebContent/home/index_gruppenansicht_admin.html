@@ -54,7 +54,7 @@
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="h2">Gruppenansicht</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
-                            <button id="btn_new_group" class="btn btn-sm btn-outline-secondary">Neue Gruppe</button>
+                            <button id="btn_new_group" data-toggle="modal" data-target="#modal_new_group" class="btn btn-sm btn-outline-secondary">Neue Gruppe</button>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -63,6 +63,7 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Teams</th>
+                                <th scope="col">Studenten</th>
                                 <th scope="col">Juror 1</th>
                                 <th scope="col">Juror 2</th>
                                 <th scope="col">Juror 3</th>
@@ -73,18 +74,20 @@
                             <tr>
                                 <th scope="row">Gruppe 1</th>
                                 <td>9</td>
+                                <td>59</td>
                                 <td>Phillip Müller</td>
                                 <td>Tim Kunse</td>
                                 <td>Klaus Mustermann</td>
-                                <td><button id="group_setup" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
+                                <td><button id="btn_edit_group_1" data-toggle="modal" data-target="#modal_edit_group" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
                             </tr>
                             <tr>
                                 <th scope="row">Gruppe 2</th>
                                 <td>8</td>
+                                <td>52</td>
                                 <td>Anne Zimmermann</td>
                                 <td>Dieter Weingart</td>
                                 <td>Susanne Schneider</td>
-                                <td><button id="group_setup" class="btn btn-sm btn-outline-secondary">Bearbeiten</button></td>
+                                <td><button id="btn_edit_group_2" data-toggle="modal" data-target="#modal_edit_group" class="btn btn-sm btn-outline-secondary">Bearbeiten</button></td>
                             </tr>
                             </tbody>
                         </table>
@@ -99,6 +102,133 @@
                         </div>
                     </div>
                 </footer>
+            </div>
+        </div>
+
+        <!-- Modal Gruppe hinzufügen -->
+        <div class="modal fade" id="modal_new_group" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Gruppe hinzufügen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input_name_new_group" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" readonly id="input_name_new_group" placeholder="Gruppe 3">
+                            </div>
+                            <div class="form-group">
+                                <label for="select_juror_1" class="col-form-label">Juror 1:</label>
+                                <select id="select_juror_1" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Phillip Müller</option>
+                                    <option>Tim Kunse</option>
+                                    <option>Klaus Mustermann</option>
+                                    <option>Susanne Schneider</option>
+                                    <option>Anne Zimmermann</option>
+                                    <option>Dieter Weingart</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select_juror_2" class="col-form-label">Juror 2:</label>
+                                <select id="select_juror_2" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Phillip Müller</option>
+                                    <option>Tim Kunse</option>
+                                    <option>Klaus Mustermann</option>
+                                    <option>Susanne Schneider</option>
+                                    <option>Anne Zimmermann</option>
+                                    <option>Dieter Weingart</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select_juror_3" class="col-form-label">Juror 3:</label>
+                                <select id="select_juror_3" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Phillip Müller</option>
+                                    <option>Tim Kunse</option>
+                                    <option>Klaus Mustermann</option>
+                                    <option>Susanne Schneider</option>
+                                    <option>Anne Zimmermann</option>
+                                    <option>Dieter Weingart</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Gruppe bearbeiten -->
+        <div class="modal fade" id="modal_edit_group" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Gruppe bearbeiten</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input_name_new_group_editmode" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" readonly id="input_name_new_group_editmode" placeholder="Gruppe 3">
+                            </div>
+                            <div class="form-group">
+                                <label for="select_juror_1_editmode" class="col-form-label">Juror 1:</label>
+                                <select id="select_juror_1_editmode" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Phillip Müller</option>
+                                    <option>Tim Kunse</option>
+                                    <option>Klaus Mustermann</option>
+                                    <option>Susanne Schneider</option>
+                                    <option>Anne Zimmermann</option>
+                                    <option>Dieter Weingart</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select_juror_2_editmode" class="col-form-label">Juror 2:</label>
+                                <select id="select_juror_2_editmode" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Phillip Müller</option>
+                                    <option>Tim Kunse</option>
+                                    <option>Klaus Mustermann</option>
+                                    <option>Susanne Schneider</option>
+                                    <option>Anne Zimmermann</option>
+                                    <option>Dieter Weingart</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select_juror_3_editmode" class="col-form-label">Juror 3:</label>
+                                <select id="select_juror_3_editmode" class="custom-select form-control">
+                                    <option selected>-</option>
+                                    <option>Phillip Müller</option>
+                                    <option>Tim Kunse</option>
+                                    <option>Klaus Mustermann</option>
+                                    <option>Susanne Schneider</option>
+                                    <option>Anne Zimmermann</option>
+                                    <option>Dieter Weingart</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn_delete_groupe" type="button" class="btn btn-danger">Löschen</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -135,8 +265,21 @@
             }
             document.querySelector('#btn_new_group').addEventListener("click", klickBtnNewGroupEvent);
             function klickBtnNewGroupEvent(){
-                //Hier Code für neue Gruppe anlegen Button gedrückt
-                window.alert("New Group");
+                //Hier Code für neue Gruppe anlegen Button gedrückt   
+            }
+            document.querySelector('#btn_edit_group_1').addEventListener("click", klickBtnEditGroup1);
+            function klickBtnEditGroup1(){
+                document.querySelector('#input_name_new_group_editmode').value = "Gruppe 1";
+                document.querySelector('#select_juror_1_editmode').selectedIndex = 1;
+                document.querySelector('#select_juror_2_editmode').selectedIndex = 2;
+                document.querySelector('#select_juror_3_editmode').selectedIndex = 3;
+            }
+            document.querySelector('#btn_edit_group_2').addEventListener("click", klickBtnEditGroup2);
+            function klickBtnEditGroup2(){
+                document.querySelector('#input_name_new_group_editmode').value = "Gruppe 2";
+                document.querySelector('#select_juror_1_editmode').selectedIndex = 5;
+                document.querySelector('#select_juror_2_editmode').selectedIndex = 6;
+                document.querySelector('#select_juror_3_editmode').selectedIndex = 4;
             }
         </script>
         
