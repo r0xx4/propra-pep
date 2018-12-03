@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,15 +43,25 @@ public class HomeServlet extends HttpServlet {
 		
 		try 
 		{
-			System.out.println(datenhaltung.getRights(Integer.valueOf(session_ID)));//TODO lookup rights
+			HashMap<String, String> rights = datenhaltung.getRights(Integer.valueOf(session_ID));
+			System.out.println(rights);//TODO lookup rights
+			if (rights.get("accessMarks").equals("1") && rights.get("manageProject").equals("1") && rights.get("seeAllGroupInformation").equals("1") && rights.get("setupGroup").equals("1"))
+			{
+				RequestDispatcher rd = request.getRequestDispatcher("/home/index_startseite_admin.html");
+				rd.forward(request,  response);
+			}
+			else
+			{
+				RequestDispatcher rd = request.getRequestDispatcher("/login");
+				rd.forward(request,  response);
+			}
 		}
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/home/index_startseite_admin.html");
-		rd.forward(request,  response);
+		
 	}
 
 	/**
