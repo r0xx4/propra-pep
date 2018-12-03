@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 /**
  * Servlet implementation class ShowAccounts
  */
@@ -27,7 +26,7 @@ public class ShowAccounts extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/home/index_accountansicht_admin.html");
+		RequestDispatcher rd = request.getRequestDispatcher("/home/index_accountansicht_admin.jsp");
 		rd.forward(request,  response);
 	}
 
