@@ -52,6 +52,36 @@ public class Driver {
 		return executeUpdate(sql);
 	}
 
+	public boolean updateTable(String table, String iDV, HashMap<String, String> hashMap) throws SQLException {
+		Set<String> keys = hashMap.keySet();
+        StringBuilder sql = new StringBuilder("UPDATE ");
+        sql.append(table);
+        sql.append(" SET ");
+        for(String s: keys) 
+        	if (!hashMap.get(s).equals("null"))
+        		sql.append(s+" = '"+hashMap.get(s)+"' ,");
+        	else
+        		sql.append(s+" = "+hashMap.get(s)+" ,");
+        sql.setLength(sql.length()-1);
+        sql.append("WHERE ");
+        sql.append(table);
+        sql.append("name_ID LIKE '");
+        sql.append(iDV);
+        sql.append("';");
+        return executeUpdate(sql.toString());
+/*
+            sql.append(s+" = ? ,");
+
+        sql.setLength(sql.length()-1);
+        sql.append("WHERE ");
+        sql.append(table);
+        sql.append("name_ID LIKE ");
+        sql.append(iDV);
+        sql.append(";");
+        return executeUpdate(sql.toString(), hashMap, keys);
+*/
+    }
+	
 	public boolean insertHashMap(String table, HashMap<String, String> hashMap) throws SQLException {
 		Set<String> keys = hashMap.keySet();
 		StringBuilder sql = new StringBuilder("INSERT INTO ");
