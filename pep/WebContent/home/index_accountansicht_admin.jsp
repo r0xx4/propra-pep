@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!-- Font Awesome CSS-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
         <!-- Google fonts - Popppins for copy-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
         <!-- orion icons-->
@@ -78,10 +79,11 @@
                                 <% 	
 								Driver datenhaltung = new Driver();
 								ArrayList<HashMap<String, String>> html_contents = datenhaltung.getSubCat("account");
-								int counter = 1;
+								int counter = 0;
 								for (HashMap<String, String> row : html_contents)
 								{
-								%>
+									counter++;
+									%>
 									<tr>
 								        <th scope="row"><% out.print(counter); %></th>
 								        <td><% out.print(row.get("rollename_ID")); %></th>
@@ -108,10 +110,9 @@
 							        }
 							        %>
 								        <td><% out.print(team); %></td>
-	                                    <td><button id="btn_edit_account_2" data-toggle="modal" data-target="#modal_edit_account" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
+	                                    <td><button id="btn_edit_account_<% out.print(counter); %>" data-toggle="modal" data-target="#modal_edit_account" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
 							    	</tr>
 									<%
-									counter++;
 								}
 								%>
                             </tbody>
@@ -146,10 +147,15 @@
                                 <label for="select_role" class="col-form-label">Rolle:</label>
                                 <select id="select_role" class="custom-select form-control">
                                     <option selected>-</option>
-                                    <option>Teammitglied</option>
-                                    <option>Teamvorsitzender</option>
-                                    <option>Juror</option>
-                                    <option>Betreuer</option>
+                                    <%
+                                   	ArrayList<HashMap<String, String>> rollen = datenhaltung.getSubCat("rolle");
+                                    for (HashMap<String, String> rolle : rollen)
+                                    {
+                                    	%>
+                                    	<option><% out.print(rolle.get("rollename_ID")); %></option>
+                                    	<%
+                                    }
+                                    %>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -172,18 +178,32 @@
                                 <label for="select_course_of_studies" class="col-form-label">Studiengang:</label>
                                 <select id="select_course_of_studies" class="custom-select form-control">
                                     <option selected>-</option>
-                                    <option>Bachelor Maschinenbau</option>
-                                    <option>Master Maschinenbau</option>
-                                    <option>Bachelor Architektur</option>
+                                    <%
+                                   	ArrayList<HashMap<String, String>> studiengaenge = datenhaltung.getSubCat("studiengang");
+                                    for (HashMap<String, String> studiengang : studiengaenge)
+                                    {
+                                    	%>
+                                    	<option><% out.print(studiengang.get("studiengangname_ID")); %></option>
+                                    	<%
+                                    }
+                                    %>
+                                    <option>null</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="select_university_chair" class="col-form-label">Lehrstuhl:</label>
                                 <select id="select_university_chair" class="custom-select form-control">
                                     <option selected>-</option>
-                                    <option>Lehrstuhl für ???</option>
-                                    <option>Lehrstuhl für ???</option>
-                                    <option>Lehrstuhl für ???</option>
+                                    <%
+                                   	ArrayList<HashMap<String, String>> lehrstuehle = datenhaltung.getSubCat("lehrstuhl");
+                                    for (HashMap<String, String> lehrstuhl : lehrstuehle)
+                                    {
+                                    	%>
+                                    	<option><% out.print(lehrstuhl.get("lehrstuhlname_ID")); %></option>
+                                    	<%
+                                    }
+                                    %>
+                                    <option>null</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -192,7 +212,7 @@
                                     <option selected>-</option>
                                     <option>Team 1</option>
                                     <option>Team 2</option>
-                                    <option>Team 3</option>
+                                    <option>null</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -225,10 +245,14 @@
                                 <label for="select_role_editmode" class="col-form-label">Rolle:</label>
                                 <select id="select_role_editmode" class="custom-select form-control">
                                     <option selected>-</option>
-                                    <option>Teammitglied</option>
-                                    <option>Teamvorsitzender</option>
-                                    <option>Juror</option>
-                                    <option>Betreuer</option>
+                                    <%
+                                    for (HashMap<String, String> rolle : rollen)
+                                    {
+                                    	%>
+                                    	<option><% out.print(rolle.get("rollename_ID")); %></option>
+                                    	<%
+                                    }
+                                    %>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -251,18 +275,30 @@
                                 <label for="select_course_of_studies_editmode" class="col-form-label">Studiengang:</label>
                                 <select id="select_course_of_studies_editmode" class="custom-select form-control">
                                     <option selected>-</option>
-                                    <option>Bachelor Maschinenbau</option>
-                                    <option>Master Maschinenbau</option>
-                                    <option>Bachelor Architektur</option>
+                                    <%
+                                    for (HashMap<String, String> studiengang : studiengaenge)
+                                    {
+                                    	%>
+                                    	<option><% out.print(studiengang.get("studiengangname_ID")); %></option>
+                                    	<%
+                                    }
+                                    %>
+                                    <option>null</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="select_university_chair_editmode" class="col-form-label">Lehrstuhl:</label>
                                 <select id="select_university_chair_editmode" class="custom-select form-control">
                                     <option selected>-</option>
-                                    <option>Lehrstuhl für ???</option>
-                                    <option>Lehrstuhl für ???</option>
-                                    <option>Lehrstuhl für ???</option>
+                                    <%
+                                    for (HashMap<String, String> lehrstuhl : lehrstuehle)
+                                    {
+                                    	%>
+                                    	<option><% out.print(lehrstuhl.get("lehrstuhlname_ID")); %></option>
+                                    	<%
+                                    }
+                                    %>
+                                    <option>null</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -271,7 +307,7 @@
                                     <option selected>-</option>
                                     <option>Team 1</option>
                                     <option>Team 2</option>
-                                    <option>Team 3</option>
+                                    <option>null</option>
                                 </select>
                             </div>
                         </form>
@@ -281,15 +317,36 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                        <button id="btn_save" type="button" class="btn btn-primary">Hinzufügen</button>
                     </div>
                 </div>
             </div>
         </div>
     
 
-        <script>   
+        <script>
             //Hier Javascript Code
+            function post(path, params, method) {
+                method = method || "post";
+                var form = document.createElement("form");
+                form.setAttribute("method", method);
+                form.setAttribute("action", path);
+
+                for(var key in params) {
+                    if(params.hasOwnProperty(key)) {
+                        var hiddenField = document.createElement("input");
+                        hiddenField.setAttribute("type", "hidden");
+                        hiddenField.setAttribute("name", key);
+                        hiddenField.setAttribute("value", params[key]);
+                        form.appendChild(hiddenField);
+                    }
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+            
+            
             document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
             function klickLinkHomeEvent(){
             	window.open("/pep/home", "_self");
@@ -322,39 +379,37 @@
             function klickBtnNewAccountEvent(){
                 //Hier Code für neue Gruppe anlegen Button gedrückt
             }
-            document.querySelector('#btn_edit_account_1').addEventListener("click", klickBtnEditAccount1);
-            function klickBtnEditAccount1(){
-                document.querySelector('#select_role_editmode').selectedIndex = 1;
-                document.querySelector('#input_first_name_editmode').value = "Max";
-                document.querySelector('#input_last_name_editmode').value = "Mustermann";
-                document.querySelector('#input_email_editmode').value = "max.mustermann@sudent.uni-siegen.de";
-                document.querySelector('#input_matriculation_number_editmode').value = "1234567";
-                document.querySelector('#select_course_of_studies_editmode').selectedIndex = 1;
-                document.querySelector('#select_university_chair_editmode').selectedIndex = 0;
-                document.querySelector('#select_team_editmode').selectedIndex = 3;
+            <%
+            for (int x = 1; x <= counter; x++)
+            {
+            	%>
+            	document.querySelector('#btn_edit_account_<% out.print(x); %>').addEventListener("click", function()
+            	{
+            		document.querySelector('#select_role_editmode').value = "<% out.print(html_contents.get(x-1).get("rollename_ID")); %>";
+                    document.querySelector('#input_first_name_editmode').value = "<% out.print(html_contents.get(x-1).get("vorname")); %>";
+                    document.querySelector('#input_last_name_editmode').value = "<% out.print(html_contents.get(x-1).get("nachname")); %>";
+                    document.querySelector('#input_email_editmode').value = "<% out.print(html_contents.get(x-1).get("accountname_ID")); %>";
+                    document.querySelector('#input_matriculation_number_editmode').value = "<% out.print(html_contents.get(x-1).get("matrikelnummer")); %>";
+                    document.querySelector('#select_course_of_studies_editmode').value = "<% out.print(html_contents.get(x-1).get("studiengangname_ID")); %>";
+                    document.querySelector('#select_university_chair_editmode').value = "<% out.print(html_contents.get(x-1).get("lehrstuhlname_ID")); %>";
+            	})
+            	<%	
             }
-            document.querySelector('#btn_edit_account_2').addEventListener("click", klickBtnEditAccount2);
-            function klickBtnEditAccount2(){
-                document.querySelector('#select_role_editmode').selectedIndex = 3;
-                document.querySelector('#input_first_name_editmode').value = "Peter";
-                document.querySelector('#input_last_name_editmode').value = "Müller";
-                document.querySelector('#input_email_editmode').value = "peter.müller@uni-siegen.de";
-                document.querySelector('#input_matriculation_number_editmode').value = "";
-                document.querySelector('#select_course_of_studies_editmode').selectedIndex = 0;
-                document.querySelector('#select_university_chair_editmode').selectedIndex = 1;
-                document.querySelector('#select_team_editmode').selectedIndex = 0;
+            %>
+            
+            document.querySelector('#btn_save').addEventListener("click", sendPostToDb);
+            function sendPostToDb(){
+            	var data = {};
+            	data["rollename_ID"] = document.querySelector('#select_role_editmode').value;
+            	data["vorname"] = document.querySelector('#input_first_name_editmode').value;
+            	data["nachname"] = document.querySelector('#input_last_name_editmode').value;
+            	data["accountname_ID"] = document.querySelector('#input_email_editmode').value;
+            	data["matrikelnummer"] = document.querySelector('#input_matriculation_number_editmode').value;
+            	data["studiengangname_ID"] = document.querySelector('#select_course_of_studies_editmode').value;
+            	data["lehrstuhlname_ID"] = document.querySelector('#select_university_chair_editmode').value;
+            	post("/pep/handle_db_write", data);
             }
-            document.querySelector('#btn_edit_account_3').addEventListener("click", klickBtnEditAccount3);
-            function klickBtnEditAccount3(){
-                document.querySelector('#select_role_editmode').selectedIndex = 2;
-                document.querySelector('#input_first_name_editmode').value = "Beate";
-                document.querySelector('#input_last_name_editmode').value = "Besemer";
-                document.querySelector('#input_email_editmode').value = "beate.besemer@sudent.uni-siegen.de";
-                document.querySelector('#input_matriculation_number_editmode').value = "2344543";
-                document.querySelector('#select_course_of_studies_editmode').selectedIndex = 2;
-                document.querySelector('#select_university_chair_editmode').selectedIndex = 0;
-                document.querySelector('#select_team_editmode').selectedIndex = 1;
-            }
+            
         </script>
         
         <!-- JavaScript files-->

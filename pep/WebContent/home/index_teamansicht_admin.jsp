@@ -76,8 +76,10 @@
                             	<% 	
                            		Driver datenhaltung = new Driver();
                            		ArrayList<HashMap<String, String>> html_contents = datenhaltung.getSubCat("team");
+                           		ArrayList<HashMap<String, String>> tutors = new ArrayList<>();
                            		for (HashMap<String, String> row : html_contents)
                            		{
+                           			tutors.add(new HashMap<String, String>());
                            		%>
 	                           		<tr>
 	                                    <th><% out.print("Team " + row.get("teamnummer")); %></th>
@@ -92,6 +94,7 @@
 	                                    	if (datenhaltung.getSubCat("account", "accountname_ID", account.get("accountname_ID"), "rollename_ID").get(0).get("rollename_ID").equals("Tutor"))
 	                                    	{
 	                                    		tutor_1 = account.get("accountname_ID");
+	                                    		tutors.get(tutors.size()-1).put("tutor1", tutor_1);
 	                                    		break;
 	                                    	}
 	                                    }
@@ -107,6 +110,7 @@
 	                                    		if (appeared)
 	                                    		{
 	                                    			tutor_2 = account.get("accountname_ID");
+	                                    			tutors.get(tutors.size()-1).put("tutor2", tutor_2);
 		                                    		break;
 	                                    		}
 	                                    		appeared = true;
@@ -115,7 +119,7 @@
 	                                    %>
 	                                    <td><% out.print(tutor_2); %></td>
 	                                    <td><% out.print(row.get("projekttitel")); %></td>
-                                    	<td><button id="btn_edit_team_1" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
+                                    	<td><button id="btn_edit_team_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
 	                                </tr>
                            			<%
                            		}
@@ -293,30 +297,21 @@
             function klickBtnNewTeamEvent(){
                 //Hier Code für neue Gruppe anlegen Button gedrückt
             }
-            document.querySelector('#btn_edit_team_1').addEventListener("click", klickBtnEditTeam1);
-            function klickBtnEditTeam1(){
-                document.querySelector('#input_team_name_editmode').value = "Team 1";
-                document.querySelector('#select_group_editmode').selectedIndex = 1;
-                document.querySelector('#select_supervisor_1_editmode').selectedIndex = 1;
-                document.querySelector('#select_supervisor_2_editmode').selectedIndex = 2;
-                document.querySelector('#input_project_name_editmode').value = "Projekt 1";
+            <%
+            for (int x = 1; x <= html_contents.size(); x++)
+            {
+            	%>
+            	document.querySelector('#btn_edit_team_<% out.print(x); %>').addEventListener("click", function()
+            	{
+            		document.querySelector('#input_team_name_editmode').value = "<% out.print(html_contents.get(x-1).get("teamname_ID")); %>";
+            		document.querySelector('#select_group_editmode').value = "<% out.print(html_contents.get(x-1).get("organisationseinheitname_ID")); %>";
+                    document.querySelector('#select_supervisor_1_editmode').value = "<% out.print(tutors.get(x-1).get("tutor1")); %>";
+                    document.querySelector('#select_supervisor_2_editmode').value = "<% out.print(tutors.get(x-1).get("tutor2")); %>";
+                    document.querySelector('#input_project_name_editmode').value = "<% out.print(html_contents.get(x-1).get("projekttitel")); %>";
+            	})
+            	<%	
             }
-            document.querySelector('#btn_edit_team_2').addEventListener("click", klickBtnEditTeam2);
-            function klickBtnEditTeam2(){
-                document.querySelector('#input_team_name_editmode').value = "Team 2";
-                document.querySelector('#select_group_editmode').selectedIndex = 1;
-                document.querySelector('#select_supervisor_1_editmode').selectedIndex = 3;
-                document.querySelector('#select_supervisor_2_editmode').selectedIndex = 4;
-                document.querySelector('#input_project_name_editmode').value = "Projekt 2";
-            }
-            document.querySelector('#btn_edit_team_3').addEventListener("click", klickBtnEditTeam3);
-            function klickBtnEditTeam3(){
-                document.querySelector('#input_team_name_editmode').value = "Team 3";
-                document.querySelector('#select_group_editmode').selectedIndex = 2;
-                document.querySelector('#select_supervisor_1_editmode').selectedIndex = 1;
-                document.querySelector('#select_supervisor_2_editmode').selectedIndex = 5;
-                document.querySelector('#input_project_name_editmode').value = "Projekt 3";
-            }
+            %>
             
         </script>
         
