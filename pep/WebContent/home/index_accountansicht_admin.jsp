@@ -79,6 +79,7 @@
                                 <% 	
 								Driver datenhaltung = new Driver();
 								ArrayList<HashMap<String, String>> html_contents = datenhaltung.getSubCat("account");
+								ArrayList<String> teams = new ArrayList<>();
 								int counter = 0;
 								for (HashMap<String, String> row : html_contents)
 								{
@@ -101,13 +102,17 @@
 										for (HashMap<String, String> in_team : teamname_ID_List)
 							        	{
 							        		String teamname_ID = in_team.get("teamname_ID");
-									        team = team += "Team" + datenhaltung.getSubCat("team", "teamname_ID", teamname_ID, "teamnummer").get(0).get("teamnummer") + " ";
-							        	}
+									        team = team += "Team " + datenhaltung.getSubCat("team", "teamname_ID", teamname_ID, "teamnummer").get(0).get("teamnummer") + ", ";
+									    }
+										StringBuilder team_sb = new StringBuilder(team);
+										team_sb.delete(team_sb.length()-2, team_sb.length());
+										team = team_sb.toString();
 							        }
 							        else
 							        {
 							        	team = null;
 							        }
+									teams.add(team);
 							        %>
 								        <td><% out.print(team); %></td>
 	                                    <td><button id="btn_edit_account_<% out.print(counter); %>" data-toggle="modal" data-target="#modal_edit_account" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
@@ -146,7 +151,6 @@
                             <div class="form-group">
                                 <label for="select_role" class="col-form-label">Rolle:</label>
                                 <select id="select_role" class="custom-select form-control">
-                                    <option selected>-</option>
                                     <%
                                    	ArrayList<HashMap<String, String>> rollen = datenhaltung.getSubCat("rolle");
                                     for (HashMap<String, String> rolle : rollen)
@@ -177,7 +181,6 @@
                             <div class="form-group">
                                 <label for="select_course_of_studies" class="col-form-label">Studiengang:</label>
                                 <select id="select_course_of_studies" class="custom-select form-control">
-                                    <option selected>-</option>
                                     <%
                                    	ArrayList<HashMap<String, String>> studiengaenge = datenhaltung.getSubCat("studiengang");
                                     for (HashMap<String, String> studiengang : studiengaenge)
@@ -193,7 +196,6 @@
                             <div class="form-group">
                                 <label for="select_university_chair" class="col-form-label">Lehrstuhl:</label>
                                 <select id="select_university_chair" class="custom-select form-control">
-                                    <option selected>-</option>
                                     <%
                                    	ArrayList<HashMap<String, String>> lehrstuehle = datenhaltung.getSubCat("lehrstuhl");
                                     for (HashMap<String, String> lehrstuhl : lehrstuehle)
@@ -209,9 +211,15 @@
                             <div class="form-group">
                                 <label for="select_team" class="col-form-label">Team:</label>
                                 <select id="select_team" class="custom-select form-control">
-                                    <option selected>-</option>
-                                    <option>Team 1</option>
-                                    <option>Team 2</option>
+                                    <%
+                                   	ArrayList<HashMap<String, String>> team_table = datenhaltung.getSubCat("team");
+                                    for (HashMap<String, String> team : team_table)
+                                    {
+                                    	%>
+                                    	<option><% out.print("Team " + team.get("teamnummer")); %></option>
+                                    	<%
+                                    }
+                                    %>
                                     <option>null</option>
                                 </select>
                             </div>
@@ -244,7 +252,6 @@
                             <div class="form-group">
                                 <label for="select_role_editmode" class="col-form-label">Rolle:</label>
                                 <select id="select_role_editmode" class="custom-select form-control">
-                                    <option selected>-</option>
                                     <%
                                     for (HashMap<String, String> rolle : rollen)
                                     {
@@ -274,7 +281,6 @@
                             <div class="form-group">
                                 <label for="select_course_of_studies_editmode" class="col-form-label">Studiengang:</label>
                                 <select id="select_course_of_studies_editmode" class="custom-select form-control">
-                                    <option selected>-</option>
                                     <%
                                     for (HashMap<String, String> studiengang : studiengaenge)
                                     {
@@ -289,7 +295,6 @@
                             <div class="form-group">
                                 <label for="select_university_chair_editmode" class="col-form-label">Lehrstuhl:</label>
                                 <select id="select_university_chair_editmode" class="custom-select form-control">
-                                    <option selected>-</option>
                                     <%
                                     for (HashMap<String, String> lehrstuhl : lehrstuehle)
                                     {
@@ -304,9 +309,14 @@
                             <div class="form-group">
                                 <label for="select_team_editmode" class="col-form-label">Team:</label>
                                 <select id="select_team_editmode" class="custom-select form-control">
-                                    <option selected>-</option>
-                                    <option>Team 1</option>
-                                    <option>Team 2</option>
+                                    <%
+                                    for (HashMap<String, String> team : team_table)
+                                    {
+                                    	%>
+                                    	<option><% out.print("Team " + team.get("teamnummer")); %></option>
+                                    	<%
+                                    }
+                                    %>
                                     <option>null</option>
                                 </select>
                             </div>
@@ -392,6 +402,9 @@
                     document.querySelector('#input_matriculation_number_editmode').value = "<% out.print(html_contents.get(x-1).get("matrikelnummer")); %>";
                     document.querySelector('#select_course_of_studies_editmode').value = "<% out.print(html_contents.get(x-1).get("studiengangname_ID")); %>";
                     document.querySelector('#select_university_chair_editmode').value = "<% out.print(html_contents.get(x-1).get("lehrstuhlname_ID")); %>";
+                    document.querySelector('#select_team_editmode').value = "<% out.print(teams.get(x-1)); %>"; 
+                    
+                    //TODO Team u. mail in manchen/allen Fällen nicht sichtbar machen
             	})
             	<%	
             }
@@ -407,7 +420,8 @@
             	data["matrikelnummer"] = document.querySelector('#input_matriculation_number_editmode').value;
             	data["studiengangname_ID"] = document.querySelector('#select_course_of_studies_editmode').value;
             	data["lehrstuhlname_ID"] = document.querySelector('#select_university_chair_editmode').value;
-            	post("/pep/handle_db_write", data);
+            	data["team"] = document.querySelector('#select_team_editmode').value;
+            	post("/pep/handle_db_write_accounts", data);
             }
             
         </script>

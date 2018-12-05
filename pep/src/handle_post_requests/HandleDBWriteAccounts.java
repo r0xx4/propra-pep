@@ -3,6 +3,7 @@ package handle_post_requests;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -16,14 +17,14 @@ import data_management.Driver;
 /**
  * Servlet implementation class HandleDBWrite
  */
-@WebServlet("/handle_db_write")
-public class HandleDBWrite extends HttpServlet {
+@WebServlet("/handle_db_write_accounts")
+public class HandleDBWriteAccounts extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HandleDBWrite() {
+    public HandleDBWriteAccounts() {
         super();
     }
 
@@ -44,12 +45,42 @@ public class HandleDBWrite extends HttpServlet {
 			push_into_db.put(key, request.getParameterMap().get(key)[0]);
 		}
 		String mail = push_into_db.get("accountname_ID");
-		push_into_db.remove("accountname_ID");
+		String team = push_into_db.get("team");
+		team = team.replaceAll("Team ", "");
 		Driver datenhaltung = new Driver();
 		
 		try 
 		{
-			datenhaltung.updateTable("account", mail, push_into_db);
+			if (team != null)
+			{
+				String teamname_ID = datenhaltung.getSubCat("team", "teamnummer", team, "teamname_ID").get(0).get("teamname_ID");
+				ArrayList<HashMap<String, String>> teammapname_ID_list = datenhaltung.getSubCat("teammap", "accountname_ID", push_into_db.get("accountname_ID"), "teammapname_ID");
+				
+				String teammapname_ID = "";
+				if (!teammapname_ID_list.isEmpty())
+					teammapname_ID = teammapname_ID_list.get(0).get("teammapname_ID");
+				else
+					teammapname_ID = null;
+				
+				HashMap<String, String> teammap_row = new HashMap<>();
+				teammap_row.put("accountname_ID", push_into_db.get("accountname_ID"));
+				teammap_row.put("teamname_ID", teamname_ID);
+				if (teammapname_ID != null)
+				{
+					datenhaltung.updateTable("teammap", teammapname_ID, teammap_row);
+				}
+				else
+				{
+					datenhaltung.insertHashMap("teammap", teammap_row);
+				}
+				push_into_db.remove("accountname_ID");
+				push_into_db.remove("team");
+				datenhaltung.updateTable("account", mail, push_into_db);
+			}
+			else
+			{
+				//TODO delete row in teammap
+			}	
 		} 
 		catch (SQLException e) 
 		{
