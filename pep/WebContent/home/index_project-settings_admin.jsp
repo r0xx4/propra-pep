@@ -218,19 +218,22 @@
                                     <div class="list-group-item list-group-item-action" id="list-documentation-list" data-toggle="list" href="#list-documentation" role="tab">
                                         <div class="row">
                                             <a class="col-sm-9">Dokumentation</a>
-                                            <button id="btn_delete_main_criterion_1" class="btn btn-sm btn-outline-danger text-center col-sm"><strong>Löschen</strong></button>
+                                            <button id="btn_delete_main_criterion_1" class="btn btn-sm btn-outline-danger text-center col-sm" 
+                                            	onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);">Löschen</button>
                                         </div>
                                     </div>
                                     <div class="list-group-item list-group-item-action" id="list-presentation-list" data-toggle="list" href="#list-presentation" role="tab">
                                         <div class="row">
                                             <a class="col-sm-9">Präsentation</a>
-                                            <button id="btn_delete_main_criterion_2" class="btn btn-sm btn-outline-danger text-center col-sm"><strong>Löschen</strong></button>
+                                            <button id="btn_delete_main_criterion_2" class="btn btn-sm btn-outline-danger text-center col-sm"
+                                            	onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);">Löschen</button>
                                         </div>
                                     </div>
                                     <div class="list-group-item list-group-item-action" id="list-poster-list" data-toggle="list" href="#list-poster" role="tab">
                                         <div class="row">
                                             <a class="col-sm-9">Poster</a>
-                                            <button id="btn_delete_main_criterion_3" class="btn btn-sm btn-outline-danger text-center col-sm"><strong>Löschen</strong></button>
+                                            <button id="btn_delete_main_criterion_3" class="btn btn-sm btn-outline-danger text-center col-sm"
+                                            	onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);">Löschen</button>
                                         </div>
                                     </div>
                                 </div>
@@ -475,7 +478,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addToMainCriterion()">Hinzufügen</button>
                     </div>
                 </div>
             </div>
@@ -497,6 +500,7 @@
                                 <label for="input_name_new_subcriterion" class="col-form-label">Name Teilkriterium:</label>
                                 <input type="text" class="form-control" id="input_name_new_subcriterion">
                             </div>
+                            <!-- 
                             <div class="form-group">
                                 <label for="select_main_criterion" class="col-form-label">Hauptkriterium::</label>
                                 <select id="select_main_criterion" class="custom-select form-control">
@@ -506,6 +510,7 @@
                                     <option>Präsentation</option>
                                </select>
                             </div>
+                            -->
                             <div class="form-group">
                                 <label for="range_min_valuation_scale" class="col-form-label">Bewertungsskala Minimum</label>
                                 <div class="row pb-3">
@@ -546,6 +551,7 @@
                                 <label for="input_name_subcriterion_editmode" class="col-form-label">Name Teilkriterium:</label>
                                 <input type="text" class="form-control" id="input_name_subcriterion_editmode">
                             </div>
+                            <!--
                             <div class="form-group">
                                 <label for="select_main_criterion_editmode" class="col-form-label">Hauptkriterium::</label>
                                 <select id="select_main_criterion_editmode" class="custom-select form-control">
@@ -555,6 +561,7 @@
                                     <option>Präsentation</option>
                                </select>
                             </div>
+                            -->
                             <div class="form-group">
                                 <label for="range_min_valuation_scale_editmode" class="col-form-label">Bewertungsskala Minimum</label>
                                 <div class="row pb-3">
@@ -870,12 +877,71 @@
             		labelUniversityChair.innerHTML = text;
             		labelOwner.innerHTML = owner;
 	            	rowItem.appendChild(labelUniversityChair);
-	            	rowItem.appendChild(buttonItem);
 	            	rowItem.appendChild(labelOwner);
+	            	rowItem.appendChild(buttonItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById("university_chair").appendChild(listItem);
             	}
             	document.getElementById("input_name_new_university_chair").value = "";
+            }
+            
+            function addToMainCriterion(){
+            	//Hauptkriterium
+            	var listItem = document.createElement("div");
+            	listItem.className = "list-group-item list-group-item-action";
+            	listItem.setAttribute("data-toggle", "list");
+            	listItem.setAttribute("role", "tab");
+            	var rowItem = document.createElement("div");
+            	rowItem.className = "row";
+            	var aItem = document.createElement("a");
+            	aItem.className = "col-sm-9";
+            	var buttonItem = document.createElement("button");
+            	buttonItem.className = "btn btn-sm btn-outline-danger text-center col-sm";
+            	buttonItem.innerHTML = "Löschen";
+            	buttonItem.onclick = deleteRow;
+            	var text = document.getElementById("input_name_new_main_criterion").value;
+            	if(text != "" && text.trim().length != 0){
+            		aItem.innerHTML = text;
+            		listItem.id = "list-" + text.toLowerCase() + "-list";
+            		listItem.setAttribute("href", "#list-" + text.toLowerCase() )
+	            	rowItem.appendChild(aItem);
+	            	rowItem.appendChild(buttonItem);
+	            	listItem.appendChild(rowItem);
+	            	document.getElementById("list-tab").appendChild(listItem);
+	            	
+	            	//Teilkriterium
+	            	var subItemList = document.createElement("div");
+	            	subItemList.className = "tab-pane fade";
+	            	subItemList.id = "list-" + text.toLowerCase();
+	            	subItemList.setAttribute("role", "tabpanel");
+	            	subItemList.setAttribute("aria-labelledby", "list-" + text.toLowerCase() + "-list");
+	            	var subGroup = document.createElement("div");
+	            	subGroup.className = "list-group";
+	            	subGroup.id = "criteria";
+	            	var subGroupItem = document.createElement("div");
+	            	subGroupItem.className = "list-group-item list-group-item-dark";
+	            	var subGroupRow = document.createElement("div");
+	            	subGroupRow.className = "row";
+	            	var subGroupHeader = document.createElement("h5");
+	            	subGroupHeader.className = "col-sm-9";
+	            	subGroupHeader.innerHTML = "Teilkriterien";
+	            	var subGroupButton = document.createElement("button");
+	            	subGroupButton.className = "btn btn-sm btn-outline-dark text-center col-sm";
+	            	subGroupButton.setAttribute("data-toggle", "modal");
+	            	subGroupButton.setAttribute("data-target", "#modal_new_subcriterion");
+	            	subGroupButton.innerHTML = "<strong>Neu</strong>";
+	            	
+	            	subGroupRow.appendChild(subGroupHeader);
+	            	subGroupRow.appendChild(subGroupButton);
+	            	subGroupItem.appendChild(subGroupRow);
+	            	subGroup.appendChild(subGroupItem);
+	            	subItemList.appendChild(subGroup);
+	            	
+	            	document.getElementById("nav-tabContent").appendChild(subItemList);
+	            	
+            	}
+            	document.getElementById("input_name_new_main_criterion").value = "";
+            	
             }
             function deleteRow(){
             	this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);

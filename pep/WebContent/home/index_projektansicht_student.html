@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Startseite Student</title>
+        <title>Projektansicht</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap CSS-->
@@ -38,8 +38,8 @@
             <div id="sidebar" class="sidebar py-3">
                 <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Main</div>
                 <ul class="sidebar-menu list-unstyled">
-                    <li id="link_home" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
-                    <li id="link_show_all_teams" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-archive-1 mr-3 text-gray"></i><span>Projekt</span></a></li>
+                    <li id="link_home" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
+                    <li id="link_show_all_teams" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted active"><i class="o-archive-1 mr-3 text-gray"></i><span>Projekt</span></a></li>
                 </ul>
                 <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Meine Daten</div>
                 <ul class="sidebar-menu list-unstyled">
@@ -49,11 +49,64 @@
             <div class="page-holder w-100 d-flex flex-wrap">
                 <div class="container-fluid px-xl-5">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Startseite</h1>
+                        <h1 class="h2">Projekt</h1>
                     </div>
-                    <h5>Hallo Max Mustermann,</h5> 
-                    Das Planungs und Entwicklunsprojekt beefindet sich momentan in folgender Phase: Registrierungsphase <!-- Hier aktuelle Phase anzeigen -->
-                    <!-- Hier Custome HTML einfügen -->
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-1 mb-3 border-bottom">
+                        <h1 class="h4">Dein Team:</h1>
+                    </div>
+                    <div>
+                        1. Boris Bäcker (boris.bäcker@student.uni-siegen.de)</br>
+                        2. Anette Schwermer (anette.schwermer@student.uni-siegen.de)</br>
+                        3. Thomas Gottschalk (thomas.gottschalk@student.uni-siegen.de)</br>
+                    </div>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
+                        <h1 class="h4">Dateien</h1>
+                    </div>
+                    <div>
+                        <label>Laden Sie Ihre Projektdateien vor ablauf der Frist als PDF Datei hier hoch</label>
+                        <form>
+                            <div class="form-group row">
+                                <div class="col-sm-3"><label>Bericht/Dokumentation</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_project_participant_project_registration_phase">
+                                        <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"><label>Projekt Präsentation</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_project_participant_project_phase">
+                                        <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"><label>Poster</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_team_chairman_project_registration_phase">
+                                        <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"><label>Einseitige Zusammenfassung</label></div>
+                                <div class="col-sm-9">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="input_file_supervisor_general">
+                                        <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Button Ändern -->
+                    <div class="float-sm-right btn-toolbar mb-md-0 pt-3 pb-3">
+                        <button id="btn_submit" class="btn font-weight-bold text-light btn-lg btn-primary">Änderungen speichern</button>
+                    </div>
                 </div>
                 <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
                     <div class="container-fluid">
