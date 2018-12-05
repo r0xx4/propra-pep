@@ -45,7 +45,7 @@
                 <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Main</div>
                 <ul class="sidebar-menu list-unstyled">
                     <li id="link_home" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
-                    <li id="link_show_project" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-archive-1 mr-3 text-gray"></i><span>Projekt</span></a></li>
+                    <li id="link_show_teams" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-archive-1 mr-3 text-gray"></i><span>Teams</span></a></li>
                 </ul>
                 <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Meine Daten</div>
                 <ul class="sidebar-menu list-unstyled">
@@ -79,15 +79,11 @@
                         </div>  
                         <div class="form-group row">
                             <div class="form-group col-sm">
-                                <label for="input_matriculation_number">Matrikelnummer:</label>
-                                <input id="input_matriculation_number" type="text" class="form-control">
-                            </div> 
-                            <div class="form-group col-sm">
-                                <label for="input_course_of_studies">Studiengang:</label>
+                                <label for="input_course_of_studies">Lehrstuhl:</label>
                                 <select id="input_course_of_studies" class="custom-select form-control">
                                     <option selected>-</option>
-                                    <option>Bachelor Maschinenbau</option>
-                                    <option>Master Maschinenbau</option>
+                                    <option>Lehrstuhl für Teilchnphysik</option>
+                                    <option>Lehrstuhl für angewandte Physik</option>
                                 </select>
                             </div> 
                         </div>  
@@ -143,10 +139,10 @@
                 //Hier Code für Logout Button gedrückt
                 window.alert("Logout");
             }
-            document.querySelector('#link_show_project').addEventListener("click", klickLinkShowProjectEvent); 
-            function klickLinkShowProjectEvent(){
-                //Hier Code für zeige Projekt Button gedrückt
-                window.alert("Show Project");
+            document.querySelector('#link_show_teams').addEventListener("click", klickLinkShowTeamsEvent); 
+            function klickLinkShowTeamsEvent(){
+                //Hier Code für zeige Teams Button gedrückt
+                window.alert("Show Teams");
             }
             document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
             function klickLinkPersonalSettingsEvent(){
