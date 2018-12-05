@@ -51,7 +51,7 @@ public class HandleDBWriteAccounts extends HttpServlet {
 		
 		try 
 		{
-			if (team != null)
+			if (!team.equals("null"))
 			{
 				String teamname_ID = datenhaltung.getSubCat("team", "teamnummer", team, "teamname_ID").get(0).get("teamname_ID");
 				ArrayList<HashMap<String, String>> teammapname_ID_list = datenhaltung.getSubCat("teammap", "accountname_ID", push_into_db.get("accountname_ID"), "teammapname_ID");
@@ -79,7 +79,15 @@ public class HandleDBWriteAccounts extends HttpServlet {
 			}
 			else
 			{
-				//TODO delete row in teammap
+				ArrayList<HashMap<String, String>> teammapname_ID_del_list = datenhaltung.getSubCat("teammap", "accountname_ID", push_into_db.get("accountname_ID"), "teammapname_ID");
+				if (!teammapname_ID_del_list.isEmpty())
+				{
+					String teammapname_ID_del = teammapname_ID_del_list.get(0).get("teammapname_ID");
+					datenhaltung.deleteRow("teammap", teammapname_ID_del);
+				}
+				push_into_db.remove("accountname_ID");
+				push_into_db.remove("team");
+				datenhaltung.updateTable("account", mail, push_into_db);
 			}	
 		} 
 		catch (SQLException e) 

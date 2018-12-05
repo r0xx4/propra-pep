@@ -82,6 +82,17 @@ public class Driver {
 */
     }
 	
+	public  boolean deleteRow(String table, String iDV) throws SQLException {
+        StringBuilder sql = new StringBuilder("DELETE FROM ");
+        sql.append(table);
+        sql.append(" WHERE ");
+        sql.append(table);
+        sql.append("name_ID LIKE '");
+        sql.append(iDV);
+        sql.append("';");
+        return executeUpdate(sql.toString());
+    }
+	
 	public boolean insertHashMap(String table, HashMap<String, String> hashMap) throws SQLException {
 		Set<String> keys = hashMap.keySet();
 		StringBuilder sql = new StringBuilder("INSERT INTO ");
