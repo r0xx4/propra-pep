@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Startseite Betreuer</title>
+        <title>Startseite Teamvorsitzender</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap CSS-->
@@ -45,7 +45,7 @@
                 <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Main</div>
                 <ul class="sidebar-menu list-unstyled">
                     <li id="link_home" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
-                    <li id="link_show_teams" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-archive-1 mr-3 text-gray"></i><span>Teams</span></a></li>
+                    <li id="link_show_project" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-archive-1 mr-3 text-gray"></i><span>Projekt</span></a></li>
                 </ul>
                 <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Meine Daten</div>
                 <ul class="sidebar-menu list-unstyled">
@@ -59,7 +59,18 @@
                     </div>
                     <h5>Hallo Max Mustermann,</h5> 
                     Das Planungs und Entwicklunsprojekt beefindet sich momentan in folgender Phase: Registrierungsphase <!-- Hier aktuelle Phase anzeigen -->
-                    <!-- Hier Custome HTML einfügen -->
+                    <div class="pt-4 pb-2">
+                        <!-- Hier Custome HTML einfügen -->
+
+                    </div>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-1 mb-3 border-bottom">
+                        <h1 class="h4">Aufgaben Teamvorsitzender - Projekt Anmelde Phase:</h1>
+                    </div>
+                    <div class="pb-2">
+                        - Laden Sie <a id="link_download_team_formular" href="#">hier</a> das Formular zur Anmeldung des Teams herunter</br>
+                        - Lassen Sie das Dokument von allen Teammitgliedern unterschreiben</br>
+                        - Geben Sie das unterschriebene Dokument an Ihrem Lehrstuhl ab
+                    </div>
                 </div>
                 <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
                     <div class="container-fluid">
@@ -85,15 +96,20 @@
                 //Hier Code für Logout Button gedrückt
                 window.alert("Logout");
             }
-            document.querySelector('#link_show_teams').addEventListener("click", klickLinkShowTeamsEvent); 
-            function klickLinkShowTeamsEvent(){
-                //Hier Code für zeige Teams Button gedrückt
-                window.alert("Show Teams");
+            document.querySelector('#link_show_project').addEventListener("click", klickLinkShowProjectEvent); 
+            function klickLinkShowProjectEvent(){
+                //Hier Code für zeige Projekt Button gedrückt
+                window.alert("Show Project");
             }
             document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
             function klickLinkPersonalSettingsEvent(){
                 //Hier Code für zeige persönliche Daten Button gedrückt
                 window.alert("Personal Settings");
+            }
+            document.querySelector('#link_download_team_formular').addEventListener("click", klickLinkDownloadTeamFormularEvent); 
+            function klickLinkDownloadTeamFormularEvent(){
+                //Hier Code für downloaden von Team Formular
+                window.alert("Download Team Formular");
             }
         </script>
     </body>
