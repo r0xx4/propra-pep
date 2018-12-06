@@ -46,13 +46,17 @@ public class HandleDBWriteAccounts extends HttpServlet {
 		}
 		String mail = push_into_db.get("accountname_ID");
 		String team = push_into_db.get("team");
-		team = team.replaceAll("Team ", "");
+		
 		Driver datenhaltung = new Driver();
 		
 		try 
 		{
 			if (!team.equals("null"))
 			{
+				team = team.replaceAll("Team ", "");
+				StringBuilder team_sb = new StringBuilder(team);
+				team_sb.delete(1, team_sb.length());
+				team = team_sb.toString();
 				String teamname_ID = datenhaltung.getSubCat("team", "teamnummer", team, "teamname_ID").get(0).get("teamname_ID");
 				ArrayList<HashMap<String, String>> teammapname_ID_list = datenhaltung.getSubCat("teammap", "accountname_ID", push_into_db.get("accountname_ID"), "teammapname_ID");
 				

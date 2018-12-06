@@ -23,19 +23,24 @@ public class Driver {
 	private static final byte salt[]=DatatypeConverter.parseHexBinary("DE358A58A8769EB4A370A7EE9EC54CDE76CE64C2");
 	
 	// Method createTeam
-	public boolean createTeam(ArrayList<String> teilnehmermail, String projektpfad, String lehrstuhl,
-			String projekttitel, String organisationseinheit) throws SQLException {
+	public boolean createTeam(String lehrstuhl, String projekttitel, String organisationseinheit, String betreuer1, String betreuer2) throws SQLException {
 
 		String kennnummer = generateKennnummer(lehrstuhl);
 		String sql = "Insert Into team (teamname_ID,teamnummer,projekttitel,projektpfad,organisationseinheitname_ID) Values('"
-				+ kennnummer + "','" + kennnummer.substring(7, 9) + "','" + projekttitel + "','" + projektpfad + "','"
+				+ kennnummer + "','" + kennnummer.substring(7, 9) + "','" + projekttitel + "','" + "/" + kennnummer + "/data" + "','"
 				+ organisationseinheit + "')";
 		executeUpdate(sql);
-
-		for (String t : teilnehmermail) {
-			sql = "Insert Into teammap (accountname_ID,teamname_ID) Values('" + t + "','" + kennnummer + "')";
-			executeUpdate(sql);
-		}
+		
+		HashMap<String, String> teammap_row = new HashMap<>();
+		teammap_row.put("accountname_ID", betreuer1);
+		teammap_row.put("teamname_ID", kennnummer);
+		this.insertHashMap("teammap", teammap_row);
+		
+		HashMap<String, String> teammap_row2 = new HashMap<>();
+		teammap_row2.put("accountname_ID", betreuer2);
+		teammap_row2.put("teamname_ID", kennnummer);
+		this.insertHashMap("teammap", teammap_row2);
+		
 		return true;
 	}
 

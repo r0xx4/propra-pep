@@ -102,7 +102,8 @@
 										for (HashMap<String, String> in_team : teamname_ID_List)
 							        	{
 							        		String teamname_ID = in_team.get("teamname_ID");
-									        team = team += "Team " + datenhaltung.getSubCat("team", "teamname_ID", teamname_ID, "teamnummer").get(0).get("teamnummer") + ", ";
+							        		String teamnummer = datenhaltung.getSubCat("team", "teamname_ID", teamname_ID, "teamnummer").get(0).get("teamnummer");
+									        team = team += "Team " + teamnummer + " (" + datenhaltung.getSubCat("team", "teamnummer", teamnummer, "teamname_ID").get(0).get("teamname_ID") + ")" + ", ";
 									    }
 										StringBuilder team_sb = new StringBuilder(team);
 										team_sb.delete(team_sb.length()-2, team_sb.length());
@@ -313,7 +314,7 @@
                                     for (HashMap<String, String> team : team_table)
                                     {
                                     	%>
-                                    	<option><% out.print("Team " + team.get("teamnummer")); %></option>
+                                    	<option><% out.print("Team " + team.get("teamnummer") + " (" + datenhaltung.getSubCat("team", "teamnummer", team.get("teamnummer"), "teamname_ID").get(0).get("teamname_ID") + ")"); %></option>
                                     	<%
                                     }
                                     %>

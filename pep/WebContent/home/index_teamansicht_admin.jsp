@@ -154,36 +154,47 @@
                         <form>
                             <div class="form-group">
                                 <label for="input_team_name" class="col-form-label">Name:</label>
-                                <input type="text" class="form-control" readonly id="input_team_name" placeholder="Team 4">
+                                <input type="text" class="form-control" readonly id="input_team_name" placeholder="*wird generiert*">
                             </div>
                             <div class="form-group">
                                 <label for="select_group" class="col-form-label">Gruppe:</label>
                                 <select id="select_group" class="custom-select form-control">
-                                    <option selected>-</option>
-                                    <option>Gruppe 1</option>
-                                    <option>Gruppe 2</option>
+                                    <%
+                                   	ArrayList<HashMap<String, String>> gruppen = datenhaltung.getSubCat("organisationseinheit");
+                                    for (HashMap<String, String> gruppe : gruppen)
+                                    {
+                                    	%>
+                                    	<option><% out.print(gruppe.get("organisationseinheitname_ID")); %></option>
+                                    	<%
+                                    }
+                                    %>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="select_supervisor_1" class="col-form-label">Betreuer 1:</label>
                                 <select id="select_supervisor_1" class="custom-select form-control">
-                                    <option selected>-</option>
-                                    <option>Karl Günther</option>
-                                    <option>Sandra Delinger</option>
-                                    <option>Betina Bäcker</option>
-                                    <option>Jochen Schenker</option>
-                                    <option>Thorsten Ebert</option>
+                                    <%
+                                	ArrayList<HashMap<String, String>> all_tutors = datenhaltung.getSubCat("account", "rollename_ID", "Tutor", "accountname_ID");
+                                	for (HashMap<String, String> t : all_tutors)
+                                	{
+                                		%>
+                                		<option><% out.print(t.get("accountname_ID")); %></option>
+                                		<%
+                                	}
+                                	%>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="select_supervisor_2" class="col-form-label">Betreuer 2:</label>
                                 <select id="select_supervisor_2" class="custom-select form-control">
-                                    <option selected>-</option>
-                                    <option>Karl Günther</option>
-                                    <option>Sandra Delinger</option>
-                                    <option>Betina Bäcker</option>
-                                    <option>Jochen Schenker</option>
-                                    <option>Thorsten Ebert</option>
+                                    <%
+                                	for (HashMap<String, String> t : all_tutors)
+                                	{
+                                		%>
+                                		<option><% out.print(t.get("accountname_ID")); %></option>
+                                		<%
+                                	}
+                                	%>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -194,7 +205,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                        <button id ="btn_create" type="button" class="btn btn-primary">Hinzufügen</button>
                     </div>
                 </div>
             </div>
@@ -219,36 +230,45 @@
                             <div class="form-group">
                                 <label for="select_group_editmode" class="col-form-label">Gruppe:</label>
                                 <select id="select_group_editmode" class="custom-select form-control">
-                                    <option selected>-</option>
-                                    <option>Gruppe 1</option>
-                                    <option>Gruppe 2</option>
+                                    <%
+                                    for (HashMap<String, String> gruppe : gruppen)
+                                    {
+                                    	%>
+                                    	<option><% out.print(gruppe.get("organisationseinheitname_ID")); %></option>
+                                    	<%
+                                    }
+                                    %>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="select_supervisor_1_editmode" class="col-form-label">Betreuer 1:</label>
                                 <select id="select_supervisor_1_editmode" class="custom-select form-control">
-                                    <option selected>-</option>
-                                    <option>Karl Günther</option>
-                                    <option>Sandra Delinger</option>
-                                    <option>Betina Bäcker</option>
-                                    <option>Jochen Schenker</option>
-                                    <option>Thorsten Ebert</option>
+                                	<%
+                                	for (HashMap<String, String> t : all_tutors)
+                                	{
+                                		%>
+                                		<option><% out.print(t.get("accountname_ID")); %></option>
+                                		<%
+                                	}
+                                	%>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="select_supervisor_2_editmode" class="col-form-label">Betreuer 2:</label>
                                 <select id="select_supervisor_2_editmode" class="custom-select form-control">
-                                    <option selected>-</option>
-                                    <option>Karl Günther</option>
-                                    <option>Sandra Delinger</option>
-                                    <option>Betina Bäcker</option>
-                                    <option>Jochen Schenker</option>
-                                    <option>Thorsten Ebert</option>
+                                    <%
+                                	for (HashMap<String, String> t : all_tutors)
+                                	{
+                                		%>
+                                		<option><% out.print(t.get("accountname_ID")); %></option>
+                                		<%
+                                	}
+                                	%>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="input_project_name_editmode" class="col-form-label">Projektname:</label>
-                                <input type="text" class="form-control" id="input_project_name_editmode">
+                                <input type="text" class="form-control" id="input_project_name_editmode" placeholder="null">
                             </div>
                         </form>
                     </div>
@@ -257,7 +277,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                        <button id = "btn_save" type="button" class="btn btn-primary">Hinzufügen</button>
                     </div>
                 </div>
             </div>
@@ -265,6 +285,27 @@
     
         <script>   
             //Hier Javascript Code
+            function post(path, params, method) {
+                method = method || "post";
+                var form = document.createElement("form");
+                form.setAttribute("method", method);
+                form.setAttribute("action", path);
+
+                for(var key in params) {
+                    if(params.hasOwnProperty(key)) {
+                        var hiddenField = document.createElement("input");
+                        hiddenField.setAttribute("type", "hidden");
+                        hiddenField.setAttribute("name", key);
+                        hiddenField.setAttribute("value", params[key]);
+                        form.appendChild(hiddenField);
+                    }
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+            
+            
             document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
             function klickLinkHomeEvent(){
             	window.open("/pep/home", "_self");
@@ -312,6 +353,27 @@
             	<%	
             }
             %>
+            
+            document.querySelector('#btn_save').addEventListener("click", sendPostToDb_edit);
+            function sendPostToDb_edit(){
+            	var data = {};
+            	data["teamname_ID"] = document.querySelector('#input_team_name_editmode').value;
+            	data["projekttitel"] = document.querySelector('#input_project_name_editmode').value;
+            	data["organisationseinheitname_ID"] = document.querySelector('#select_group_editmode').value;
+            	data["betreuer1"] = document.querySelector('#select_supervisor_1_editmode').value;
+            	data["betreuer2"] = document.querySelector('#select_supervisor_2_editmode').value;
+            	post("/pep/handle_db_write_edit_teams", data);
+            }
+            
+            document.querySelector('#btn_create').addEventListener("click", sendPostToDb_create);
+            function sendPostToDb_create(){
+            	var data = {};
+            	data["projekttitel"] = document.querySelector('#input_project_name').value;
+            	data["organisationseinheitname_ID"] = document.querySelector('#select_group').value;
+            	data["betreuer1"] = document.querySelector('#select_supervisor_1').value;
+            	data["betreuer2"] = document.querySelector('#select_supervisor_2').value;
+            	post("/pep/handle_db_write_create_teams", data);
+            }
             
         </script>
         
