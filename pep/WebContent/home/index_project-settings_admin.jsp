@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -105,7 +106,7 @@
                         </div>  
                         <div class="form-group row">
                             <div class="form-group col-sm-3">
-                                <label>Projekt Anemlde Phase </label>
+                                <label>Projekt Anmelde Phase </label>
                             </div> 
                             <div class="form-group col-sm-4">
                                 <label for="input_start_date_project_registration_phase">Beginn:</label>
@@ -182,8 +183,24 @@
                                         <div class="row">
                                             <h5 class="col-sm-9">Studiengänge</h5>
                                             <button id="btn_new_course_of_studies" data-toggle="modal" data-target="#modal_new_course_of_studies" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
+                                        </div>     
+                                    </div>    
+                                    <%
+                                   	ArrayList<String> studiengaenge = new ArrayList<>();
+                                   	studiengaenge.add("Bachelor Machinenbau");
+                                   	studiengaenge.add("Bachelor Architektur");
+                                   	
+                                   	for(String s : studiengaenge){
+                                    %>
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <label class="col-sm-9"><% out.println(s); %></label>
+                                            <button class="btn btn-sm btn-outline-danger col-sm" <% out.println("onclick='deleteRow()'"); %>>Löschen</button>
                                         </div>       
-                                    </div>        
+                                    </div>  
+                                    <%
+                                    }
+                                    %>    
                                 </div>
                             </div>
 
@@ -195,7 +212,18 @@
                                             <h5 class="col-sm-9">Lehrstühle</h5>
                                             <button id="btn_new_university_chair" data-toggle="modal" data-target="#modal_new_university_chair" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
                                         </div>       
-                                    </div>                            
+                                    </div>   
+                                    <%
+                                    ArrayList<String> lehrstuhl = new ArrayList<>();
+                                    
+                                    
+                                    %>
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <label class="col-sm-9"> </label>
+                                            <button id="btn_delete_university_chair_1" class="btn btn-sm btn-outline-danger text-center col-sm">Löschen</button>
+                                        </div>       
+                                    </div>                          
                                 </div>
                             </div>
                         </div>
@@ -219,21 +247,21 @@
                                         <div class="row">
                                             <a class="col-sm-9">Dokumentation</a>
                                             <button id="btn_delete_main_criterion_1" class="btn btn-sm btn-outline-danger text-center col-sm" 
-                                            	onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);">Löschen</button>
+                                            	onclick="deleteMainCriterion(this, 'list-documentation')">Löschen</button>
                                         </div>
                                     </div>
                                     <div class="list-group-item list-group-item-action" id="list-presentation-list" data-toggle="list" href="#list-presentation" role="tab">
                                         <div class="row">
                                             <a class="col-sm-9">Präsentation</a>
                                             <button id="btn_delete_main_criterion_2" class="btn btn-sm btn-outline-danger text-center col-sm"
-                                            	onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);">Löschen</button>
+                                            	onclick="deleteMainCriterion(this, 'list-presentation')">Löschen</button>
                                         </div>
                                     </div>
                                     <div class="list-group-item list-group-item-action" id="list-poster-list" data-toggle="list" href="#list-poster" role="tab">
                                         <div class="row">
                                             <a class="col-sm-9">Poster</a>
                                             <button id="btn_delete_main_criterion_3" class="btn btn-sm btn-outline-danger text-center col-sm"
-                                            	onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);">Löschen</button>
+                                            	onclick="deleteMainCriterion(this, 'list-poster')">Löschen</button>
                                         </div>
                                     </div>
                                 </div>
@@ -416,8 +444,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button type="button" class="btn btn-primary" onclick="addToCourseOfStudies()" data-dismiss="modal">Hinzufügen</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="dismissCourseOfStudies()">Abbrechen</button>
+                        <button id="btn_addCourseOfStudies" type="button" class="btn btn-primary" data-dismiss="modal">Hinzufügen</button>
                     </div>
                 </div>
             </div>
@@ -451,8 +479,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button type="button" class="btn btn-primary" onclick="addToUniversityChair()" data-dismiss="modal">Hinzufügen</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="dismissUniversityChair()">Abbrechen</button>
+                        <button id="btn_addUniversityChair" type="button" class="btn btn-primary" data-dismiss="modal">Hinzufügen</button>
                     </div>
                 </div>
             </div>
@@ -477,8 +505,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addToMainCriterion()">Hinzufügen</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="dismissMainCriterion()">Abbrechen</button>
+                        <button id="btn_addMainCriterion"type="button" class="btn btn-primary" data-dismiss="modal">Hinzufügen</button>
                     </div>
                 </div>
             </div>
@@ -528,8 +556,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button type="button" class="btn btn-primary">Hinzufügen</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="dismissSubCriterion()">Abbrechen</button>
+                        <button id="btn_addSubCriterion" type="button" class="btn btn-primary" data-dismiss="modal" >Hinzufügen</button>
                     </div>
                 </div>
             </div>
@@ -544,6 +572,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <input type="hidden" id="subCriterion" />
                     </div>
                     <div class="modal-body">
                         <form>
@@ -579,11 +608,11 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="btn_delete_subcriterion" type="button" class="btn btn-danger">Löschen</button>
+                        <button id="btn_delete_subcriterion" type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteSubCriterion()">Löschen</button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button id="btn_save_changes_subcriterion" type="button" class="btn btn-primary">Änderungen speichern</button>
+                        <button id="btn_save_changes_subcriterion" type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveSubCriterion()">Änderungen speichern</button>
                     </div>
                 </div>
             </div>
@@ -747,73 +776,6 @@
                 maxOutputValuationScale.innerHTML = maxSliderValuationScale.value;
             }    
 
-            //Modal Teilkriterium bearbeiten
-            document.querySelector('#btn_edit_subcriterion_1_1').addEventListener("click", clickBtnEditSubcriterion1_1); 
-            function clickBtnEditSubcriterion1_1(){
-                currentSubcriterion = "1_1";
-                document.querySelector('#input_name_subcriterion_editmode').value = "Ablaufplan";
-                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
-                document.querySelector('#range_min_valuation_scale_editmode').value = 3;
-                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "3";
-                document.querySelector('#range_max_valuation_scale_editmode').value = 8;
-                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "8";
-            }
-
-            document.querySelector('#btn_edit_subcriterion_1_2').addEventListener("click", clickBtnEditSubcriterion1_2); 
-            function clickBtnEditSubcriterion1_2(){
-                currentSubcriterion = "1_2";
-                document.querySelector('#input_name_subcriterion_editmode').value = "Literraturrecherche";
-                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
-                document.querySelector('#range_min_valuation_scale_editmode').value = 0;
-                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "0";
-                document.querySelector('#range_max_valuation_scale_editmode').value = 10;
-                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "10";
-            }
-
-            document.querySelector('#btn_edit_subcriterion_2_1').addEventListener("click", clickBtnEditSubcriterion2_1); 
-            function clickBtnEditSubcriterion2_1(){
-                currentSubcriterion = "2_1";
-                document.querySelector('#input_name_subcriterion_editmode').value = "Ablaufplan";
-                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
-                document.querySelector('#range_min_valuation_scale_editmode').value = 3;
-                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "3";
-                document.querySelector('#range_max_valuation_scale_editmode').value = 8;
-                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "8";
-            }
-
-            document.querySelector('#btn_edit_subcriterion_2_2').addEventListener("click", clickBtnEditSubcriterion2_2); 
-            function clickBtnEditSubcriterion2_2(){
-                currentSubcriterion = "2_2";
-                document.querySelector('#input_name_subcriterion_editmode').value = "Literraturrecherche";
-                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
-                document.querySelector('#range_min_valuation_scale_editmode').value = 0;
-                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "0";
-                document.querySelector('#range_max_valuation_scale_editmode').value = 10;
-                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "10";
-            }
-
-            document.querySelector('#btn_edit_subcriterion_3_1').addEventListener("click", clickBtnEditSubcriterion3_1); 
-            function clickBtnEditSubcriterion3_1(){
-                currentSubcriterion = "3_1";
-                document.querySelector('#input_name_subcriterion_editmode').value = "Ablaufplan";
-                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
-                document.querySelector('#range_min_valuation_scale_editmode').value = 3;
-                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "3";
-                document.querySelector('#range_max_valuation_scale_editmode').value = 8;
-                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "8";
-            }
-
-            document.querySelector('#btn_edit_subcriterion_3_2').addEventListener("click", clickBtnEditSubcriterion3_2); 
-            function clickBtnEditSubcriterion3_2(){
-                currentSubcriterion = "3_2";
-                document.querySelector('#input_name_subcriterion_editmode').value = "Literraturrecherche";
-                document.querySelector('#select_main_criterion_editmode').selectedIndex = 1;
-                document.querySelector('#range_min_valuation_scale_editmode').value = 0;
-                document.querySelector('#lbl_min_valuation_scale_editmode').innerHTML = "0";
-                document.querySelector('#range_max_valuation_scale_editmode').value = 10;
-                document.querySelector('#lbl_max_valuation_scale_editmode').innerHTML = "10";
-            }
-
             //Modal Teilkriterium bearbeiten Slider
             var minSliderValuationScaleEditMode = document.getElementById("range_min_valuation_scale_editmode");
             var minOutputValuationScaleEditMode = document.getElementById("lbl_min_valuation_scale_editmode");
@@ -835,7 +797,8 @@
                 }
                 maxOutputValuationScaleEditMode.innerHTML = maxSliderValuationScaleEditMode.value;
             }
-            function addToCourseOfStudies(){
+            document.querySelector('#btn_addCourseOfStudies').addEventListener("click", addToCourseOfStudies);
+            function addToCourseOfStudies(text){
             	var listItem = document.createElement("div");
             	listItem.className = "list-group-item";
             	var rowItem = document.createElement("div");
@@ -856,7 +819,10 @@
             	}
             	document.getElementById("input_name_new_course_of_studies").value = "";
             }
-            
+            function dismissCourseOfStudies(){
+            	document.getElementById("input_name_new_course_of_studies").value = "";
+            }
+            document.querySelector('#btn_addUniversityChair').addEventListener("click", addToUniversityChair);
             function addToUniversityChair(){
             	var listItem = document.createElement("div");
             	listItem.className = "list-group-item";
@@ -883,10 +849,16 @@
 	            	document.getElementById("university_chair").appendChild(listItem);
             	}
             	document.getElementById("input_name_new_university_chair").value = "";
+            	document.getElementById("input_name_new_university_chair_owner").selectedIndex = "0";
             }
-            
+			function dismissUniversityChair(){
+            	document.getElementById("input_name_new_university_chair").value = "";
+            	document.getElementById("input_name_new_university_chair_owner").selectedIndex = "0";
+			}
+            document.querySelector('#btn_addMainCriterion').addEventListener("click", addToMainCriterion);
             function addToMainCriterion(){
             	//Hauptkriterium
+            	var childs = document.getElementById("list-tab").children.length;
             	var listItem = document.createElement("div");
             	listItem.className = "list-group-item list-group-item-action";
             	listItem.setAttribute("data-toggle", "list");
@@ -898,12 +870,11 @@
             	var buttonItem = document.createElement("button");
             	buttonItem.className = "btn btn-sm btn-outline-danger text-center col-sm";
             	buttonItem.innerHTML = "Löschen";
-            	buttonItem.onclick = deleteRow;
             	var text = document.getElementById("input_name_new_main_criterion").value;
             	if(text != "" && text.trim().length != 0){
             		aItem.innerHTML = text;
-            		listItem.id = "list-" + text.toLowerCase() + "-list";
-            		listItem.setAttribute("href", "#list-" + text.toLowerCase() )
+            		listItem.id = "list-mainCriterion" + childs+ "-list";
+            		listItem.setAttribute("href", "#list-mainCriterion" + childs);
 	            	rowItem.appendChild(aItem);
 	            	rowItem.appendChild(buttonItem);
 	            	listItem.appendChild(rowItem);
@@ -912,12 +883,11 @@
 	            	//Teilkriterium
 	            	var subItemList = document.createElement("div");
 	            	subItemList.className = "tab-pane fade";
-	            	subItemList.id = "list-" + text.toLowerCase();
+	            	subItemList.id = "list-mainCriterion" + childs;
 	            	subItemList.setAttribute("role", "tabpanel");
-	            	subItemList.setAttribute("aria-labelledby", "list-" + text.toLowerCase() + "-list");
+	            	subItemList.setAttribute("aria-labelledby", listItem.id);
 	            	var subGroup = document.createElement("div");
 	            	subGroup.className = "list-group";
-	            	subGroup.id = "criteria";
 	            	var subGroupItem = document.createElement("div");
 	            	subGroupItem.className = "list-group-item list-group-item-dark";
 	            	var subGroupRow = document.createElement("div");
@@ -939,10 +909,94 @@
 	            	
 	            	document.getElementById("nav-tabContent").appendChild(subItemList);
 	            	
+	            	buttonItem.onclick = function(){deleteMainCriterion(buttonItem, subItemList.id);}
             	}
             	document.getElementById("input_name_new_main_criterion").value = "";
             	
             }
+            function dismissMainCriterion(){
+            	document.getElementById("input_name_new_main_criterion").value = "";
+            }
+            document.querySelector('#btn_addSubCriterion').addEventListener("click", addToSubCriterion);
+			function addToSubCriterion(){
+				var list = document.getElementById("list-tab").children;
+				var selctedCriterion;
+				for(var i = 0; i < list.length; i++){
+					if(list[i].getAttribute("aria-selected") == "true"){
+						selectedCriterion = list[i].getAttribute("href").substring(1);
+					}
+				}
+            	var listItem = document.createElement("div");
+            	listItem.className = "list-group-item";
+            	var rowItem = document.createElement("div");
+            	rowItem.className = "row";
+            	var labelItem = document.createElement("label");
+            	labelItem.className = "col-sm-9";
+            	var buttonItem = document.createElement("button");
+            	buttonItem.className = "btn btn-sm btn-outline-info text-center col-sm";
+            	buttonItem.innerHTML = "Mehr";
+            	buttonItem.setAttribute("data-toggle", "modal");
+            	buttonItem.setAttribute("data-target", "#modal_edit_subcriterion")
+            	buttonItem.onclick = function(){editSubCriterion(buttonItem)};
+            	var minItem = document.createElement("input");
+            	minItem.type = "hidden";
+            	minItem.name = "min";
+            	minItem.value = document.getElementById("range_min_valuation_scale").value;
+            	var maxItem = document.createElement("input");
+            	maxItem.type = "hidden";
+            	maxItem.name = "max";
+            	maxItem.value = document.getElementById("range_max_valuation_scale").value;
+            	var text = document.getElementById("input_name_new_subcriterion").value;
+            	if(text != "" && text.trim().length != 0){
+            		labelItem.innerHTML = text;
+            		listItem.id = text.replace(/\s/g, "_").toLowerCase() + "-sub";
+	            	rowItem.appendChild(labelItem);
+	            	rowItem.appendChild(buttonItem);
+	            	rowItem.appendChild(minItem);
+	            	rowItem.appendChild(maxItem);
+	            	listItem.appendChild(rowItem);
+	            	document.getElementById(selectedCriterion).children[0].appendChild(listItem);
+            	}
+            	document.getElementById("input_name_new_subcriterion").value = "";
+    			document.getElementById("range_min_valuation_scale").value = 0;
+				document.getElementById("range_max_valuation_scale").value = 20;
+				document.getElementById("lbl_min_valuation_scale").innerHTML = 0;
+				document.getElementById("lbl_max_valuation_scale").innerHTML = 20;
+			}
+			function dismissSubCriterion(){
+				document.getElementById("input_name_new_subcriterion").value = "";
+				document.getElementById("range_min_valuation_scale").value = 0;
+				document.getElementById("range_max_valuation_scale").value = 20;
+				document.getElementById("lbl_min_valuation_scale").innerHTML = 0;
+				document.getElementById("lbl_max_valuation_scale").innerHTML = 20;
+			}
+			function deleteMainCriterion(elem, subcriterion){
+				var sub = document.getElementById(subcriterion);
+				sub.parentNode.removeChild(sub);
+				
+				elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
+			}
+			function editSubCriterion(button){
+				document.getElementById("subCriterion").value = button.parentNode.parentNode.id;
+				document.getElementById("input_name_subcriterion_editmode").value = button.parentNode.children[0].innerHTML;
+				document.getElementById("range_min_valuation_scale_editmode").value = button.parentNode.querySelector("input[name='min']").value;
+				document.getElementById("lbl_min_valuation_scale_editmode").innerHTML = button.parentNode.querySelector("input[name='min']").value;
+				document.getElementById("range_max_valuation_scale_editmode").value = button.parentNode.querySelector("input[name='max']").value;
+				document.getElementById("lbl_max_valuation_scale_editmode").innerHTML = button.parentNode.querySelector("input[name='max']").value;
+				
+			}
+			function deleteSubCriterion(){
+				var elem = document.getElementById(document.getElementById("subCriterion").value);
+				elem.parentNode.removeChild(elem);
+			}
+			function saveSubCriterion(){
+				var elem = document.getElementById(document.getElementById("subCriterion").value);
+				elem.children[0].children[0].innerHTML = document.getElementById("input_name_subcriterion_editmode").value;
+				elem.children[0].querySelector("input[name='min']").value = document.getElementById("range_min_valuation_scale_editmode").value;
+				elem.children[0].querySelector("input[name='min']").value = document.getElementById("lbl_min_valuation_scale_editmode").innerHTML;
+				elem.children[0].querySelector("input[name='max']").value = document.getElementById("range_max_valuation_scale_editmode").value;
+				elem.children[0].querySelector("input[name='max']").value = document.getElementById("lbl_max_valuation_scale_editmode").innerHTML;
+			}
             function deleteRow(){
             	this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
             }
