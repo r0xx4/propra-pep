@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="java.util.*, data_management.Driver"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -81,27 +80,52 @@
             <h1 id="lblHeadline" class="h3 mb-3 font-weight-normal">Bitte geben Sie ihre persönlichen Daten an</h1>
             <select id="inputRole" type="Role" class="custom-select">
                 <option selected>Registrieren als</option>
-                <option>Teilnehmer</option>
-                <option>Tutor</option>
-                <option>Juror</option>
+                <%
+                Driver datenhaltung = new Driver();
+                ArrayList<HashMap<String, String>> rollen = datenhaltung.getSubCat("rolle");
+                for (HashMap<String, String> rolle : rollen)
+                {
+                	if (!(rolle.get("rollename_ID")).equals("Admin")) 
+                	{
+                		if (!(rolle.get("rollename_ID")).equals("Teamleiter"))
+                		{
+                			%>
+                    		<option><% out.print(rolle.get("rollename_ID")); %></option>
+                    		<%
+                		}
+                	}
+                }
+                %>
             </select>
             <input id="inputFirstName" type="firstName" class="form-control" placeholder="Vorname">
             <input id="inputLastName" type="lastName" class="form-control" placeholder="Nachname">
             <input id="inputMatriculationNumber" type="matriculationNumber" class="form-control" placeholder="Matrikelnummer">
             <select id="inputCourseOfStudies" type="courseOfStudies" class="custom-select">
                 <option selected>Studiengang</option>
-                <option>Bachelor Maschinenbau</option>
-                <option>Master Maschinenbau</option>
-                <option>Architektur</option>
-                <option>TeilchenPhysik</option>
+                <%
+                ArrayList<HashMap<String, String>> studiengaenge = datenhaltung.getSubCat("studiengang");
+                for (HashMap<String, String> studiengang : studiengaenge)
+				{
+					%>
+                    <option><% out.print(studiengang.get("studiengangname_ID")); %></option>
+                    <%
+                }
+                %>
             </select>
-            <select id="inputUniversityChair" type="universityChair" class="custom-select">
-                 <option selected>Lehrstuhl (nur für Betreuer)</option>
-                 <option>Lehrstuhl für angewandte ???</option>
-                 <option>Lehrstuhl für ???</option>
-                 <option>Lehrstuhl für ???</option>
-                 <option>TheoretischePhysik</option>
-            </select>
+            
+            
+            <% 
+            //<select id="inputUniversityChair" type="universityChair" class="custom-select">
+            //     <option selected>Lehrstuhl (nur für Betreuer)</option>
+            //     <%
+            //     ArrayList<HashMap<String, String>> lehrstuehle = datenhaltung.getSubCat("lehrstuhl");
+            //     for (HashMap<String, String> lehrstuhl : lehrstuehle)
+            //     {
+            //        <option> out.print(lehrstuhl.get("lehrstuhlname_ID")); </option>
+            //     }
+            //</select>
+            %>
+            
             <input id="inputEmail" type="email" class="form-control" placeholder="E-Mail-Adresse">
             <input id="inputPassword" type="password" class="form-control" placeholder="Passwort">
             <input id="inputPasswordRepeat" type="password" class="form-control" placeholder="Passwort Wiederholung">
@@ -124,31 +148,33 @@
             var passwordRepeat;
             var masterkey;
 
-            document.getElementById("inputUniversityChair").disabled=true;
+            //document.getElementById("inputUniversityChair").disabled=true;
             document.getElementById("inputMasterkey").disabled=true;
+			document.getElementById("inputMatriculationNumber").disabled=true;
+            document.getElementById("inputCourseOfStudies").disabled=true;
             
             document.querySelector('#inputRole').addEventListener("input", inputRoleOninputEvent); 
             function inputRoleOninputEvent(){
                 if(document.querySelector("#inputRole").value == "Registrieren als"){
-                    document.getElementById("inputUniversityChair").disabled=true;
+                    //document.getElementById("inputUniversityChair").disabled=true;
                     document.getElementById("inputMasterkey").disabled=true;
                     document.getElementById("inputMatriculationNumber").disabled=false;
                     document.getElementById("inputCourseOfStudies").disabled=false;
                 }
                 if(document.querySelector("#inputRole").value == "Teilnehmer"){
-                    document.getElementById("inputUniversityChair").disabled=true;
+                    //document.getElementById("inputUniversityChair").disabled=true;
                     document.getElementById("inputMasterkey").disabled=true;
 					document.getElementById("inputMatriculationNumber").disabled=false;
                     document.getElementById("inputCourseOfStudies").disabled=false;
                 }
                 if(document.querySelector("#inputRole").value == "Tutor"){
-                    document.getElementById("inputUniversityChair").disabled=false;
+                    //document.getElementById("inputUniversityChair").disabled=false;
                     document.getElementById("inputMasterkey").disabled=false;
                     document.getElementById("inputMatriculationNumber").disabled=true;
                     document.getElementById("inputCourseOfStudies").disabled=true;
                 }
                 if(document.querySelector("#inputRole").value == "Juror"){
-                    document.getElementById("inputUniversityChair").disabled=true;
+                    //document.getElementById("inputUniversityChair").disabled=true;
                     document.getElementById("inputMasterkey").disabled=false;
 					document.getElementById("inputMatriculationNumber").disabled=true;
                     document.getElementById("inputCourseOfStudies").disabled=true;
@@ -167,7 +193,7 @@
                 lastName = document.querySelector("#inputLastName").value;
                 if (role == "Teilnehmer") matriculationNumber = document.querySelector("#inputMatriculationNumber").value;
                 if (role == "Teilnehmer") courseOfStudies = document.querySelector("#inputCourseOfStudies").value;
-                if (role == "Tutor") universityChair = document.querySelector("#inputUniversityChair").value;
+//              if (role == "Tutor") universityChair = document.querySelector("#inputUniversityChair").value;
                 email = document.querySelector("#inputEmail").value;
                 password = document.querySelector("#inputPassword").value;
                 passwordRepeat = document.querySelector("#inputPasswordRepeat").value;
@@ -185,8 +211,8 @@
                 	window.alert("Bitte Matrikelnummer angeben!");
                 else if (role == "Teilnehmer" && courseOfStudies == "Studiengang")
                 	window.alert("Bitte Studiengang angeben!");
-                else if (role == "Tutor" && universityChair == "Lehrstuhl (nur für Betreuer)")
-                	window.alert("Bitte Lehrstuhl angeben!");
+//              else if (role == "Tutor" && universityChair == "Lehrstuhl (nur für Betreuer)")
+//                	window.alert("Bitte Lehrstuhl angeben!");
                 else if (email == "")
                 	window.alert("Bitte E-Mail angeben!");
                 else if (password == "")
