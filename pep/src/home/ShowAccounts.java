@@ -1,6 +1,7 @@
 package home;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ShowAccounts
  */
+import javax.servlet.http.HttpSession;
+
+import data_management.Driver;
 @WebServlet("/home/show_accounts")
 public class ShowAccounts extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,8 +30,38 @@ public class ShowAccounts extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/home/index_accountansicht_admin.jsp");
-		rd.forward(request,  response);
+		response.setHeader("Cache-Control",  "must-revalidate");
+		Driver datenhaltung = new Driver();
+		HttpSession session = request.getSession();
+		String session_ID = (String)(session.getAttribute("session_id"));
+		System.out.println(session_ID);
+		
+		try 
+		{
+			if (session_ID != null)
+			{
+				HashMap<String, String> rights = datenhaltung.getRights(Integer.valueOf(session_ID));
+				if (rights.get("accessMarks").equals("1") && rights.get("manageProject").equals("1") && rights.get("seeAllGroupInformation").equals("1") && rights.get("setupGroup").equals("1"))
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("/home/index_accountansicht_admin.jsp");
+					rd.forward(request,  response);
+				}
+				else
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("/login");
+					rd.forward(request,  response);
+				}
+			}
+			else
+			{
+				RequestDispatcher rd = request.getRequestDispatcher("/login");
+				rd.forward(request,  response);
+			}
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**

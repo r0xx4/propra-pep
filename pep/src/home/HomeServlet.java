@@ -35,17 +35,27 @@ public class HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Cache-Control",  "must-revalidate");
 		Driver datenhaltung = new Driver();
 		HttpSession session = request.getSession();
 		String session_ID = (String)(session.getAttribute("session_id"));
+		System.out.println(session_ID);
 		
 		try 
 		{
-			HashMap<String, String> rights = datenhaltung.getRights(Integer.valueOf(session_ID));
-			if (rights.get("accessMarks").equals("1") && rights.get("manageProject").equals("1") && rights.get("seeAllGroupInformation").equals("1") && rights.get("setupGroup").equals("1"))
+			if (session_ID != null)
 			{
-				RequestDispatcher rd = request.getRequestDispatcher("/home/index_startseite_admin.html");
-				rd.forward(request,  response);
+				HashMap<String, String> rights = datenhaltung.getRights(Integer.valueOf(session_ID));
+				if (rights.get("accessMarks").equals("1") && rights.get("manageProject").equals("1") && rights.get("seeAllGroupInformation").equals("1") && rights.get("setupGroup").equals("1"))
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("/home/index_startseite_admin.jsp");
+					rd.forward(request,  response);
+				}
+				else
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("/login");
+					rd.forward(request,  response);
+				}
 			}
 			else
 			{
@@ -57,8 +67,6 @@ public class HomeServlet extends HttpServlet {
 		{
 			e.printStackTrace();
 		}
-		
-		
 	}
 
 	/**
