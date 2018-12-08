@@ -38,5 +38,6 @@ public class HandleDBWriteProjectSettings extends HttpServlet {
 		{
 			push_into_db.put(key, request.getParameterMap().get(key)[0]);
 		}
+		System.out.println(push_into_db);
 	}
 }
