@@ -196,6 +196,7 @@
                                         <div class="row">
                                             <label class="col-sm-9"><% out.print(s.get("studiengangname_ID")); %></label>
                                             <button class="btn btn-sm btn-outline-danger text-center col-sm" onclick="deleteCourseOfStudies(this)" >Löschen</button>
+                                            <input type="hidden" name="fromDB" value="true">
                                         </div>       
                                     </div>  
                                     <%
@@ -227,6 +228,7 @@
 											%>
 											<label class="col-sm-9"><%out.print(lehrstuhlinhaber_vorname + " " + lehrstuhlinhaber_nachname); %></label>
 											<button class="btn btn-sm btn-outline-danger text-center col-sm" onclick="deleteUniversityChair(this)">Löschen</button>
+											<input type="hidden" name="fromDB" value="true">
 										</div>
 									</div> 
 									<%
@@ -262,6 +264,7 @@
                                             <a class="col-sm-9"><%out.print(hauptkriterium.get("hauptkriteriumname_ID")); %></a>
                                             <button class="btn btn-sm btn-outline-danger text-center col-sm" 
                                             	onclick="deleteMainCriterion(this, 'list-mainCriterion<% out.print(countMain); %>')">Löschen</button>
+                                            <input type="hidden" name="fromDB" value="true">
                                         </div>
                                     </div>
                                 </div>
@@ -288,6 +291,7 @@
 	                                                        <button data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm" onclick="editSubCriterion(this)">Mehr</button>
 	                                                        <input type="hidden" name="min" value="<% out.print(teilkriterium.get("skala_Min"));%>">
 	                                                        <input type="hidden" name="max" value="<% out.print(teilkriterium.get("skala_Max"));%>">
+	                                                        <input type="hidden" name="fromDB" value="true">
 	                                                    </div>       
                                                 </div> 
                                             <%
@@ -812,11 +816,16 @@
             	buttonItem.className = "btn btn-sm btn-outline-danger text-center col-sm";
             	buttonItem.innerHTML = "Löschen";
             	buttonItem.onclick = function(){deleteCourseOfStudies(buttonItem)};
+            	var inputItem = document.createElement("input");
+            	inputItem.type = "hidden";
+            	inputItem.name = "fromDB";
+            	inputItem.value = "false";
             	var text = document.getElementById("input_name_new_course_of_studies").value;
             	if(text != "" && text.trim().length != 0){
             		labelItem.innerHTML = text;
 	            	rowItem.appendChild(labelItem);
 	            	rowItem.appendChild(buttonItem);
+	            	rowItem.appendChild(inputItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById("course_of_studies").appendChild(listItem);
 	            	
@@ -830,12 +839,14 @@
             	document.getElementById("input_name_new_course_of_studies").value = "";
             }
             function deleteCourseOfStudies(elem){
-				if("Studiengang_del" in push_to_db){
-					push_to_db["Studiengang_del"] += "%" + elem.parentNode.children[0].innerHTML;
-
-				}else{
-					push_to_db["Studiengang_del"] = elem.parentNode.children[0].innerHTML;
-				}
+            	if(elem.parentNode.querySelector('input[name="fromDB"]').value == "true"){
+					if("Studiengang_del" in push_to_db){
+						push_to_db["Studiengang_del"] += "%" + elem.parentNode.children[0].innerHTML;
+	
+					}else{
+						push_to_db["Studiengang_del"] = elem.parentNode.children[0].innerHTML;
+					}
+            	}
             	elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
             }
             function dismissCourseOfStudies(){
@@ -855,6 +866,10 @@
             	buttonItem.className = "btn btn-sm btn-outline-danger text-center col-sm";
             	buttonItem.innerHTML = "Löschen";
             	buttonItem.onclick = function(){deleteUniversityChair(buttonItem)};
+            	var inputItem = document.createElement("input");
+            	inputItem.type = "hidden";
+            	inputItem.name = "fromDB";
+            	inputItem.value = "false";
             	var text = document.getElementById("input_name_new_university_chair").value;
             	var selected = document.getElementById("input_name_new_university_chair_owner");
             	var owner = selected.options[selected.selectedIndex].text;
@@ -864,6 +879,7 @@
 	            	rowItem.appendChild(labelUniversityChair);
 	            	rowItem.appendChild(labelOwner);
 	            	rowItem.appendChild(buttonItem);
+	            	rowItem.appendChild(inputItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById("university_chair").appendChild(listItem);
 	            	
@@ -878,12 +894,14 @@
             	document.getElementById("input_name_new_university_chair_owner").selectedIndex = "0";
             }
             function deleteUniversityChair(elem){
-				if("Lehrstuhl_del" in push_to_db){
-					push_to_db["Lehrstuhl_del"] += "%" + elem.parentNode.children[0].innerHTML;
-
-				}else{
-					push_to_db["Lehrstuhl_del"] = elem.parentNode.children[0].innerHTML;
-				}
+            	if(elem.parentNode.querySelector('input[name="fromDB"]').value == "true"){
+					if("Lehrstuhl_del" in push_to_db){
+						push_to_db["Lehrstuhl_del"] += "%" + elem.parentNode.children[0].innerHTML;
+	
+					}else{
+						push_to_db["Lehrstuhl_del"] = elem.parentNode.children[0].innerHTML;
+					}
+            	}
             	elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
             }
 			function dismissUniversityChair(){
@@ -905,6 +923,10 @@
             	var buttonItem = document.createElement("button");
             	buttonItem.className = "btn btn-sm btn-outline-danger text-center col-sm";
             	buttonItem.innerHTML = "Löschen";
+            	var inputItem = document.createElement("input");
+            	inputItem.type = "hidden";
+            	inputItem.name = "fromDB";
+            	inputItem.value = "false";
             	var text = document.getElementById("input_name_new_main_criterion").value;
             	if(text != "" && text.trim().length != 0){
             		aItem.innerHTML = text;
@@ -912,6 +934,7 @@
             		listItem.setAttribute("href", "#list-mainCriterion" + childs);
 	            	rowItem.appendChild(aItem);
 	            	rowItem.appendChild(buttonItem);
+	            	rowItem.appendChild(inputItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById("list-tab").appendChild(listItem);
 	            	
@@ -992,6 +1015,10 @@
             	maxItem.type = "hidden";
             	maxItem.name = "max";
             	maxItem.value = document.getElementById("range_max_valuation_scale").value;
+            	var inputItem = document.createElement("input");
+            	inputItem.type = "hidden";
+            	inputItem.name = "fromDB";
+            	inputItem.value = "false";
             	var text = document.getElementById("input_name_new_subcriterion").value;
             	if(text != "" && text.trim().length != 0){
             		labelItem.innerHTML = text;
@@ -1000,6 +1027,7 @@
 	            	rowItem.appendChild(buttonItem);
 	            	rowItem.appendChild(minItem);
 	            	rowItem.appendChild(maxItem);
+	            	rowItem.appendChild(inputItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById(selectedCriterion).children[0].appendChild(listItem);
 	            	
@@ -1039,11 +1067,13 @@
 				document.getElementById("lbl_max_valuation_scale").innerHTML = 20;
 			}
 			function deleteMainCriterion(elem, subcriterion){
-				if("Bewertung_del" in push_to_db){
-					push_to_db["Bewertung_del"] += "%" + elem.parentNode.children[0].innerHTML + ":";
-
-				}else{
-					push_to_db["Bewertung_del"] = elem.parentNode.children[0].innerHTML + ":";
+				if(elem.parentNode.querySelector('input[name="fromDB"]').value == "true"){
+					if("Bewertung_del" in push_to_db){
+						push_to_db["Bewertung_del"] += "%" + elem.parentNode.children[0].innerHTML + ":";
+	
+					}else{
+						push_to_db["Bewertung_del"] = elem.parentNode.children[0].innerHTML + ":";
+					}
 				}
 				
 				var sub = document.getElementById(subcriterion);
@@ -1063,17 +1093,19 @@
 				
 			}
 			function deleteSubCriterion(){
-				if("Bewertung_del" in push_to_db){
-					push_to_db["Bewertung_del"] += "%" + document.getElementById("mainCriterion").value 
-													+ ":"
-													+ document.getElementById("input_name_subcriterion_editmode").value;
-				}else{
-					push_to_db["Bewertung_del"] = document.getElementById("mainCriterion").value 
-													+ ":"
-													+ document.getElementById("input_name_subcriterion_editmode").value;
+				var elem = document.getElementById(document.getElementById("subCriterion-Id").value);
+				if(elem.parentNode.parentNode.querySelector('input[name="fromDB"]').value == "true"){
+					if("Bewertung_del" in push_to_db){
+						push_to_db["Bewertung_del"] += "%" + document.getElementById("update_mainCriterion").value 
+														+ ":"
+														+ document.getElementById("input_name_subcriterion_editmode").value;
+					}else{
+						push_to_db["Bewertung_del"] = document.getElementById("update_mainCriterion").value 
+														+ ":"
+														+ document.getElementById("input_name_subcriterion_editmode").value;
+					}
 				}
 				
-				var elem = document.getElementById(document.getElementById("subCriterion-Id").value);
 				elem.parentNode.removeChild(elem);
 			}
 			function saveSubCriterion(){
@@ -1085,7 +1117,7 @@
 				elem.children[0].querySelector("input[name='max']").value = document.getElementById("lbl_max_valuation_scale_editmode").innerHTML;
 				
 				if("Bewertung_update" in push_to_db){
-					push_to_db["Bewertung_update"] += "%" + document.getElementById("mainCriterion").value 
+					push_to_db["Bewertung_update"] += "%" + document.getElementById("update_mainCriterion").value 
 													+ ":"
 													+ document.getElementById("input_name_subcriterion_editmode").value
 													+ "$"
@@ -1093,7 +1125,7 @@
 													+ "+"
 													+ document.getElementById("range_max_valuation_scale_editmode").value;
 				}else{
-					push_to_db["Bewertung_update"] = document.getElementById("mainCriterion").value 
+					push_to_db["Bewertung_update"] = document.getElementById("update_mainCriterion").value 
 													+ ":"
 													+ document.getElementById("input_name_subcriterion_editmode").value
 													+ "$"
