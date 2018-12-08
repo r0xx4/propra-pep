@@ -87,6 +87,15 @@ public class Driver {
 */
     }
 	
+	public String getSessionUser(String session_id) throws SQLException {
+        StringBuilder sql=new StringBuilder("SELECT accountname_ID FROM sessionmap WHERE sessionmapname_ID = ");
+        sql.append(session_id);
+        sql.append(" ;");
+        if(returnArrayList(sql.toString()).isEmpty())
+            return null;
+        return returnArrayList(sql.toString()).get(0).get("accountname_ID");
+    }
+	
 	public  boolean deleteRow(String table, String iDV) throws SQLException {
         StringBuilder sql = new StringBuilder("DELETE FROM ");
         sql.append(table);
