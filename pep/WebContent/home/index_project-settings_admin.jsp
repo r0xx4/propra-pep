@@ -1,4 +1,4 @@
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.*, data_management.Driver"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -186,16 +186,14 @@
                                         </div>     
                                     </div>    
                                     <%
-                                   	ArrayList<String> studiengaenge = new ArrayList<>();
-                                   	studiengaenge.add("Bachelor Machinenbau");
-                                   	studiengaenge.add("Bachelor Architektur");
-                                   	
-                                   	for(String s : studiengaenge){
+                                    Driver datenhaltung = new Driver();
+                                    ArrayList<HashMap<String, String>> studiengaenge = datenhaltung.getSubCat("studiengang");
+                                   	for(HashMap<String, String> s : studiengaenge){
                                     %>
                                     <div class="list-group-item">
                                         <div class="row">
-                                            <label class="col-sm-9"><% out.println(s); %></label>
-                                            <button class="btn btn-sm btn-outline-danger col-sm" <% out.println("onclick='deleteRow()'"); %>>Löschen</button>
+                                            <label class="col-sm-9"><% out.print(s.get("studiengangname_ID")); %></label>
+                                            <button class="btn btn-sm btn-outline-danger text-center col-sm" onclick="deleteCourseOfStudies(this)" >Löschen</button>
                                         </div>       
                                     </div>  
                                     <%
@@ -214,22 +212,31 @@
                                         </div>       
                                     </div>   
                                     <%
-                                    ArrayList<String> lehrstuhl = new ArrayList<>();
-                                    
-                                    
+                                    ArrayList<HashMap<String, String>> lehrstuehle = datenhaltung.getSubCat("lehrstuhl");
+                                    for (HashMap<String, String> lehrstuhl : lehrstuehle){
                                     %>
-                                    <div class="list-group-item">
-                                        <div class="row">
-                                            <label class="col-sm-9"> </label>
-                                            <button id="btn_delete_university_chair_1" class="btn btn-sm btn-outline-danger text-center col-sm">Löschen</button>
-                                        </div>       
-                                    </div>                          
+									<div class="list-group-item">
+										<div class="row">
+											<label class="col-sm-9"><% out.print(lehrstuhl.get("lehrstuhlname_ID")); %></label>
+											<%
+											String lehrstuhlinhaber_mail = datenhaltung.getSubCat("lehrstuhl", "lehrstuhlname_ID", lehrstuhl.get("lehrstuhlname_ID"), "accountname_ID").get(0).get("accountname_ID");
+											String lehrstuhlinhaber_vorname = datenhaltung.getSubCat("account", "accountname_ID",  lehrstuhlinhaber_mail, "vorname").get(0).get("vorname");
+											String lehrstuhlinhaber_nachname = datenhaltung.getSubCat("account", "accountname_ID",  lehrstuhlinhaber_mail, "nachname").get(0).get("nachname");
+											%>
+											<label class="col-sm-9"><%out.print(lehrstuhlinhaber_vorname + " " + lehrstuhlinhaber_nachname); %></label>
+											<button class="btn btn-sm btn-outline-danger text-center col-sm" onclick="deleteUniversityChair(this)">Löschen</button>
+										</div>
+									</div> 
+									<%
+                                    }
+									%>                        
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Bewertung -->
+                    
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
                         <h1 class="h4">Bewertung</h1>
                     </div>
@@ -243,102 +250,57 @@
                                             <button id="btn_new_main_criterion" data-toggle="modal" data-target="#modal_new_main_criterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
                                         </div>
                                     </div>
-                                    <div class="list-group-item list-group-item-action" id="list-documentation-list" data-toggle="list" href="#list-documentation" role="tab">
+                                    <%
+                                    ArrayList<HashMap<String, String>> hauptkriterien = datenhaltung.getSubCat("hauptkriterium");
+                                    int countMain = 1;
+                                    for(HashMap<String, String> hauptkriterium : hauptkriterien){
+                                    %>
+                                    <div class="list-group-item list-group-item-action" id="list-mainCriterion<% out.print(countMain); %>-list" data-toggle="list" href="#list-mainCriterion<% out.print(countMain); %>" role="tab">
                                         <div class="row">
-                                            <a class="col-sm-9">Dokumentation</a>
-                                            <button id="btn_delete_main_criterion_1" class="btn btn-sm btn-outline-danger text-center col-sm" 
-                                            	onclick="deleteMainCriterion(this, 'list-documentation')">Löschen</button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item list-group-item-action" id="list-presentation-list" data-toggle="list" href="#list-presentation" role="tab">
-                                        <div class="row">
-                                            <a class="col-sm-9">Präsentation</a>
-                                            <button id="btn_delete_main_criterion_2" class="btn btn-sm btn-outline-danger text-center col-sm"
-                                            	onclick="deleteMainCriterion(this, 'list-presentation')">Löschen</button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item list-group-item-action" id="list-poster-list" data-toggle="list" href="#list-poster" role="tab">
-                                        <div class="row">
-                                            <a class="col-sm-9">Poster</a>
-                                            <button id="btn_delete_main_criterion_3" class="btn btn-sm btn-outline-danger text-center col-sm"
-                                            	onclick="deleteMainCriterion(this, 'list-poster')">Löschen</button>
+                                            <a class="col-sm-9"><%out.print(hauptkriterium.get("hauptkriteriumname_ID")); %></a>
+                                            <button class="btn btn-sm btn-outline-danger text-center col-sm" 
+                                            	onclick="deleteMainCriterion(this, 'list-mainCriterion<% out.print(countMain); %>')">Löschen</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="tab-content" id="nav-tabContent">
-                                    <!-- Teilkriterien für Hauptkriterium 1 -->
-                                    <div class="tab-pane fade" id="list-documentation" role="tabpanel" aria-labelledby="list-documentation-list">
+                                    <div class="tab-pane fade" id="list-mainCriterion<% out.print(countMain); %>" role="tabpanel" aria-labelledby="list-mainCriterion<% out.print(countMain); %>-list">
                                         <div class="list-group">
                                             <div class="list-group-item list-group-item-dark">
                                                 <div class="row">
                                                     <h5 class="col-sm-9">Teilkriterien</h5>
                                                     <button id="btn_new_subcriterion_1" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
                                                 </div>       
-                                            </div>                        
-                                            <div class="list-group-item">
-                                                <div class="row">
-                                                    <label class="col-sm-9">Ablaufplan</label>
-                                                    <button id="btn_edit_subcriterion_1_1" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
-                                                </div>       
-                                            </div>  
-                                            <div class="list-group-item">
-                                                <div class="row">
-                                                    <label class="col-sm-9">Literraturrecherche</label>
-                                                    <button id="btn_edit_subcriterion_1_2" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
-                                                </div>       
-                                            </div>     
-                                        </div>
-                                    </div>
-                                    <!-- Teilkriterien für Hauptkriterium 2 -->
-                                    <div class="tab-pane fade" id="list-presentation" role="tabpanel" aria-labelledby="list-presentation-list">
-                                        <div class="list-group">
-                                            <div class="list-group-item list-group-item-dark">
-                                                <div class="row">
-                                                    <h5 class="col-sm-9">Teilkriterien</h5>
-                                                    <button id="btn_new_subcriterion_2" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
-                                                </div>       
-                                            </div>                        
-                                            <div class="list-group-item">
-                                                <div class="row">
-                                                    <label class="col-sm-9">Sprachstil</label>
-                                                    <button id="btn_edit_subcriterion_2_1" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
-                                                </div>       
-                                            </div>  
-                                            <div class="list-group-item">
-                                                <div class="row">
-                                                    <label class="col-sm-9">Zeitaufteilung</label>
-                                                    <button id="btn_edit_subcriterion_2_2" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
-                                                </div>       
-                                            </div>     
-                                        </div>
-                                    </div>
-                                    <!-- Teilkriterien für Hauptkriterium 3 -->
-                                    <div class="tab-pane fade" id="list-poster" role="tabpanel" aria-labelledby="list-poster-list">
-                                        <div class="list-group">
-                                            <div class="list-group-item list-group-item-dark">
-                                                <div class="row">
-                                                    <h5 class="col-sm-9">Teilkriterien</h5>
-                                                    <button id="btn_new_subcriterion_3" data-toggle="modal" data-target="#modal_new_subcriterion" class="btn btn-sm btn-outline-dark text-center col-sm"><strong>Neu</strong></button>
-                                                </div>       
-                                            </div>                        
-                                            <div class="list-group-item">
-                                                <div class="row">
-                                                    <label class="col-sm-9">Bilderqualität</label>
-                                                    <button id="btn_edit_subcriterion_3_1" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button>
-                                                </div>       
-                                            </div>  
-                                            <div class="list-group-item">
-                                                <div class="row">
-                                                    <label class="col-sm-9">Information über Vollständigkeit</label>
-                                                    <button id="btn_edit_subcriterion_3_2" data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info col-sm">Mehr</button>
-                                                </div>       
-                                            </div>     
+                                            </div>           
+                                            <%
+                                            ArrayList<HashMap<String, String>> teilkriterien = datenhaltung.getSubCat("teilkriterium");
+                                            int countSub = 1;
+                                            for(HashMap<String, String> teilkriterium : teilkriterien){
+                                            	if(teilkriterium.get("hauptkriteriumname_ID").equals(hauptkriterium.get("hauptkriteriumname_ID"))){
+                                            %>
+                                                    <div class="list-group-item" id="subCriterion<% out.print(countSub); %>">
+	                                                    <div class="row">
+	                                                        <label class="col-sm-9"><% out.print(teilkriterium.get("teilkriteriumname_ID")); %></label>
+	                                                        <button data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm" onclick="editSubCriterion(this)">Mehr</button>
+	                                                        <input type="hidden" name="min" value="<% out.print(teilkriterium.get("skala_Min"));%>">
+	                                                        <input type="hidden" name="max" value="<% out.print(teilkriterium.get("skala_Max"));%>">
+	                                                    </div>       
+                                                </div> 
+                                            <%
+                                            	}
+                                            	countSub++;
+                                            }
+                                            %>     
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <%
+                            countMain++;
+                            }
+                            %>
                         </div>
                     </div>
 
@@ -470,10 +432,20 @@
                             <div class="form-group">
                                 <label for="input_name_new_university_chair_owner" class="col-form-label">Lehrstuhlinhaber:</label>
                                 <select id="input_name_new_university_chair_owner" class="custom-select form-control">
-                                    <option selected>Lehrstuhlinhaber</option>
-                                    <option>Martin Kessler</option>
-                                    <option>Frauke Hänßler</option>
-                                    <option>Benjamin Koch</option>
+									<%
+									ArrayList<HashMap<String, String>> all_tutors = datenhaltung.getSubCat("account", "rollename_ID", "Tutor", "accountname_ID");
+                                    for (HashMap<String, String> t : all_tutors)
+                                    {
+                                    	if(datenhaltung.getSubCat("lehrstuhl", "accountname_ID", t.get("accountname_ID"), "lehrstuhlname_ID").isEmpty()){
+											String tutor_mail = t.get("accountname_ID");
+											String tutor_vorname = datenhaltung.getSubCat("account", "accountname_ID",  tutor_mail, "vorname").get(0).get("vorname");
+											String tutor_nachname = datenhaltung.getSubCat("account", "accountname_ID",  tutor_mail, "nachname").get(0).get("nachname");
+	                                        %>
+	                                        <option><% out.print(tutor_vorname + " " + tutor_nachname); %></option>
+	                                        <%
+                                    	}
+                                    }
+                                    %>                                    
                                </select>
                             </div>
                         </form>
@@ -521,12 +493,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <input type="hidden" id="add_mainCriterion">
                     </div>
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
                                 <label for="input_name_new_subcriterion" class="col-form-label">Name Teilkriterium:</label>
-                                <input type="text" class="form-control" id="input_name_new_subcriterion">
+                                <input type="text" class="form-control" id="input_name_new_subcriterion" >
                             </div>
                             <!-- 
                             <div class="form-group">
@@ -572,13 +545,14 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <input type="hidden" id="subCriterion" />
+                        <input type="hidden" id="subCriterion-Id">
+                        <input type="hidden" id="update_mainCriterion">
                     </div>
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
                                 <label for="input_name_subcriterion_editmode" class="col-form-label">Name Teilkriterium:</label>
-                                <input type="text" class="form-control" id="input_name_subcriterion_editmode">
+                                <input type="text" class="form-control" id="input_name_subcriterion_editmode" readonly>
                             </div>
                             <!--
                             <div class="form-group">
@@ -622,8 +596,8 @@
             //Hier Javascript Code
 
             //Globale Variablen
-            var currentSubcriterion = null;
-
+			var push_to_db = {};
+            
             //Navbar
             document.querySelector('#link_home').addEventListener("click", clickLinkHomeEvent); 
             function clickLinkHomeEvent(){
@@ -798,7 +772,7 @@
                 maxOutputValuationScaleEditMode.innerHTML = maxSliderValuationScaleEditMode.value;
             }
             document.querySelector('#btn_addCourseOfStudies').addEventListener("click", addToCourseOfStudies);
-            function addToCourseOfStudies(text){
+            function addToCourseOfStudies(){
             	var listItem = document.createElement("div");
             	listItem.className = "list-group-item";
             	var rowItem = document.createElement("div");
@@ -808,7 +782,7 @@
             	var buttonItem = document.createElement("button");
             	buttonItem.className = "btn btn-sm btn-outline-danger text-center col-sm";
             	buttonItem.innerHTML = "Löschen";
-            	buttonItem.onclick = deleteRow;
+            	buttonItem.onclick = function(){deleteCourseOfStudies(buttonItem)};
             	var text = document.getElementById("input_name_new_course_of_studies").value;
             	if(text != "" && text.trim().length != 0){
             		labelItem.innerHTML = text;
@@ -816,8 +790,24 @@
 	            	rowItem.appendChild(buttonItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById("course_of_studies").appendChild(listItem);
+	            	
+					if("Studiengang_add" in push_to_db){
+						push_to_db["Studiengang_add"] += "%" + text;
+
+					}else{
+						push_to_db["Studiengang_add"] = text;
+					}
             	}
             	document.getElementById("input_name_new_course_of_studies").value = "";
+            }
+            function deleteCourseOfStudies(elem){
+				if("Studiengang_del" in push_to_db){
+					push_to_db["Studiengang_del"] += "%" + elem.parentNode.children[0].innerHTML;
+
+				}else{
+					push_to_db["Studiengang_del"] = elem.parentNode.children[0].innerHTML;
+				}
+            	elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
             }
             function dismissCourseOfStudies(){
             	document.getElementById("input_name_new_course_of_studies").value = "";
@@ -835,7 +825,7 @@
             	var buttonItem = document.createElement("button");
             	buttonItem.className = "btn btn-sm btn-outline-danger text-center col-sm";
             	buttonItem.innerHTML = "Löschen";
-            	buttonItem.onclick = deleteRow;
+            	buttonItem.onclick = function(){deleteUniversityChair(buttonItem)};
             	var text = document.getElementById("input_name_new_university_chair").value;
             	var selected = document.getElementById("input_name_new_university_chair_owner");
             	var owner = selected.options[selected.selectedIndex].text;
@@ -847,9 +837,25 @@
 	            	rowItem.appendChild(buttonItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById("university_chair").appendChild(listItem);
+	            	
+					if("Lehrstuhl_add" in push_to_db){
+						push_to_db["Lehrstuhl_add"] += "%" + text + ":" + owner;
+
+					}else{
+						push_to_db["Lehrstuhl_add"] = text + ":" + owner;
+					}
             	}
             	document.getElementById("input_name_new_university_chair").value = "";
             	document.getElementById("input_name_new_university_chair_owner").selectedIndex = "0";
+            }
+            function deleteUniversityChair(elem){
+				if("Lehrstuhl_del" in push_to_db){
+					push_to_db["Lehrstuhl_del"] += "%" + elem.parentNode.children[0].innerHTML;
+
+				}else{
+					push_to_db["Lehrstuhl_del"] = elem.parentNode.children[0].innerHTML;
+				}
+            	elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
             }
 			function dismissUniversityChair(){
             	document.getElementById("input_name_new_university_chair").value = "";
@@ -873,7 +879,7 @@
             	var text = document.getElementById("input_name_new_main_criterion").value;
             	if(text != "" && text.trim().length != 0){
             		aItem.innerHTML = text;
-            		listItem.id = "list-mainCriterion" + childs+ "-list";
+            		listItem.id = "list-mainCriterion" + childs + "-list";
             		listItem.setAttribute("href", "#list-mainCriterion" + childs);
 	            	rowItem.appendChild(aItem);
 	            	rowItem.appendChild(buttonItem);
@@ -910,6 +916,13 @@
 	            	document.getElementById("nav-tabContent").appendChild(subItemList);
 	            	
 	            	buttonItem.onclick = function(){deleteMainCriterion(buttonItem, subItemList.id);}
+	            	
+					if("Bewertung_add" in push_to_db){
+						push_to_db["Bewertung_add"] += "%" + text + ":";
+
+					}else{
+						push_to_db["Bewertung_add"] = text + ":";
+					}
             	}
             	document.getElementById("input_name_new_main_criterion").value = "";
             	
@@ -921,11 +934,15 @@
 			function addToSubCriterion(){
 				var list = document.getElementById("list-tab").children;
 				var selctedCriterion;
+				var count = 0;
 				for(var i = 0; i < list.length; i++){
 					if(list[i].getAttribute("aria-selected") == "true"){
 						selectedCriterion = list[i].getAttribute("href").substring(1);
+						break;
 					}
+					count++;
 				}
+				var childs = document.getElementById(selectedCriterion).children[0].children.length;
             	var listItem = document.createElement("div");
             	listItem.className = "list-group-item";
             	var rowItem = document.createElement("div");
@@ -949,14 +966,36 @@
             	var text = document.getElementById("input_name_new_subcriterion").value;
             	if(text != "" && text.trim().length != 0){
             		labelItem.innerHTML = text;
-            		listItem.id = text.replace(/\s/g, "_").toLowerCase() + "-sub";
+            		listItem.id = "subCriterion" + childs + "_" + count;
 	            	rowItem.appendChild(labelItem);
 	            	rowItem.appendChild(buttonItem);
 	            	rowItem.appendChild(minItem);
 	            	rowItem.appendChild(maxItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById(selectedCriterion).children[0].appendChild(listItem);
+	            	
+					document.getElementById("add_mainCriterion").value = document.getElementById(
+							buttonItem.parentNode.parentNode.parentNode.parentNode.id + "-list").children[0].children[0].innerHTML;
+					
+					if("Bewertung_add" in push_to_db){
+						push_to_db["Bewertung_add"] += "%" + document.getElementById("add_mainCriterion").value 
+													+ ":"
+													+ text
+													+ "$"
+													+ document.getElementById("range_min_valuation_scale").value
+													+ "+"
+													+ document.getElementById("range_max_valuation_scale").value;
+					}else{
+						push_to_db["Bewertung_add"] = document.getElementById("add_mainCriterion").value 
+													+ ":"
+													+ text
+													+ "$"
+													+ document.getElementById("range_min_valuation_scale").value
+													+ "+"
+													+ document.getElementById("range_max_valuation_scale").value;
+					}
             	}
+				
             	document.getElementById("input_name_new_subcriterion").value = "";
     			document.getElementById("range_min_valuation_scale").value = 0;
 				document.getElementById("range_max_valuation_scale").value = 20;
@@ -971,13 +1010,22 @@
 				document.getElementById("lbl_max_valuation_scale").innerHTML = 20;
 			}
 			function deleteMainCriterion(elem, subcriterion){
+				if("Bewertung_del" in push_to_db){
+					push_to_db["Bewertung_del"] += "%" + elem.parentNode.children[0].innerHTML + ":";
+
+				}else{
+					push_to_db["Bewertung_del"] = elem.parentNode.children[0].innerHTML + ":";
+				}
+				
 				var sub = document.getElementById(subcriterion);
 				sub.parentNode.removeChild(sub);
 				
 				elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
 			}
 			function editSubCriterion(button){
-				document.getElementById("subCriterion").value = button.parentNode.parentNode.id;
+				document.getElementById("subCriterion-Id").value = button.parentNode.parentNode.id;
+				document.getElementById("update_mainCriterion").value = document.getElementById(
+						button.parentNode.parentNode.parentNode.parentNode.id + "-list").children[0].children[0].innerHTML;
 				document.getElementById("input_name_subcriterion_editmode").value = button.parentNode.children[0].innerHTML;
 				document.getElementById("range_min_valuation_scale_editmode").value = button.parentNode.querySelector("input[name='min']").value;
 				document.getElementById("lbl_min_valuation_scale_editmode").innerHTML = button.parentNode.querySelector("input[name='min']").value;
@@ -986,20 +1034,35 @@
 				
 			}
 			function deleteSubCriterion(){
-				var elem = document.getElementById(document.getElementById("subCriterion").value);
+				var elem = document.getElementById(document.getElementById("subCriterion-Id").value);
 				elem.parentNode.removeChild(elem);
 			}
 			function saveSubCriterion(){
-				var elem = document.getElementById(document.getElementById("subCriterion").value);
+				var elem = document.getElementById(document.getElementById("subCriterion-Id").value);
 				elem.children[0].children[0].innerHTML = document.getElementById("input_name_subcriterion_editmode").value;
 				elem.children[0].querySelector("input[name='min']").value = document.getElementById("range_min_valuation_scale_editmode").value;
 				elem.children[0].querySelector("input[name='min']").value = document.getElementById("lbl_min_valuation_scale_editmode").innerHTML;
 				elem.children[0].querySelector("input[name='max']").value = document.getElementById("range_max_valuation_scale_editmode").value;
 				elem.children[0].querySelector("input[name='max']").value = document.getElementById("lbl_max_valuation_scale_editmode").innerHTML;
+				
+				if("Bewertung_update" in push_to_db){
+					push_to_db["Bewertung_update"] += "%" + document.getElementById("mainCriterion").value 
+													+ ":"
+													+ document.getElementById("input_name_subcriterion_editmode").value
+													+ "$"
+													+ document.getElementById("range_min_valuation_scale_editmode").value
+													+ "+"
+													+ document.getElementById("range_max_valuation_scale_editmode").value;
+				}else{
+					push_to_db["Bewertung_update"] = document.getElementById("mainCriterion").value 
+													+ ":"
+													+ document.getElementById("input_name_subcriterion_editmode").value
+													+ "$"
+													+ document.getElementById("range_min_valuation_scale_editmode").value
+													+ "+"
+													+ document.getElementById("range_max_valuation_scale_editmode").value;
+				}
 			}
-            function deleteRow(){
-            	this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
-            }
         </script>
     </body>
 </html>
