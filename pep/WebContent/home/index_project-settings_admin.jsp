@@ -370,7 +370,7 @@
 
                     <!-- Button Ändern -->
                     <div class="float-sm-right btn-toolbar mb-md-0 pt-3 pb-3 border-top">
-                        <button id="btn_submit" class="btn font-weight-bold text-light btn-lg btn-primary">Änderungen speichern</button>
+                        <button id="btn_submit" type="button" class="btn font-weight-bold text-light btn-lg btn-primary">Änderungen speichern</button>
                     </div>
                 </div>
 
@@ -1034,6 +1034,16 @@
 				
 			}
 			function deleteSubCriterion(){
+				if("Bewertung_del" in push_to_db){
+					push_to_db["Bewertung_del"] += "%" + document.getElementById("mainCriterion").value 
+													+ ":"
+													+ document.getElementById("input_name_subcriterion_editmode").value;
+				}else{
+					push_to_db["Bewertung_del"] = document.getElementById("mainCriterion").value 
+													+ ":"
+													+ document.getElementById("input_name_subcriterion_editmode").value;
+				}
+				
 				var elem = document.getElementById(document.getElementById("subCriterion-Id").value);
 				elem.parentNode.removeChild(elem);
 			}
@@ -1062,6 +1072,28 @@
 													+ "+"
 													+ document.getElementById("range_max_valuation_scale_editmode").value;
 				}
+			}
+			document.querySelector('#btn_submit').addEventListener("click", applySettings);
+			function applySettings(){
+				push_to_db["Masterkey_tutor"] = document.getElementById("input_masterkey_supervisor").value;
+				push_to_db["Masterkey_juror"] = document.getElementById("input_masterkey_juror").value;
+				push_to_db["Registrierung"] = document.getElementById("input_start_date_registration_phase").value
+												+ "+"
+												+ document.getElementById("input_end_date_registration_phase").value;
+				
+				push_to_db["Anmelden"] = document.getElementById("input_start_date_project_registration_phase").value
+										+ "+"
+										+ document.getElementById("input_end_date_project_registration_phase").value;
+				
+				push_to_db["Projektphase"] = document.getElementById("input_start_date_project_phase").value
+											+ "+"
+											+ document.getElementById("input_end_date_project_phase").value;
+				
+				push_to_db["Bewertung"] = document.getElementById("input_start_date_valuation_phase").value
+											+ "+"
+											+ document.getElementById("input_end_date_valuation_phase").value;
+				
+				post("/pep/handle_db_write_project_settings", push_to_db);
 			}
         </script>
     </body>
