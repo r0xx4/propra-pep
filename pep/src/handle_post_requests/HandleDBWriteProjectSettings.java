@@ -1,6 +1,7 @@
 package handle_post_requests;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -39,5 +40,10 @@ public class HandleDBWriteProjectSettings extends HttpServlet {
 			push_into_db.put(key, request.getParameterMap().get(key)[0]);
 		}
 		System.out.println(push_into_db);
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		out.println("window.open(\"/pep/home/show_project_settings\", \"_self\")");
+		out.println("</script>");
+		out.close();
 	}
 }

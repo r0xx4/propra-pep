@@ -60,6 +60,9 @@
                     <li id="link_personal_settings" class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-user-1 mr-3 text-gray"></i><span>Mein Account</span></a></li>
                 </ul>
             </div>
+            <%
+            Driver datenhaltung = new Driver();
+            %>
 
             <!-- Haupt Container -->
             <div class="page-holder w-100 d-flex flex-wrap">
@@ -75,12 +78,12 @@
                     <div>
                         <label for="range_min_participants">Legen Sie die minimale Teilnehmerzahl pro Team fest</label>
                         <div class="row pb-3">
-                            <div class="col-sm-11"><input id="range_min_participants" type="range" class="custom-range" value="0" min="0" max="15" step="1"></input></div>
+                            <div class="col-sm-11"><input id="range_min_participants" type="range" class="custom-range" min="0" max="15" step="1"></input></div>
                             <div class="col-sm-1"><label id="lbl_min_participants" for="range_min_participants"></label></div>
                         </div>
                         <label for="range_max_participants">Legen Sie die maximale Teilnehmerzahl pro Team fest</label>
                         <div class="row">
-                            <div class="col-sm-11"><input id="range_max_participants" type="range" class="custom-range" value="15" min="0" max="15" step="1"></input></div>
+                            <div class="col-sm-11"><input id="range_max_participants" type="range" class="custom-range" min="0" max="15" step="1"></input></div>
                             <div class="col-sm-1"><label id="lbl_max_participants" for="range_max_participants"></label></div>
                         </div> 
                     </div>
@@ -186,7 +189,6 @@
                                         </div>     
                                     </div>    
                                     <%
-                                    Driver datenhaltung = new Driver();
                                     ArrayList<HashMap<String, String>> studiengaenge = datenhaltung.getSubCat("studiengang");
                                    	for(HashMap<String, String> s : studiengaenge){
                                     %>
@@ -598,6 +600,30 @@
             //Globale Variablen
 			var push_to_db = {};
             
+			function post(path, params, method) {
+			    method = method || "post"; // Set method to post by default if not specified.
+
+			    // The rest of this code assumes you are not using a library.
+			    // It can be made less wordy if you use one.
+			    var form = document.createElement("form");
+			    form.setAttribute("method", method);
+			    form.setAttribute("action", path);
+
+			    for(var key in params) {
+			        if(params.hasOwnProperty(key)) {
+			            var hiddenField = document.createElement("input");
+			            hiddenField.setAttribute("type", "hidden");
+			            hiddenField.setAttribute("name", key);
+			            hiddenField.setAttribute("value", params[key]);
+
+			            form.appendChild(hiddenField);
+			        }
+			    }
+
+			    document.body.appendChild(form);
+			    form.submit();
+			}
+            
             //Navbar
             document.querySelector('#link_home').addEventListener("click", clickLinkHomeEvent); 
             function clickLinkHomeEvent(){
@@ -636,12 +662,15 @@
             }
 
             //Slider Anzahl Teilnehmer
+            
             var minSliderParticipents = document.getElementById("range_min_participants");
             var minOutputParticipents = document.getElementById("lbl_min_participants");
             var maxSliderParticipents = document.getElementById("range_max_participants");
             var maxOutputParticipents = document.getElementById("lbl_max_participants");
+            minSliderParticipents.value = <% out.print(datenhaltung.getSubCat("projectconfiguration").get(0).get("team_Min")); %>
+            maxSliderParticipents.value = <% out.print(datenhaltung.getSubCat("projectconfiguration").get(0).get("team_Max")); %>
             minOutputParticipents.innerHTML = minSliderParticipents.value;
-            maxOutputParticipents.innerHTML = maxSliderParticipents.value; 
+            maxOutputParticipents.innerHTML = maxSliderParticipents.value;
             
             minSliderParticipents.oninput = function() {
                 if(parseInt(minSliderParticipents.value) > parseInt(maxSliderParticipents.value)){
@@ -1075,6 +1104,7 @@
 			}
 			document.querySelector('#btn_submit').addEventListener("click", applySettings);
 			function applySettings(){
+				push_to_db["Teilnehmer"] = document.getElementById("range_min_participants").value + "+" + document.getElementById("range_max_participants").value;
 				push_to_db["Masterkey_tutor"] = document.getElementById("input_masterkey_supervisor").value;
 				push_to_db["Masterkey_juror"] = document.getElementById("input_masterkey_juror").value;
 				push_to_db["Registrierung"] = document.getElementById("input_start_date_registration_phase").value
