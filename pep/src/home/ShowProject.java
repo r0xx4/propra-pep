@@ -15,7 +15,7 @@ import data_management.Driver;
 /**
  * Servlet implementation class ShowProject
  */
-@WebServlet("/show_project")
+@WebServlet("/home/show_project")
 public class ShowProject extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
