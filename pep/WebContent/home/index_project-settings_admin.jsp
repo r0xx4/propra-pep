@@ -659,10 +659,9 @@
                 //Hier Code für zeige Projekt Einstellungen Button gedrückt
                 window.open("/pep/home/show_project_settings", "_self");
             }
-            document.querySelector('#link_personal_settings').addEventListener("click", clickLinkPersonalSettingsEvent); 
-            function clickLinkPersonalSettingsEvent(){
-                //Hier Code für zeige persönliche Daten Button gedrückt
-                window.alert("Personal Settings");
+            document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
+            function klickLinkPersonalSettingsEvent(){
+            	window.open("/pep/home/view_personal_info", "_self");
             }
 
             //Slider Anzahl Teilnehmer

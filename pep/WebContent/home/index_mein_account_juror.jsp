@@ -199,26 +199,24 @@
 			document.body.appendChild(form);
 			form.submit();
 		}
-		document.querySelector('#link_home').addEventListener("click",
-				klickLinkHomeEvent);
-		function klickLinkHomeEvent() {
-			window.open("/pep/home", "_self");
-		}
-		document.querySelector('#link_logout').addEventListener("click",
-				klickLinkLogoutEvent);
-		function klickLinkLogoutEvent() {
-			window.open("/pep/home/logout", "_self");
-		}
-		document.querySelector('#link_show_all_teams').addEventListener(
-				"click", klickLinkShowAllTeamsEvent);
-		function klickLinkShowAllTeamsEvent() {
-			window.open("/pep/home/show_teams", "_self");
-		}
-		document.querySelector('#link_personal_settings').addEventListener(
-				"click", klickLinkPersonalSettingsEvent);
-		function klickLinkPersonalSettingsEvent() {
-			window.open("/pep/home/view_personal_info", "_self");
-		}
+		
+		document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
+        function klickLinkHomeEvent(){
+        	window.open("/pep/home", "_self");
+        }
+        document.querySelector('#link_logout').addEventListener("click", klickLinkLogoutEvent); 
+        function klickLinkLogoutEvent(){
+            window.open("/pep/home/logout", "_self");
+        }
+        document.querySelector('#link_show_all_teams').addEventListener("click", klickLinkShowAllTeamsEvent); 
+        function klickLinkShowAllTeamsEvent(){
+        	window.open("/pep/home/show_teams", "_self");
+        }
+        document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
+        function klickLinkPersonalSettingsEvent(){
+        	window.open("/pep/home/view_personal_info", "_self");
+        }
+        
 		document.querySelector('#btn_submit').addEventListener("click",
 				sendPostToDb);
 		function sendPostToDb() {

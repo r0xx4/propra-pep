@@ -267,26 +267,26 @@
                 document.querySelector('#lbl_team_member').innerHTML = "Helene Fischer</br>Daniel Craig</br>Samuel Jackson</br>Morgan Freeman";
             }
 
-            document.querySelector('#link_download_documentation').addEventListener("click", klickLinkDownloadDocumentation);
-            function klickLinkDownloadDocumentation(){
-                //Hier Code für Download von Dokumentation
-                window.alert("Downloaded Dokumentation")
-            }
-            document.querySelector('#link_download_presentation').addEventListener("click", klickLinkDownloadPresentation);
-            function klickLinkDownloadPresentation(){
-                //Hier Code für Download von Presentation
-                window.alert("Downloaded Presentation")
-            }
-            document.querySelector('#link_download_poster').addEventListener("click", klickLinkDownloadPoster);
-            function klickLinkDownloadPoster(){
-                //Hier Code für Download von Poster
-                window.alert("Downloaded Poster")
-            }
-            document.querySelector('#link_download_summary').addEventListener("click", klickLinkDownloadSummary);
-            function klickLinkDownloadSummary(){
-                //Hier Code für Download von Summary
-                window.alert("Downloaded Summary")
-            }
+            document.querySelector('#link_home').addEventListener("click",
+    				klickLinkHomeEvent);
+    		function klickLinkHomeEvent() {
+    			window.open("/pep/home", "_self");
+    		}
+    		document.querySelector('#link_logout').addEventListener("click",
+    				klickLinkLogoutEvent);
+    		function klickLinkLogoutEvent() {
+    			window.open("/pep/home/logout", "_self");
+    		}
+    		document.querySelector('#link_show_all_teams').addEventListener(
+    				"click", klickLinkShowAllTeamsEvent);
+    		function klickLinkShowAllTeamsEvent() {
+    			window.open("/pep/home/show_teams", "_self");
+    		}
+    		document.querySelector('#link_personal_settings').addEventListener(
+    				"click", klickLinkPersonalSettingsEvent);
+    		function klickLinkPersonalSettingsEvent() {
+    			window.open("/pep/home/view_personal_info", "_self");
+    		}
         </script>
     </body>
 </html>
