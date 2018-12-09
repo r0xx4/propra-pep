@@ -267,12 +267,21 @@
                                             <input type="hidden" name="fromDB" value="true">
                                         </div>
                                     </div>
+                                    <%
+                                    countMain++;
+                                    }
+                                    countMain = 1;
+                                    %>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="tab-content" id="nav-tabContent">
+                                <%
+                            	for(HashMap<String, String> hauptkriterium : hauptkriterien){
+                            	%>
                                     <div class="tab-pane fade" id="list-mainCriterion<% out.print(countMain); %>" role="tabpanel" aria-labelledby="list-mainCriterion<% out.print(countMain); %>-list">
                                         <div class="list-group">
+                                        
                                             <div class="list-group-item list-group-item-dark">
                                                 <div class="row">
                                                     <h5 class="col-sm-9">Teilkriterien</h5>
@@ -301,12 +310,12 @@
                                             %>     
                                         </div>
                                     </div>
+		                            <%
+		                            countMain++;
+		                            }
+		                            %>
                                 </div>
                             </div>
-                            <%
-                            countMain++;
-                            }
-                            %>
                         </div>
                     </div>
 
