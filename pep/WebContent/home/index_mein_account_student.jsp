@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <title>Mein Account</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,14 +48,14 @@
 	src="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/vendor/chart.js/Chart.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-<!--<script
-	src="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/js/charts-custom.js"></script>-->
+<script
+	src="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/js/charts-custom.js"></script>
 <script
 	src="https://d19m59y37dris4.cloudfront.net/bubbly-dashboard/1-0/js/front.js"></script>
 </head>
 
 <body>
-	<!-- Navbar-->
+	<!-- navbar-->
 	<header class="header">
 		<nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
 			<a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i
@@ -76,19 +76,9 @@
 				<li id="link_home" class="sidebar-list-item"><a href="#"
 					class="sidebar-link text-muted"><i
 						class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
-				<li id="link_show_all_groups" class="sidebar-list-item"><a
+				<li id="link_show_project" class="sidebar-list-item"><a
 					href="#" class="sidebar-link text-muted"><i
-						class="o-archive-folder-1 mr-3 text-gray"></i><span>Gruppen</span></a></li>
-				<li id="link_show_all_teams" class="sidebar-list-item"><a
-					href="#" class="sidebar-link text-muted"><i
-						class="o-archive-1 mr-3 text-gray"></i><span>Teams</span></a></li>
-				<li id="link_show_all_accounts" class="sidebar-list-item"><a
-					href="#" class="sidebar-link text-muted"><i
-						class="o-profile-1 mr-3 text-gray"></i><span>Accounts</span></a></li>
-				<li id="link_project_settings" class="sidebar-list-item"><a
-					href="#" class="sidebar-link text-muted"><i
-						class="o-imac-screen-1 mr-3 text-gray"></i><span>Projekt
-							Settings</span></a></li>
+						class="o-archive-1 mr-3 text-gray"></i><span>Projekt</span></a></li>
 			</ul>
 			<div
 				class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Meine
@@ -99,8 +89,6 @@
 						class="o-user-1 mr-3 text-gray"></i><span>Mein Account</span></a></li>
 			</ul>
 		</div>
-
-		<!-- Haupt Container -->
 		<div class="page-holder w-100 d-flex flex-wrap">
 			<div class="container-fluid px-xl-5">
 				<div
@@ -112,30 +100,35 @@
 					<h1 class="h4">Persönliche Daten</h1>
 					<%
 						Driver datenhaltung = new Driver();
-						String user=datenhaltung.getSessionUser(request.getSession().getAttribute("session_id").toString());
-						HashMap<String, String> html_contents = datenhaltung.getSubCat("account",user).get(0);
+						String user = datenhaltung.getSessionUser(request.getSession().getAttribute("session_id").toString());
+						HashMap<String, String> html_contents = datenhaltung.getSubCat("account", user).get(0);
 					%>
 				</div>
 				<div>
 					<div class="form-group row">
 						<div class="form-group col-sm">
-							<label for="input_first_name" value="Test">Vorname:</label> <input
-								id="input_first_name"
-								value=<%out.print(html_contents.get("vorname"));%> type="text"
-								class="form-control">
+							<label for="input_first_name">Vorname:</label> <input
+								id="input_first_name" 
+								value=<%out.print(html_contents.get("vorname"));%> type="text" class="form-control">
 						</div>
 						<div class="form-group col-sm">
 							<label for="input_last_name">Nachname:</label> <input
-								id="input_last_name"
-								value=<%out.print(html_contents.get("nachname"));%> type="text"
-								class="form-control">
+								id="input_last_name" 
+								value=<%out.print(html_contents.get("nachname"));%> type="text" class="form-control">
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="form-group col-sm">
 							<label for="input_email">Email:</label> <input id="input_email"
-								value=<%out.print(html_contents.get("accountname_ID"));%>
-								type="text" class="form-control" readonly>
+								type="text" 
+								value=<%out.print(html_contents.get("accountname_ID"));%> class="form-control" readonly>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="form-group col-sm">
+							<label for="input_matriculation_number">Matrikelnummer:</label> <input
+								id="input_matriculation_number" 
+								value=<%out.print(html_contents.get("matrikelnummer"));%> type="text" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -170,7 +163,6 @@
 						speichern</button>
 				</div>
 			</div>
-
 			<footer
 				class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
 				<div class="container-fluid">
@@ -208,41 +200,29 @@
 			document.body.appendChild(form);
 			form.submit();
 		}
-
 		document.querySelector('#link_home').addEventListener("click",
 				klickLinkHomeEvent);
 		function klickLinkHomeEvent() {
-			window.open("/pep/home", "_self");
+			//Hier Code für aufrufen von Startseite
+			window.alert("Home");
 		}
 		document.querySelector('#link_logout').addEventListener("click",
 				klickLinkLogoutEvent);
 		function klickLinkLogoutEvent() {
-			window.open("/pep/home/logout", "_self");
+			//Hier Code für Logout Button gedrückt
+			window.alert("Logout");
 		}
-		document.querySelector('#link_show_all_groups').addEventListener(
-				"click", klickLinkShowAllGroupsEvent);
-		function klickLinkShowAllGroupsEvent() {
-			window.open("/pep/home/show_groups", "_self");
-		}
-		document.querySelector('#link_show_all_teams').addEventListener(
-				"click", klickLinkShowAllTeamsEvent);
-		function klickLinkShowAllTeamsEvent() {
-			window.open("/pep/home/show_teams", "_self");
-		}
-		document.querySelector('#link_show_all_accounts').addEventListener(
-				"click", klickLinkShowAllAccountsEvent);
-		function klickLinkShowAllAccountsEvent() {
-			window.open("/pep/home/show_accounts", "_self");
-		}
-		document.querySelector('#link_project_settings').addEventListener(
-				"click", klickLinkGeneralSettingsEvent);
-		function klickLinkGeneralSettingsEvent() {
-			window.open("/pep/home/show_project_settings", "_self");
+		document.querySelector('#link_show_project').addEventListener("click",
+				klickLinkShowProjectEvent);
+		function klickLinkShowProjectEvent() {
+			//Hier Code für zeige Projekt Button gedrückt
+			window.alert("Show Project");
 		}
 		document.querySelector('#link_personal_settings').addEventListener(
 				"click", klickLinkPersonalSettingsEvent);
 		function klickLinkPersonalSettingsEvent() {
-			window.open("/pep/home/view_personal_info", "_self");
+			//Hier Code für zeige persönliche Daten Button gedrückt
+			window.alert("Personal Settings");
 		}
 		document.querySelector('#btn_submit').addEventListener("click",
 				sendPostToDb);
@@ -251,15 +231,19 @@
 			data['accountname_ID'] = document.getElementById('input_email').value;
 			data['vorname'] = document.getElementById('input_first_name').value;
 			data['nachname'] = document.getElementById('input_last_name').value;
-			
+			data['matrikelnummer'] = document.getElementById('input_matriculation_number').value;
+
+
 			if (input_old_password.value != "")
-				if (input_new_password.value == input_new_password_repeat.value){
-					data['password_old'] = document.getElementById('input_old_password').value;
-					data['password'] = document.getElementById('input_new_password').value;
-				}
-				else
-					window.alert("Die neuen Passwörter stimmen nicht über ein!");
-			
+				if (input_new_password.value == input_new_password_repeat.value) {
+					data['password_old'] = document
+							.getElementById('input_old_password').value;
+					data['password'] = document
+							.getElementById('input_new_password').value;
+				} else
+					window
+							.alert("Die neuen Passwörter stimmen nicht über ein!");
+
 			post("/pep/handle_db_write_personal_info", data);
 		}
 	</script>

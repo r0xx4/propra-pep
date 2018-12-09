@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Mein Account</title>
+<meta charset="utf-8">
+<title>Startseite Betreuer</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap CSS-->
@@ -74,7 +74,7 @@
 				class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Main</div>
 			<ul class="sidebar-menu list-unstyled">
 				<li id="link_home" class="sidebar-list-item"><a href="#"
-					class="sidebar-link text-muted"><i
+					class="sidebar-link text-muted active"><i
 						class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
 				<li id="link_show_teams" class="sidebar-list-item"><a href="#"
 					class="sidebar-link text-muted"><i
@@ -85,7 +85,7 @@
 				Daten</div>
 			<ul class="sidebar-menu list-unstyled">
 				<li id="link_personal_settings" class="sidebar-list-item"><a
-					href="#" class="sidebar-link text-muted active"><i
+					href="#" class="sidebar-link text-muted"><i
 						class="o-user-1 mr-3 text-gray"></i><span>Mein Account</span></a></li>
 			</ul>
 		</div>
@@ -93,10 +93,7 @@
 			<div class="container-fluid px-xl-5">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">Mein Account</h1>
-				</div>
-				<div
-					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
+					<h1 class="h2">Startseite</h1>
 					<h1 class="h4">Persönliche Daten</h1>
 					<%
 						Driver datenhaltung = new Driver();
@@ -104,59 +101,22 @@
 						HashMap<String, String> html_contents = datenhaltung.getSubCat("account", user).get(0);
 					%>
 				</div>
-				<div>
-					<div class="form-group row">
-						<div class="form-group col-sm">
-							<label for="input_first_name">Vorname:</label> <input
-								id="input_first_name"
-								value=<%out.print(html_contents.get("vorname"));%> type="text"
-								class="form-control">
-						</div>
-						<div class="form-group col-sm">
-							<label for="input_last_name">Nachname:</label> <input
-								id="input_last_name"
-								value=<%out.print(html_contents.get("nachname"));%> type="text"
-								class="form-control">
-						</div>
-					</div>
-					<div class="form-group row">
-						<div class="form-group col-sm">
-							<label for="input_email">Email:</label> <input id="input_email"
-								value=<%out.print(html_contents.get("accountname_ID"));%>
-								type="text" class="form-control" readonly>
-						</div>
-					</div>
-				</div>
-				<div
-					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
-					<h1 class="h4">Passwort ändern</h1>
-				</div>
-				<div>
-					<div class="form-group row">
-						<div class="form-group col-sm">
-							<label for="input_old_password">Altes Passwort:</label> <input
-								id="input_old_password" type="password" class="form-control">
-						</div>
-					</div>
-					<div class="form-group row">
-						<div class="form-group col-sm">
-							<label for="input_new_password">Neues Passwort:</label> <input
-								id="input_new_password" type="password" class="form-control">
-						</div>
-						<div class="form-group col-sm">
-							<label for="input_new_password_repeat">Neues Passwort
-								wiederholen:</label> <input id="input_new_password_repeat"
-								type="password" class="form-control">
-						</div>
-					</div>
-				</div>
-
-				<!-- Button Ändern -->
-				<div class="float-sm-right btn-toolbar mb-md-0 pt-3 pb-3">
-					<button id="btn_submit"
-						class="btn font-weight-bold text-light btn-lg btn-primary">Änderungen
-						speichern</button>
-				</div>
+				<h5>
+					Hallo
+					<%
+					out.print(html_contents.get("vorname"));
+				%>
+					<%
+						out.print(html_contents.get("nachname"));
+					%>,
+				</h5>
+				Das Planungs und Entwicklunsprojekt beefindet sich momentan in
+				folgender Phase:
+				<%
+						out.print(datenhaltung.getCurrentPhase());
+					%>
+				<!-- Hier aktuelle Phase anzeigen -->
+				<!-- Hier Custome HTML einfügen -->
 			</div>
 			<footer
 				class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
@@ -174,27 +134,6 @@
 
 	<script>
 		//Hier Javascript Code
-		function post(path, params, method) {
-			method = method || "post";
-
-			var form = document.createElement("form");
-			form.setAttribute("method", method);
-			form.setAttribute("action", path);
-
-			for ( var key in params) {
-				if (params.hasOwnProperty(key)) {
-					var hiddenField = document.createElement("input");
-					hiddenField.setAttribute("type", "hidden");
-					hiddenField.setAttribute("name", key);
-					hiddenField.setAttribute("value", params[key]);
-
-					form.appendChild(hiddenField);
-				}
-			}
-
-			document.body.appendChild(form);
-			form.submit();
-		}
 		document.querySelector('#link_home').addEventListener("click",
 				klickLinkHomeEvent);
 		function klickLinkHomeEvent() {
@@ -218,26 +157,6 @@
 		function klickLinkPersonalSettingsEvent() {
 			//Hier Code für zeige persönliche Daten Button gedrückt
 			window.alert("Personal Settings");
-		}
-		document.querySelector('#btn_submit').addEventListener("click",
-				sendPostToDb);
-		function sendPostToDb() {
-			var data = {};
-			data['accountname_ID'] = document.getElementById('input_email').value;
-			data['vorname'] = document.getElementById('input_first_name').value;
-			data['nachname'] = document.getElementById('input_last_name').value;
-
-			if (input_old_password.value != "")
-				if (input_new_password.value == input_new_password_repeat.value) {
-					data['password_old'] = document
-							.getElementById('input_old_password').value;
-					data['password'] = document
-							.getElementById('input_new_password').value;
-				} else
-					window
-							.alert("Die neuen Passwörter stimmen nicht über ein!");
-
-			post("/pep/handle_db_write_personal_info", data);
 		}
 	</script>
 </body>
