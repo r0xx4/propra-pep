@@ -70,6 +70,7 @@
                                     <th scope="col">Betreuer 2</th>
                                     <th scope="col">Projekt</th>
                                     <th scope="col"></th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,7 +120,8 @@
 	                                    %>
 	                                    <td><% out.print(tutor_2); %></td>
 	                                    <td><% out.print(row.get("projekttitel")); %></td>
-                                    	<td><button id="btn_edit_team_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
+	                                    <td><button id="btn_valuation_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_valuation" class="btn btn-sm btn-outline-info text-center col-sm">Bewertung</button></td>
+                                    	<td><button id="btn_edit_team_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-center col-sm">Bearbeiten</button></td>
 	                                </tr>
                            			<%
                            		}
@@ -278,6 +280,88 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
                         <button id = "btn_save" type="button" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Team bewerten -->
+        <div class="modal fade" id="modal_valuation" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Bewertung</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            	<%
+                            	ArrayList<HashMap<String, String>> hauptkriterien = datenhaltung.getSubCat("hauptkriterium");
+	                           	for (HashMap<String, String> hauptkriterium : hauptkriterien)
+                             	{
+                                	%>
+                                	<div class="form-group">
+		                                <label><strong><% out.print(hauptkriterium.get("hauptkriteriumname_ID")); %></strong></label>
+		                                <% 
+		                                ArrayList<HashMap<String, String>> teilkriterien = datenhaltung.getSubCat("teilkriterium", "hauptkriteriumname_ID", hauptkriterium.get("hauptkriteriumname_ID"));
+		                                for (HashMap<String, String> teilkriterium : teilkriterien)
+		                                {
+		                                %>
+		                                	<div class="form-group row">
+		                                		<div class="col-sm-7">
+		                                        	<label class="col-form-label"><% out.print(teilkriterium.get("teilkriteriumname_ID")); %> (<% out.print(teilkriterium.get("skala_Min")); %>/<% out.print(teilkriterium.get("skala_Max")); %>)</label>
+		                                    	</div>
+		                                	</div>
+		                                <%
+		                                }
+		                                %>
+		                                
+		                                
+		                                <div class="form-group row">
+		                                    <div class="col-sm-7">
+		                                        <label class="col-form-label">Sprachstil (0/10)</label>
+		                                    </div>
+		                                    <div class="col-sm-5 row">
+		                                        <select id="select_valuation_2_1" class="custom-select form-control">
+		                                            <option selected>-</option>
+		                                            <option>0</option>
+		                                            <option>1</option>
+		                                            <option>2</option>
+		                                            <option>3</option>
+		                                            <option>4</option>
+		                                            <option>5</option>
+		                                            <option>6</option>
+		                                            <option>7</option>
+		                                            <option>8</option>
+		                                            <option>9</option>
+		                                            <option>10</option>
+		                                        </select>
+		                                    </div>    
+		                                </div>
+		                                <div class="form-group row">
+		                                    <div class="col-sm-7">
+		                                        <label class="col-form-label">Zeitaufteilung (0/1)</label>
+		                                    </div>
+		                                    <div class="col-sm-5 row">
+		                                        <select id="select_valuation_2_2" class="custom-select form-control">
+		                                            <option selected>-</option>
+		                                            <option>0</option>
+		                                            <option>1</option>
+		                                        </select>
+		                                    </div>    
+		                                </div>
+	                            	</div>
+                                	<%
+                                }
+                            	%>
+                                
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn_break" type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button id="btn_save" type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
                     </div>
                 </div>
             </div>
