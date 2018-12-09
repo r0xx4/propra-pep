@@ -182,7 +182,19 @@ public class Driver {
 		String sql = "Select * From " + table + " Where 1";
 		return returnArrayList(sql);
 	}
+	//Method get
 
+	public String getScoreForCriterion(String teamname, String teilkriterium) throws SQLException{
+		StringBuilder sql=new StringBuilder("SELECT kriteriumsmap.punkte ");
+		sql.append("FROM kriteriumsmap ");
+		sql.append("WHERE teamname_ID LIKE '");
+		sql.append(teamname);
+		sql.append("' AND teilkriteriumname_ID LIKE '");
+		sql.append(teilkriterium);
+		sql.append("';");
+		return returnArrayList(sql.toString()).get(0).get("punkte");
+		
+	}
 	// Method getAccountsInGroup
 	public ArrayList<HashMap<String, String>> getAccountsInGroup(String group) throws SQLException {
 		StringBuilder sql = new StringBuilder("SELECT account.accountname_ID FROM account ");
@@ -190,7 +202,7 @@ public class Driver {
 		sql.append("INNER JOIN team ON teammap.teamname_ID=team.teamname_ID ");
 		sql.append(
 				"INNER JOIN organisationseinheit ON team.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
-		sql.append("WHERE account.rollename_ID LIKE 'Teilnehmer' ");
+		sql.append("WHERE account.rollename_ID LIKE 'Teilnehmer' AND account.rollename_ID LIKE 'Teamleiter'");
 		sql.append("AND organisationseinheit.organisationseinheitname_ID LIKE '");
 		sql.append(group);
 		sql.append("';");
@@ -222,13 +234,8 @@ public class Driver {
 		ArrayList<HashMap<String, String>> list = returnArrayList(sql.toString());
 		return list.isEmpty() ? null : list.get(0).get("phasename_ID");
 	}
+	
 	// Method insertNewGroup
-	public static void main(String[] args) throws SQLException {
-		Driver d=new Driver();
-		System.out.println(d.insertNewGroup());
-		System.out.println(d.insertNewGroup());
-		System.out.println(d.insertNewGroup());
-	}
 	public boolean insertNewGroup() throws SQLException {
 		StringBuilder sql=new StringBuilder("SELECT organisationseinheitname_ID FROM organisationseinheit;");
 		ArrayList<HashMap<String, String>> gruppen=returnArrayList(sql.toString());
