@@ -100,7 +100,7 @@
 					<h1 class="h4">Persönliche Daten</h1>
 					<%
 						Driver datenhaltung = new Driver();
-						String user = datenhaltung.getSessionUser(request.getParameter("session_id"));
+						String user = datenhaltung.getSessionUser(request.getSession().getAttribute("session_id").toString());
 						HashMap<String, String> html_contents = datenhaltung.getSubCat("account", user).get(0);
 					%>
 				</div>
@@ -124,31 +124,6 @@
 							<label for="input_email">Email:</label> <input id="input_email"
 								value=<%out.print(html_contents.get("accountname_ID"));%>
 								type="text" class="form-control" readonly>
-						</div>
-					</div>
-					<div class="form-group row">
-						<div class="form-group col-sm">
-							<label for="input_course_of_studies">Lehrstuhl:</label> <select
-								id="input_course_of_studies" class="custom-select form-control">
-								<option selected>
-									<%
-										out.print(html_contents.get("lehrstuhlname_ID"));
-									%>
-								</option>
-								<%
-									ArrayList<HashMap<String, String>> lehrstuhl = datenhaltung.getSubCat("lehrstuhl");
-									for (HashMap<String, String> h : lehrstuhl) {
-										int i = 1;
-								%>
-								<option>
-									<%
-										out.print(lehrstuhl.get(i++).get("lehrstuhlname_ID"));
-									%>
-								</option>
-								<%
-									}
-								%>
-							</select>
 						</div>
 					</div>
 				</div>
@@ -199,6 +174,27 @@
 
 	<script>
 		//Hier Javascript Code
+		function post(path, params, method) {
+			method = method || "post";
+
+			var form = document.createElement("form");
+			form.setAttribute("method", method);
+			form.setAttribute("action", path);
+
+			for ( var key in params) {
+				if (params.hasOwnProperty(key)) {
+					var hiddenField = document.createElement("input");
+					hiddenField.setAttribute("type", "hidden");
+					hiddenField.setAttribute("name", key);
+					hiddenField.setAttribute("value", params[key]);
+
+					form.appendChild(hiddenField);
+				}
+			}
+
+			document.body.appendChild(form);
+			form.submit();
+		}
 		document.querySelector('#link_home').addEventListener("click",
 				klickLinkHomeEvent);
 		function klickLinkHomeEvent() {
@@ -223,23 +219,26 @@
 			//Hier Code für zeige persönliche Daten Button gedrückt
 			window.alert("Personal Settings");
 		}
-        document.querySelector('#btn_submit').addEventListener("click", sendPostToDb);
-        function sendPostToDb(){
-        	var data = {};
-        	data["accountname_ID"] = document.querySelector('#input_email').value;
-        	data["vorname"] = document.querySelector('#input_first_name').value;
-        	data["nachname"] = document.querySelector('#input_last_name').value;
-        	data["lehrstuhl"] = document.querySelector('#input_course_of_studies').value;
-        
-        	
-        	if(input_old_password.value!=null)
-        			if(input_new_password.value==input_new_password_repeat.value)
-        				data["password"] = document.querySelector('#input_new_password').value;
-        			else
-        				alert("Die neuen Passwörter stimmen nicht über ein!");
+		document.querySelector('#btn_submit').addEventListener("click",
+				sendPostToDb);
+		function sendPostToDb() {
+			var data = {};
+			data['accountname_ID'] = document.getElementById('input_email').value;
+			data['vorname'] = document.getElementById('input_first_name').value;
+			data['nachname'] = document.getElementById('input_last_name').value;
 
-        	post("/pep/home/view_personal_info", data);
-        }
+			if (input_old_password.value != "")
+				if (input_new_password.value == input_new_password_repeat.value) {
+					data['password_old'] = document
+							.getElementById('input_old_password').value;
+					data['password'] = document
+							.getElementById('input_new_password').value;
+				} else
+					window
+							.alert("Die neuen Passwörter stimmen nicht über ein!");
+
+			post("/pep/handle_db_write_personal_info", data);
+		}
 	</script>
 </body>
 </html>
