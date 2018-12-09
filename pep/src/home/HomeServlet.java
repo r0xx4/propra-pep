@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -39,21 +40,44 @@ public class HomeServlet extends HttpServlet {
 		Driver datenhaltung = new Driver();
 		HttpSession session = request.getSession();
 		String session_ID = (String)(session.getAttribute("session_id"));
-		System.out.println(session_ID);
 		
 		try 
 		{
 			if (session_ID != null)
 			{
-				HashMap<String, String> rights = datenhaltung.getRights(Integer.valueOf(session_ID));
-				if (rights.get("accessMarks").equals("1") && rights.get("manageProject").equals("1") && rights.get("seeAllGroupInformation").equals("1") && rights.get("setupGroup").equals("1"))
+				session_ID = session_ID.replaceAll("0", ""); 
+				String accountname_ID = datenhaltung.getSubCat("sessionmap", session_ID).get(0).get("accountname_ID");
+				String rolle = datenhaltung.getSubCat("account", accountname_ID).get(0).get("rollename_ID");
+				System.out.println(rolle);
+				System.out.println(session_ID);
+				if (rolle.equals("Admin"))
 				{
 					RequestDispatcher rd = request.getRequestDispatcher("/home/index_startseite_admin.jsp");
 					rd.forward(request,  response);
 				}
+				else if (rolle.equals("Juror"))
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("/home/index_startseite_juror.jsp");
+					rd.forward(request,  response);
+				}
+				else if (rolle.equals("Tutor"))
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("/home/index_startseite_betreuer.jsp");
+					rd.forward(request,  response);
+				}
+				else if (rolle.equals("Teamleiter"))
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("/home/index_startseite_student.jsp");
+					rd.forward(request,  response);
+				}
+				else if (rolle.equals("Teilnehmer"))
+				{
+					RequestDispatcher rd = request.getRequestDispatcher("/home/index_startseite_student.jsp");
+					rd.forward(request,  response);
+				}
 				else
 				{
-					RequestDispatcher rd = request.getRequestDispatcher("/login");
+					RequestDispatcher rd = request.getRequestDispatcher("/home/logout");
 					rd.forward(request,  response);
 				}
 			}

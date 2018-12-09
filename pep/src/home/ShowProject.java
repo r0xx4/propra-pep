@@ -1,7 +1,6 @@
 package home;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import javax.servlet.http.HttpSession;
 import data_management.Driver;
 
 /**
- * Servlet implementation class ViewPersonalInfo
+ * Servlet implementation class ShowProject
  */
-@WebServlet("/home/view_personal_info")
-public class ViewPersonalInfo extends HttpServlet {
+@WebServlet("/show_project")
+public class ShowProject extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewPersonalInfo() {
+    public ShowProject() {
         super();
     }
 
@@ -45,29 +44,9 @@ public class ViewPersonalInfo extends HttpServlet {
 				String rolle = datenhaltung.getSubCat("account", accountname_ID).get(0).get("rollename_ID");
 				System.out.println(rolle);
 				System.out.println(session_ID);
-				if (rolle.equals("Admin"))
+				if (rolle.equals("Teilnehmer"))
 				{
-					RequestDispatcher rd = request.getRequestDispatcher("/home/index_mein_account_admin.jsp");
-					rd.forward(request,  response);
-				}
-				else if (rolle.equals("Juror"))
-				{
-					RequestDispatcher rd = request.getRequestDispatcher("/home/index_mein_account_juror.jsp");
-					rd.forward(request,  response);
-				}
-				else if (rolle.equals("Tutor"))
-				{
-					RequestDispatcher rd = request.getRequestDispatcher("/home/index_mein_account_betreuer.jsp");
-					rd.forward(request,  response);
-				}
-				else if (rolle.equals("Teamleiter"))
-				{
-					RequestDispatcher rd = request.getRequestDispatcher("/home/index_mein_account_student.jsp");
-					rd.forward(request,  response);
-				}
-				else if (rolle.equals("Teilnehmer"))
-				{
-					RequestDispatcher rd = request.getRequestDispatcher("/home/index_mein_account_student.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("/home/index_projektansicht_student.html");
 					rd.forward(request,  response);
 				}
 				else
@@ -87,6 +66,8 @@ public class ViewPersonalInfo extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

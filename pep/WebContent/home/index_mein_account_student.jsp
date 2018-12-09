@@ -200,30 +200,25 @@
 			document.body.appendChild(form);
 			form.submit();
 		}
-		document.querySelector('#link_home').addEventListener("click",
-				klickLinkHomeEvent);
-		function klickLinkHomeEvent() {
-			//Hier Code für aufrufen von Startseite
-			window.alert("Home");
-		}
-		document.querySelector('#link_logout').addEventListener("click",
-				klickLinkLogoutEvent);
-		function klickLinkLogoutEvent() {
-			//Hier Code für Logout Button gedrückt
-			window.alert("Logout");
-		}
+		
+		document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
+        function klickLinkHomeEvent(){
+        	window.open("/pep/home", "_self");
+        }
+        document.querySelector('#link_logout').addEventListener("click", klickLinkLogoutEvent); 
+        function klickLinkLogoutEvent(){
+            window.open("/pep/home/logout", "_self");
+        }
+        document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
+        function klickLinkPersonalSettingsEvent(){
+        	window.open("/pep/home/view_personal_info", "_self");
+        }
 		document.querySelector('#link_show_project').addEventListener("click",
 				klickLinkShowProjectEvent);
 		function klickLinkShowProjectEvent() {
-			//Hier Code für zeige Projekt Button gedrückt
-			window.alert("Show Project");
+        	window.open("/pep/home/show_project", "_self");
 		}
-		document.querySelector('#link_personal_settings').addEventListener(
-				"click", klickLinkPersonalSettingsEvent);
-		function klickLinkPersonalSettingsEvent() {
-			//Hier Code für zeige persönliche Daten Button gedrückt
-			window.alert("Personal Settings");
-		}
+		
 		document.querySelector('#btn_submit').addEventListener("click",
 				sendPostToDb);
 		function sendPostToDb() {
