@@ -34,7 +34,6 @@ public class Logout extends HttpServlet {
 		HttpSession session = request.getSession();
 		Driver datenhaltung = new Driver();
 		String sessionmapname_ID = (String)(session.getAttribute("session_id"));
-		sessionmapname_ID.replaceAll("0", "");
 		System.out.println(sessionmapname_ID);
 		try 
 		{

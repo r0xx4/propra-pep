@@ -211,28 +211,6 @@
         </div>
 
         <script>   
-            //Hier Javascript Code
-            document.querySelector('#link_home').addEventListener("click", klickLinkHomeEvent); 
-            function klickLinkHomeEvent(){
-                //Hier Code für aufrufen von Startseite
-                window.alert("Home");
-            }
-            document.querySelector('#link_logout').addEventListener("click", klickLinkLogoutEvent); 
-            function klickLinkLogoutEvent(){
-                //Hier Code für Logout Button gedrückt
-                window.alert("Logout");
-            }
-            document.querySelector('#link_show_teams').addEventListener("click", klickLinkShowTeamsEvent); 
-            function klickLinkShowTeamsEvent(){
-                //Hier Code für zeige Teams Button gedrückt
-                window.alert("Show Teams");
-            }
-            document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 
-            function klickLinkPersonalSettingsEvent(){
-                //Hier Code für zeige persönliche Daten Button gedrückt
-                window.alert("Personal Settings");
-            }
-
             document.querySelector('#btn_team_1').addEventListener("click", klickBtnTeam1);
             function klickBtnTeam1(){
                 document.querySelector('#lbl_team_name').innerHTML = "Team 1";
@@ -266,6 +244,27 @@
                 document.querySelector('#lbl_team_chairman').innerHTML = "Tom Cruise";
                 document.querySelector('#lbl_team_member').innerHTML = "Helene Fischer</br>Daniel Craig</br>Samuel Jackson</br>Morgan Freeman";
             }
+            
+            document.querySelector('#link_download_documentation').addEventListener("click", klickLinkDownloadDocumentation);
+            function klickLinkDownloadDocumentation(){
+                //Hier Code für Download von Dokumentation
+                window.alert("Downloaded Dokumentation")
+            }
+            document.querySelector('#link_download_presentation').addEventListener("click", klickLinkDownloadPresentation);
+            function klickLinkDownloadPresentation(){
+                //Hier Code für Download von Presentation
+                window.alert("Downloaded Presentation")
+            }
+            document.querySelector('#link_download_poster').addEventListener("click", klickLinkDownloadPoster);
+            function klickLinkDownloadPoster(){
+                //Hier Code für Download von Poster
+                window.alert("Downloaded Poster")
+            }
+            document.querySelector('#link_download_summary').addEventListener("click", klickLinkDownloadSummary);
+            function klickLinkDownloadSummary(){
+                //Hier Code für Download von Summary
+                window.alert("Downloaded Summary")
+            }
 
             document.querySelector('#link_home').addEventListener("click",
     				klickLinkHomeEvent);
@@ -277,9 +276,9 @@
     		function klickLinkLogoutEvent() {
     			window.open("/pep/home/logout", "_self");
     		}
-    		document.querySelector('#link_show_all_teams').addEventListener(
-    				"click", klickLinkShowAllTeamsEvent);
-    		function klickLinkShowAllTeamsEvent() {
+    		document.querySelector('#link_show_teams').addEventListener(
+    				"click", klickLinkShowTeamsEvent);
+    		function klickLinkShowTeamsEvent() {
     			window.open("/pep/home/show_teams", "_self");
     		}
     		document.querySelector('#link_personal_settings').addEventListener(

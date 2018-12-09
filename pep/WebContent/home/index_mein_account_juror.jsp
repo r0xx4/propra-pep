@@ -76,7 +76,7 @@
 				<li id="link_home" class="sidebar-list-item"><a href="#"
 					class="sidebar-link text-muted"><i
 						class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
-				<li id="link_show_all_teams" class="sidebar-list-item"><a
+				<li id="link_show_teams" class="sidebar-list-item"><a
 					href="#" class="sidebar-link text-muted"><i
 						class="o-archive-1 mr-3 text-gray"></i><span>Teams</span></a></li>
 			</ul>
@@ -208,8 +208,8 @@
         function klickLinkLogoutEvent(){
             window.open("/pep/home/logout", "_self");
         }
-        document.querySelector('#link_show_all_teams').addEventListener("click", klickLinkShowAllTeamsEvent); 
-        function klickLinkShowAllTeamsEvent(){
+        document.querySelector('#link_show_teams').addEventListener("click", klickLinkShowTeamsEvent); 
+        function klickLinkShowTeamsEvent(){
         	window.open("/pep/home/show_teams", "_self");
         }
         document.querySelector('#link_personal_settings').addEventListener("click", klickLinkPersonalSettingsEvent); 

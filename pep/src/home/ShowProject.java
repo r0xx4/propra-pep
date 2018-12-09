@@ -39,7 +39,6 @@ public class ShowProject extends HttpServlet {
 		{
 			if (session_ID != null)
 			{
-				session_ID = session_ID.replaceAll("0", ""); 
 				String accountname_ID = datenhaltung.getSubCat("sessionmap", session_ID).get(0).get("accountname_ID");
 				String rolle = datenhaltung.getSubCat("account", accountname_ID).get(0).get("rollename_ID");
 				System.out.println(rolle);

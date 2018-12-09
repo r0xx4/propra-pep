@@ -147,7 +147,7 @@ public class Driver {
 		sql = "Insert Into sessionmap (accountname_ID) Values('" + mail + "')";
 		executeUpdate(sql);
 		sql = "Select sessionmapname_ID From sessionmap Where accountname_ID Like '" + mail + "'";
-		return formatSessionID(returnArrayList(sql).get(0).get("sessionmapname_ID"));
+		return returnArrayList(sql).get(0).get("sessionmapname_ID");
 
 	}
 
