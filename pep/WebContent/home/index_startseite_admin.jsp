@@ -98,11 +98,14 @@
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
                         <h3 class="h3"><b>Funktionen:</b></h3>
                     </div>
-                    <label for="btn_enable_valuation">Um die Bewertung durch die Juroren frei zu schalten drücken Sie den Button</label>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
+                    <div>
+                    	<label>Um die Bewertung durch die Juroren frei zu schalten drücken Sie den Button</label>
+	                    <button id="btn_start_valuation_phase" class="btn btn-primary">Bewertungsphase starten</button> 
+                    </div>
+                    <div>
+                    	<label class="pt-3">Laden Sie hier vor der Siegerehrung die Liste mit den Bestplazierten herunter: <a href="#">Bestplaziertenliste</a></label></br>
+                    	<label class="pt-3">Laden Sie hier die Präsentation für die Siegerehrung herunter: <a href="#">Präsentation</a></label></br>
+                    </div>
                 </div>
                 <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
                     <div class="container-fluid">

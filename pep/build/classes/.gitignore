@@ -1,7 +1,5 @@
-/home/
-/handle_post_requests/
-<<<<<<< HEAD
 /data_management/
+/handle_post_requests/
 /home/
-=======
->>>>>>> branch 'master' of https://github.com/r0xx4/propra-pep.git
+/login/
+/registration/
