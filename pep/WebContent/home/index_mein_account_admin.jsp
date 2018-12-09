@@ -257,10 +257,13 @@
 			console.log(document.getElementById('input_last_name').value);
 			
 			if (input_old_password.value != "")
-				if (input_new_password.value == input_new_password_repeat.value)
-					data['password'] = document.getElementById('password').value;
+				if (input_new_password.value == input_new_password_repeat.value){
+					data['password_old'] = document.getElementById('input_old_password').value;
+					data['password'] = document.getElementById('input_new_password').value;
+				}
 				else
 					window.alert("Die neuen Passwörter stimmen nicht über ein!");
+			
 			post("/pep/handle_db_write_personal_info", data);
 		}
 	</script>
