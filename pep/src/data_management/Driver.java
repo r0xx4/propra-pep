@@ -20,27 +20,28 @@ import javax.xml.bind.DatatypeConverter;
 
 public class Driver {
 
-	private static final byte salt[]=DatatypeConverter.parseHexBinary("DE358A58A8769EB4A370A7EE9EC54CDE76CE64C2");
-	
+	private static final byte salt[] = DatatypeConverter.parseHexBinary("DE358A58A8769EB4A370A7EE9EC54CDE76CE64C2");
+
 	// Method createTeam
-	public boolean createTeam(String lehrstuhl, String projekttitel, String organisationseinheit, String betreuer1, String betreuer2) throws SQLException {
+	public boolean createTeam(String lehrstuhl, String projekttitel, String organisationseinheit, String betreuer1,
+			String betreuer2) throws SQLException {
 
 		String kennnummer = generateKennnummer(lehrstuhl);
 		String sql = "Insert Into team (teamname_ID,teamnummer,projekttitel,projektpfad,organisationseinheitname_ID) Values('"
-				+ kennnummer + "','" + kennnummer.substring(7, 9) + "','" + projekttitel + "','" + "/" + kennnummer + "/data" + "','"
-				+ organisationseinheit + "')";
+				+ kennnummer + "','" + kennnummer.substring(7, 9) + "','" + projekttitel + "','" + "/" + kennnummer
+				+ "/data" + "','" + organisationseinheit + "')";
 		executeUpdate(sql);
-		
+
 		HashMap<String, String> teammap_row = new HashMap<>();
 		teammap_row.put("accountname_ID", betreuer1);
 		teammap_row.put("teamname_ID", kennnummer);
 		this.insertHashMap("teammap", teammap_row);
-		
+
 		HashMap<String, String> teammap_row2 = new HashMap<>();
 		teammap_row2.put("accountname_ID", betreuer2);
 		teammap_row2.put("teamname_ID", kennnummer);
 		this.insertHashMap("teammap", teammap_row2);
-		
+
 		return true;
 	}
 
@@ -59,54 +60,50 @@ public class Driver {
 
 	public boolean updateTable(String table, String iDV, HashMap<String, String> hashMap) throws SQLException {
 		Set<String> keys = hashMap.keySet();
-        StringBuilder sql = new StringBuilder("UPDATE ");
-        sql.append(table);
-        sql.append(" SET ");
-        for(String s: keys) 
-        	if (!hashMap.get(s).equals("null"))
-        		sql.append(s+" = '"+hashMap.get(s)+"' ,");
-        	else
-        		sql.append(s+" = "+hashMap.get(s)+" ,");
-        sql.setLength(sql.length()-1);
-        sql.append("WHERE ");
-        sql.append(table);
-        sql.append("name_ID LIKE '");
-        sql.append(iDV);
-        sql.append("';");
-        return executeUpdate(sql.toString());
-/*
-            sql.append(s+" = ? ,");
+		StringBuilder sql = new StringBuilder("UPDATE ");
+		sql.append(table);
+		sql.append(" SET ");
+		for (String s : keys)
+			if (!hashMap.get(s).equals("null"))
+				sql.append(s + " = '" + hashMap.get(s) + "' ,");
+			else
+				sql.append(s + " = " + hashMap.get(s) + " ,");
+		sql.setLength(sql.length() - 1);
+		sql.append("WHERE ");
+		sql.append(table);
+		sql.append("name_ID LIKE '");
+		sql.append(iDV);
+		sql.append("';");
+		return executeUpdate(sql.toString());
+		/*
+		 * sql.append(s+" = ? ,");
+		 * 
+		 * sql.setLength(sql.length()-1); sql.append("WHERE "); sql.append(table);
+		 * sql.append("name_ID LIKE "); sql.append(iDV); sql.append(";"); return
+		 * executeUpdate(sql.toString(), hashMap, keys);
+		 */
+	}
 
-        sql.setLength(sql.length()-1);
-        sql.append("WHERE ");
-        sql.append(table);
-        sql.append("name_ID LIKE ");
-        sql.append(iDV);
-        sql.append(";");
-        return executeUpdate(sql.toString(), hashMap, keys);
-*/
-    }
-	
 	public String getSessionUser(String session_id) throws SQLException {
-        StringBuilder sql=new StringBuilder("SELECT accountname_ID FROM sessionmap WHERE sessionmapname_ID = ");
-        sql.append(session_id);
-        sql.append(" ;");
-        if(returnArrayList(sql.toString()).isEmpty())
-            return null;
-        return returnArrayList(sql.toString()).get(0).get("accountname_ID");
-    }
-	
-	public  boolean deleteRow(String table, String iDV) throws SQLException {
-        StringBuilder sql = new StringBuilder("DELETE FROM ");
-        sql.append(table);
-        sql.append(" WHERE ");
-        sql.append(table);
-        sql.append("name_ID LIKE '");
-        sql.append(iDV);
-        sql.append("';");
-        return executeUpdate(sql.toString());
-    }
-	
+		StringBuilder sql = new StringBuilder("SELECT accountname_ID FROM sessionmap WHERE sessionmapname_ID = ");
+		sql.append(session_id);
+		sql.append(" ;");
+		if (returnArrayList(sql.toString()).isEmpty())
+			return null;
+		return returnArrayList(sql.toString()).get(0).get("accountname_ID");
+	}
+
+	public boolean deleteRow(String table, String iDV) throws SQLException {
+		StringBuilder sql = new StringBuilder("DELETE FROM ");
+		sql.append(table);
+		sql.append(" WHERE ");
+		sql.append(table);
+		sql.append("name_ID LIKE '");
+		sql.append(iDV);
+		sql.append("';");
+		return executeUpdate(sql.toString());
+	}
+
 	public boolean insertHashMap(String table, HashMap<String, String> hashMap) throws SQLException {
 		Set<String> keys = hashMap.keySet();
 		StringBuilder sql = new StringBuilder("INSERT INTO ");
@@ -165,15 +162,16 @@ public class Driver {
 	}
 
 	// Method getSubCat
-	public ArrayList<HashMap<String, String>> getSubCat(String table, String iDA,  String iDV, String column) throws SQLException {
-        String sql = "Select " + column + " From " + table + " Where " + iDA + " Like '" + iDV + "'";
-        return returnArrayList(sql);
-    }
-	
-	public ArrayList<HashMap<String, String>> getSubCat(String table, String iDA,  String iDV) throws SQLException {
-        String sql = "Select * From " + table + " Where " + iDA + " Like '" + iDV + "'";
-        return returnArrayList(sql);
-    }
+	public ArrayList<HashMap<String, String>> getSubCat(String table, String iDA, String iDV, String column)
+			throws SQLException {
+		String sql = "Select " + column + " From " + table + " Where " + iDA + " Like '" + iDV + "'";
+		return returnArrayList(sql);
+	}
+
+	public ArrayList<HashMap<String, String>> getSubCat(String table, String iDA, String iDV) throws SQLException {
+		String sql = "Select * From " + table + " Where " + iDA + " Like '" + iDV + "'";
+		return returnArrayList(sql);
+	}
 
 	public ArrayList<HashMap<String, String>> getSubCat(String table, String iD) throws SQLException {
 		String sql = "Select * From " + table + " Where " + table + "name_ID Like '" + iD + "'";
@@ -183,6 +181,31 @@ public class Driver {
 	public ArrayList<HashMap<String, String>> getSubCat(String table) throws SQLException {
 		String sql = "Select * From " + table + " Where 1";
 		return returnArrayList(sql);
+	}
+
+	// Method getAccountsInGroup
+	public ArrayList<HashMap<String, String>> getAccountsInGroup(String group) throws SQLException {
+		StringBuilder sql = new StringBuilder("SELECT account.accountname_ID FROM account ");
+		sql.append("INNER JOIN teammap ON account.accountname_ID=teammap.accountname_ID ");
+		sql.append("INNER JOIN team ON teammap.teamname_ID=team.teamname_ID ");
+		sql.append("INNER JOIN organisationseinheit ON team.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
+		sql.append("WHERE account.rollename_ID LIKE 'Teilnehmer' ");
+		sql.append("AND organisationseinheit.organisationseinheitname_ID LIKE '");
+		sql.append(group);
+		sql.append("';");
+		return returnArrayList(sql.toString());
+	}
+	
+	//Method getJurorForGroup()
+	public ArrayList<HashMap<String, String>> getJurorsInGroup(String group) throws SQLException {
+		StringBuilder sql = new StringBuilder("SELECT account.* FROM account ");
+		sql.append("INNER JOIN jurormap ON account.accountname_ID=jurormap.accountname_ID ");
+		sql.append("INNER JOIN organisationseinheit ON jurormap.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
+		sql.append("WHERE account.rollename_ID LIKE 'Juror' ");
+		sql.append("AND organisationseinheit.organisationseinheitname_ID LIKE '");
+		sql.append(group);
+		sql.append("';");
+		return returnArrayList(sql.toString());
 	}
 
 	// Method getCurrentPhase
@@ -201,12 +224,9 @@ public class Driver {
 	////////////// Hilfsmethoden//////////////////////////////////
 	// Method getConnection
 	public Connection getConnection() throws SQLException {
-		try 
-		{
+		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-		} 
-		catch (ClassNotFoundException e) 
-		{
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		Connection conn = DriverManager.getConnection(
@@ -214,7 +234,7 @@ public class Driver {
 				"pep", "XO47mVNIr1qNrECj");
 		return conn;
 	}
-	
+
 	// Method returnArrayList
 	public ArrayList<HashMap<String, String>> returnArrayList(String sql) throws SQLException {
 		try (Connection c = getConnection();
@@ -251,12 +271,12 @@ public class Driver {
 		}
 	}
 
-	public boolean executeUpdate(String sql, HashMap <String, String> hashMap,Set<String> keys) throws SQLException {
+	public boolean executeUpdate(String sql, HashMap<String, String> hashMap, Set<String> keys) throws SQLException {
 		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			int i = 1;
 			for (String key : keys)
 				stmt.setString(i++, hashMap.get(key));
-				
+
 			stmt.execute();
 			return true;
 		}
@@ -287,13 +307,13 @@ public class Driver {
 		t = Integer.parseInt(teamnummer);
 		return "L:" + (l < 10 ? "0" + l : l) + "|T:" + (t < 10 ? "0" + t : t) + "|Y:" + localDate.getYear();
 	}
-	
+
 	public static String getHash(byte inputBytes[]) throws NoSuchAlgorithmException {
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-        messageDigest.reset();
-        messageDigest.update(inputBytes);
-        messageDigest.update(salt);
-        byte digestedBytes[] = messageDigest.digest();
-        return DatatypeConverter.printHexBinary(digestedBytes);
-    }
+		MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+		messageDigest.reset();
+		messageDigest.update(inputBytes);
+		messageDigest.update(salt);
+		byte digestedBytes[] = messageDigest.digest();
+		return DatatypeConverter.printHexBinary(digestedBytes);
+	}
 }
