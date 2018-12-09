@@ -188,19 +188,21 @@ public class Driver {
 		StringBuilder sql = new StringBuilder("SELECT account.accountname_ID FROM account ");
 		sql.append("INNER JOIN teammap ON account.accountname_ID=teammap.accountname_ID ");
 		sql.append("INNER JOIN team ON teammap.teamname_ID=team.teamname_ID ");
-		sql.append("INNER JOIN organisationseinheit ON team.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
+		sql.append(
+				"INNER JOIN organisationseinheit ON team.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
 		sql.append("WHERE account.rollename_ID LIKE 'Teilnehmer' ");
 		sql.append("AND organisationseinheit.organisationseinheitname_ID LIKE '");
 		sql.append(group);
 		sql.append("';");
 		return returnArrayList(sql.toString());
 	}
-	
-	//Method getJurorForGroup()
+
+	// Method getJurorForGroup()
 	public ArrayList<HashMap<String, String>> getJurorsInGroup(String group) throws SQLException {
 		StringBuilder sql = new StringBuilder("SELECT account.* FROM account ");
 		sql.append("INNER JOIN jurormap ON account.accountname_ID=jurormap.accountname_ID ");
-		sql.append("INNER JOIN organisationseinheit ON jurormap.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
+		sql.append(
+				"INNER JOIN organisationseinheit ON jurormap.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
 		sql.append("WHERE account.rollename_ID LIKE 'Juror' ");
 		sql.append("AND organisationseinheit.organisationseinheitname_ID LIKE '");
 		sql.append(group);
@@ -219,6 +221,34 @@ public class Driver {
 		sql.append("'");
 		ArrayList<HashMap<String, String>> list = returnArrayList(sql.toString());
 		return list.isEmpty() ? null : list.get(0).get("phasename_ID");
+	}
+	// Method insertNewGroup
+	public static void main(String[] args) throws SQLException {
+		Driver d=new Driver();
+		System.out.println(d.insertNewGroup());
+		System.out.println(d.insertNewGroup());
+		System.out.println(d.insertNewGroup());
+	}
+	public boolean insertNewGroup() throws SQLException {
+		StringBuilder sql=new StringBuilder("SELECT organisationseinheitname_ID FROM organisationseinheit;");
+		ArrayList<HashMap<String, String>> gruppen=returnArrayList(sql.toString());
+		sql.setLength(0);
+		sql.append("INSERT INTO organisationseinheit ");
+		sql.append("(organisationseinheitname_ID) VALUES ('");
+		int i=0;
+		for(HashMap<String, String> gruppe: gruppen) {
+			i++;
+			if(!gruppe.get("organisationseinheitname_ID").contains(i+"")) {
+				sql.append("Gruppe "+i);
+				sql.append("');");
+				return executeUpdate(sql.toString());
+			}		
+		}
+		i++;
+		sql.append("Gruppe "+i);
+		sql.append("');");
+
+		return executeUpdate(sql.toString());
 	}
 
 	////////////// Hilfsmethoden//////////////////////////////////
