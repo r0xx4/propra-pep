@@ -112,19 +112,7 @@
                 }
                 %>
             </select>
-            
-            
-            <% 
-            //<select id="inputUniversityChair" type="universityChair" class="custom-select">
-            //     <option selected>Lehrstuhl (nur für Betreuer)</option>
-            //     <%
-            //     ArrayList<HashMap<String, String>> lehrstuehle = datenhaltung.getSubCat("lehrstuhl");
-            //     for (HashMap<String, String> lehrstuhl : lehrstuehle)
-            //     {
-            //        <option> out.print(lehrstuhl.get("lehrstuhlname_ID")); </option>
-            //     }
-            //</select>
-            %>
+
             
             <input id="inputEmail" type="email" class="form-control" placeholder="E-Mail-Adresse">
             <input id="inputPassword" type="password" class="form-control" placeholder="Passwort">
@@ -148,7 +136,6 @@
             var passwordRepeat;
             var masterkey;
 
-            //document.getElementById("inputUniversityChair").disabled=true;
             document.getElementById("inputMasterkey").disabled=true;
 			document.getElementById("inputMatriculationNumber").disabled=true;
             document.getElementById("inputCourseOfStudies").disabled=true;
@@ -156,25 +143,21 @@
             document.querySelector('#inputRole').addEventListener("input", inputRoleOninputEvent); 
             function inputRoleOninputEvent(){
                 if(document.querySelector("#inputRole").value == "Registrieren als"){
-                    //document.getElementById("inputUniversityChair").disabled=true;
                     document.getElementById("inputMasterkey").disabled=true;
                     document.getElementById("inputMatriculationNumber").disabled=false;
                     document.getElementById("inputCourseOfStudies").disabled=false;
                 }
                 if(document.querySelector("#inputRole").value == "Teilnehmer"){
-                    //document.getElementById("inputUniversityChair").disabled=true;
                     document.getElementById("inputMasterkey").disabled=true;
 					document.getElementById("inputMatriculationNumber").disabled=false;
                     document.getElementById("inputCourseOfStudies").disabled=false;
                 }
                 if(document.querySelector("#inputRole").value == "Tutor"){
-                    //document.getElementById("inputUniversityChair").disabled=false;
                     document.getElementById("inputMasterkey").disabled=false;
                     document.getElementById("inputMatriculationNumber").disabled=true;
                     document.getElementById("inputCourseOfStudies").disabled=true;
                 }
                 if(document.querySelector("#inputRole").value == "Juror"){
-                    //document.getElementById("inputUniversityChair").disabled=true;
                     document.getElementById("inputMasterkey").disabled=false;
 					document.getElementById("inputMatriculationNumber").disabled=true;
                     document.getElementById("inputCourseOfStudies").disabled=true;
@@ -193,7 +176,6 @@
                 lastName = document.querySelector("#inputLastName").value;
                 if (role == "Teilnehmer") matriculationNumber = document.querySelector("#inputMatriculationNumber").value;
                 if (role == "Teilnehmer") courseOfStudies = document.querySelector("#inputCourseOfStudies").value;
-//              if (role == "Tutor") universityChair = document.querySelector("#inputUniversityChair").value;
                 email = document.querySelector("#inputEmail").value;
                 password = document.querySelector("#inputPassword").value;
                 passwordRepeat = document.querySelector("#inputPasswordRepeat").value;
@@ -211,8 +193,6 @@
                 	window.alert("Bitte Matrikelnummer angeben!");
                 else if (role == "Teilnehmer" && courseOfStudies == "Studiengang")
                 	window.alert("Bitte Studiengang angeben!");
-//              else if (role == "Tutor" && universityChair == "Lehrstuhl (nur für Betreuer)")
-//                	window.alert("Bitte Lehrstuhl angeben!");
                 else if (email == "")
                 	window.alert("Bitte E-Mail angeben!");
                 else if (password == "")

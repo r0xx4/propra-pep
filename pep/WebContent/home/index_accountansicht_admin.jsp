@@ -208,21 +208,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="select_university_chair" class="col-form-label">Lehrstuhl:</label>
-                                <select id="select_university_chair" class="custom-select form-control">
-                                    <%
-                                   	ArrayList<HashMap<String, String>> lehrstuehle = datenhaltung.getSubCat("lehrstuhl");
-                                    for (HashMap<String, String> lehrstuhl : lehrstuehle)
-                                    {
-                                    	%>
-                                    	<option><% out.print(lehrstuhl.get("lehrstuhlname_ID")); %></option>
-                                    	<%
-                                    }
-                                    %>
-                                    <option>null</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label for="select_team" class="col-form-label">Team:</label>
                                 <select id="select_team" class="custom-select form-control">
                                     <%
@@ -419,7 +404,6 @@
             	data["matrikelnummer"] = document.querySelector('#input_matriculation_number_editmode').value;
             	data["studiengangname_ID"] = document.querySelector('#select_course_of_studies_editmode').value;
             	data["team"] = document.querySelector('#select_team_editmode').value;
-            	data["lehrstuhlname_ID"] = "";
             	post("/pep/handle_db_write_accounts", data);
             }
             
