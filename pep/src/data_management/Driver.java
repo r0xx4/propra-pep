@@ -203,8 +203,8 @@ public class Driver {
 		sql.append("INNER JOIN team ON teammap.teamname_ID=team.teamname_ID ");
 		sql.append(
 				"INNER JOIN organisationseinheit ON team.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
-		sql.append("WHERE account.rollename_ID LIKE 'Teilnehmer' AND account.rollename_ID LIKE 'Teamleiter'");
-		sql.append("OR organisationseinheit.organisationseinheitname_ID LIKE '");
+		sql.append("WHERE account.rollename_ID LIKE 'Teilnehmer' OR account.rollename_ID LIKE 'Teamleiter'");
+		sql.append("AND organisationseinheit.organisationseinheitname_ID LIKE '");
 		sql.append(group);
 		sql.append("';");
 		return returnArrayList(sql.toString());
