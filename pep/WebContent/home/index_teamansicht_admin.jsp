@@ -77,6 +77,7 @@
                             	<% 	
                            		Driver datenhaltung = new Driver();
                            		ArrayList<HashMap<String, String>> html_contents = datenhaltung.getSubCat("team");
+                           		System.out.println(html_contents);
                            		ArrayList<HashMap<String, String>> tutors = new ArrayList<>();
                            		for (HashMap<String, String> row : html_contents)
                            		{
@@ -120,6 +121,7 @@
 	                                    %>
 	                                    <td><% out.print(tutor_2); %></td>
 	                                    <td><% out.print(row.get("projekttitel")); %></td>
+	                                    <% System.out.println("btn_valuation_" + tutors.size()); %>
 	                                    <td><button id="btn_valuation_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_valuation" class="btn btn-sm btn-outline-info text-center col-sm">Bewertung</button></td>
                                     	<td><button id="btn_edit_team_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-center col-sm">Bearbeiten</button></td>
 	                                </tr>
@@ -398,9 +400,49 @@
             }
             document.querySelector('#btn_new_team').addEventListener("click", klickBtnNewTeamEvent);
             function klickBtnNewTeamEvent(){
-                //Hier Code für neue Gruppe anlegen Button gedrückt
+            	
             }
+            
+               
             <%
+            for (int x = 0; x < html_contents.size(); x++){
+            	System.out.println(html_contents.get(x));
+            	%>
+            	document.querySelector('#btn_valuation_<% out.print(x+1); %>').addEventListener("click", function(){
+            		
+            		<%
+            		int hk_count = 0;
+            		for (HashMap<String, String> hauptkriterium : hauptkriterien){
+            			ArrayList<HashMap<String, String>> teilkriterien = datenhaltung.getSubCat("teilkriterium", "hauptkriteriumname_ID", hauptkriterium.get("hauptkriteriumname_ID"));
+            			int tk_count = 0;
+            			for (HashMap<String, String> teilkriterium : teilkriterien){
+            				ArrayList<HashMap<String, String>> kriteriumsmap = datenhaltung.getScoreForCriterion(html_contents.get(x).get("teamname_ID"), teilkriterium.get("teilkriteriumname_ID"));
+            				if(kriteriumsmap.isEmpty() == false){
+            					%>
+            					document.querySelector('#select_valuation_<% out.print(hk_count+1); %>_<% out.print(tk_count+1); %>').value = "<% out.print(kriteriumsmap.get(0).get("punkte")); %>";
+            					<%
+            					System.out.println(kriteriumsmap.get(0).get("punkte"));
+            				}
+            				else{
+            					%>
+            					document.querySelector('#select_valuation_<% out.print(hk_count+1); %>_<% out.print(tk_count+1); %>').value = "<% out.print("-"); %>";
+            					<%
+            				}
+            				tk_count++;
+            			}
+            			hk_count++;
+            		}
+            		%>
+            	})
+            	<%
+            }
+            
+            %>
+            
+            
+            
+            
+    		<%
             for (int x = 1; x <= html_contents.size(); x++)
             {
             	%>
