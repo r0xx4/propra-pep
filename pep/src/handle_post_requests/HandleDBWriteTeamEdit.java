@@ -73,7 +73,6 @@ public class HandleDBWriteTeamEdit extends HttpServlet {
 				
 				HashMap<String, String> update_hm = new HashMap<>();
 				update_hm.put("projekttitel", push_into_db.get("projekttitel"));
-				update_hm.put("organisationseinheitname_ID", push_into_db.get("organisationseinheitname_ID"));
 				datenhaltung.updateTable("team", push_into_db.get("teamname_ID"), update_hm);
 			}
 		} 

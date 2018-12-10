@@ -3,7 +3,6 @@ package handle_post_requests;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -15,16 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import data_management.Driver;
 
 /**
- * Servlet implementation class HandleDBWriteTeamCreate
+ * Servlet implementation class HandleDBWriteValuation
  */
-@WebServlet("/handle_db_write_create_teams")
-public class HandleDBWriteTeamCreate extends HttpServlet {
+@WebServlet("/set_grades")
+public class HandleDBWriteValuation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HandleDBWriteTeamCreate() {
+    public HandleDBWriteValuation() {
         super();
     }
 
@@ -43,23 +42,29 @@ public class HandleDBWriteTeamCreate extends HttpServlet {
 		{
 			push_into_db.put(key, request.getParameterMap().get(key)[0]);
 		}
-		
+		System.out.println(push_into_db);
 		Driver datenhaltung = new Driver();
 		
-		try 
+		String teamname_ID = push_into_db.get("teamname_ID");
+		push_into_db.remove("teamname_ID");
+		
+		for (String attr : push_into_db.keySet())
 		{
-			ArrayList<HashMap<String, String>> lehrstuhl_tut_1 = datenhaltung.getSubCat("lehrstuhl", "accountname_ID", push_into_db.get("betreuer1"), "lehrstuhlname_ID");
-			if (!lehrstuhl_tut_1.isEmpty())
+			if (!push_into_db.get(attr).equals("-"))
 			{
-				String lehrstuhlname_ID = lehrstuhl_tut_1.get(0).get("lehrstuhlname_ID");
-				String org_einheit_lehrstuhl = datenhaltung.getSubCat("lehrstuhl", "lehrstuhlname_ID", lehrstuhlname_ID, "organisationseinheitname_ID").get(0).get("organisationseinheitname_ID");
-				datenhaltung.createTeam(lehrstuhl_tut_1.get(0).get("lehrstuhlname_ID"), push_into_db.get("projekttitel"), org_einheit_lehrstuhl, push_into_db.get("betreuer1"), push_into_db.get("betreuer2"));
-				
+				HashMap<String, String> bewertung = new HashMap<>();
+				bewertung.put("teamname_ID", teamname_ID);
+				bewertung.put("teilkriteriumname_ID", attr);
+				bewertung.put("punkte", push_into_db.get(attr));
+				try 
+				{
+					datenhaltung.insertHashMap("kriteriumsmap", bewertung);
+				} 
+				catch (SQLException e) 
+				{
+					e.printStackTrace();
+				}
 			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
 		}
 		
 		PrintWriter out = response.getWriter();
@@ -68,4 +73,5 @@ public class HandleDBWriteTeamCreate extends HttpServlet {
 		out.println("</script>");
 		out.close();
 	}
+
 }

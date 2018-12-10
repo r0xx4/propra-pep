@@ -65,9 +65,9 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Kennnummer</th>
                                     <th scope="col">Studenten</th>
-                                    <th scope="col">Gruppe</th>
                                     <th scope="col">Betreuer 1</th>
                                     <th scope="col">Betreuer 2</th>
+                                    <th scope="col">Gruppe</th>
                                     <th scope="col">Projekt</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
@@ -77,7 +77,6 @@
                             	<% 	
                            		Driver datenhaltung = new Driver();
                            		ArrayList<HashMap<String, String>> html_contents = datenhaltung.getSubCat("team");
-                           		System.out.println(html_contents);
                            		ArrayList<HashMap<String, String>> tutors = new ArrayList<>();
                            		for (HashMap<String, String> row : html_contents)
                            		{
@@ -86,8 +85,18 @@
 	                           		<tr>
 	                                    <th><% out.print("Team " + row.get("teamnummer")); %></th>
 	                                    <td><% out.print(row.get("teamname_ID")); %></th>
-	                                    <td>-</td>
-	                                    <td><% out.print(row.get("organisationseinheitname_ID")); %></td>
+	                                    <% 
+	                                    int counter = 0;
+	                                    ArrayList<HashMap<String, String>> accountsInTeam = datenhaltung.getSubCat("teammap", "teamname_ID", row.get("teamname_ID"), "accountname_ID");
+	                                    for(HashMap<String, String> account : accountsInTeam){
+	                                    	if(!datenhaltung.getSubCat("account", "accountname_ID", account.get("accountname_ID"), "rollename_ID").get(0).get("rollename_ID").equals("Tutor")){
+	                                    		counter++;
+	                                    	}
+	
+	                                    }
+	                                   
+	                                    %>
+	                                    <td> <% out.print(counter); %></td>
 	                                    <%
 	                                    ArrayList<HashMap<String, String>> accounts_in_team = datenhaltung.getSubCat("teammap", "teamname_ID", row.get("teamname_ID"), "accountname_ID");
 	                                    String tutor_1 = null;
@@ -120,8 +129,13 @@
 	                                    }
 	                                    %>
 	                                    <td><% out.print(tutor_2); %></td>
+	                                    <% 
+	                        			ArrayList<HashMap<String, String>> lehrstuhl_tut_1 = datenhaltung.getSubCat("lehrstuhl", "accountname_ID", tutors.get(tutors.size()-1).get("tutor1"), "lehrstuhlname_ID");
+	                                    String lehrstuhlname_ID = lehrstuhl_tut_1.get(0).get("lehrstuhlname_ID");
+	                    				String org_einheit_lehrstuhl = datenhaltung.getSubCat("lehrstuhl", "lehrstuhlname_ID", lehrstuhlname_ID, "organisationseinheitname_ID").get(0).get("organisationseinheitname_ID");
+	                                    %>
+	                                    <td><% out.print(org_einheit_lehrstuhl); %></td>
 	                                    <td><% out.print(row.get("projekttitel")); %></td>
-	                                    <% System.out.println("btn_valuation_" + tutors.size()); %>
 	                                    <td><button id="btn_valuation_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_valuation" class="btn btn-sm btn-outline-info text-center col-sm">Bewertung</button></td>
                                     	<td><button id="btn_edit_team_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_edit_team" class="btn btn-sm btn-outline-secondary text-center col-sm">Bearbeiten</button></td>
 	                                </tr>
@@ -159,20 +173,6 @@
                             <div class="form-group">
                                 <label for="input_team_name" class="col-form-label">Name:</label>
                                 <input type="text" class="form-control" readonly id="input_team_name" placeholder="*wird generiert*">
-                            </div>
-                            <div class="form-group">
-                                <label for="select_group" class="col-form-label">Gruppe:</label>
-                                <select id="select_group" class="custom-select form-control">
-                                    <%
-                                   	ArrayList<HashMap<String, String>> gruppen = datenhaltung.getSubCat("organisationseinheit");
-                                    for (HashMap<String, String> gruppe : gruppen)
-                                    {
-                                    	%>
-                                    	<option><% out.print(gruppe.get("organisationseinheitname_ID")); %></option>
-                                    	<%
-                                    }
-                                    %>
-                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="select_supervisor_1" class="col-form-label">Betreuer 1:</label>
@@ -230,19 +230,6 @@
                             <div class="form-group">
                                 <label for="input_team_name_editmode" class="col-form-label">Name:</label>
                                 <input type="text" class="form-control" readonly id="input_team_name_editmode">
-                            </div>
-                            <div class="form-group">
-                                <label for="select_group_editmode" class="col-form-label">Gruppe:</label>
-                                <select id="select_group_editmode" class="custom-select form-control">
-                                    <%
-                                    for (HashMap<String, String> gruppe : gruppen)
-                                    {
-                                    	%>
-                                    	<option><% out.print(gruppe.get("organisationseinheitname_ID")); %></option>
-                                    	<%
-                                    }
-                                    %>
-                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="select_supervisor_1_editmode" class="col-form-label">Betreuer 1:</label>
@@ -336,12 +323,12 @@
                                 	c_hk++;
                                 }
                             	%>
-                                
+                          	</div>  
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button id="btn_break" type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button id="btn_save" type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+                        <button id="btn_save_valuation" type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
                     </div>
                 </div>
             </div>
@@ -403,13 +390,13 @@
             	
             }
             
+            var current_html_content;
                
             <%
             for (int x = 0; x < html_contents.size(); x++){
-            	System.out.println(html_contents.get(x));
-            	%>
+             	%>
             	document.querySelector('#btn_valuation_<% out.print(x+1); %>').addEventListener("click", function(){
-            		
+            		current_html_content = "<% out.print(html_contents.get(x).get("teamname_ID")); %>";
             		<%
             		int hk_count = 0;
             		for (HashMap<String, String> hauptkriterium : hauptkriterien){
@@ -421,7 +408,6 @@
             					%>
             					document.querySelector('#select_valuation_<% out.print(hk_count+1); %>_<% out.print(tk_count+1); %>').value = "<% out.print(kriteriumsmap.get(0).get("punkte")); %>";
             					<%
-            					System.out.println(kriteriumsmap.get(0).get("punkte"));
             				}
             				else{
             					%>
@@ -439,8 +425,26 @@
             
             %>
             
-            
-            
+            document.querySelector('#btn_save_valuation').addEventListener("click", sendPostToDb_valuation);
+            function sendPostToDb_valuation(){
+            	var data = {};
+            	data["teamname_ID"] = current_html_content;
+            	<%
+            	int hk_count = 0;
+        		for (HashMap<String, String> hauptkriterium : hauptkriterien){
+        			ArrayList<HashMap<String, String>> teilkriterien = datenhaltung.getSubCat("teilkriterium", "hauptkriteriumname_ID", hauptkriterium.get("hauptkriteriumname_ID"));
+        			int tk_count = 0;
+        			for (HashMap<String, String> teilkriterium : teilkriterien){
+        				%>
+        				data["<% out.print(teilkriterium.get("teilkriteriumname_ID")); %>"] = document.querySelector('#select_valuation_<% out.print(hk_count+1); %>_<% out.print(tk_count+1); %>').value; 
+        				<%
+        				tk_count++;
+        			}
+        			hk_count++;
+        		}
+            	%>
+            	post("/pep/set_grades", data);
+            }
             
     		<%
             for (int x = 1; x <= html_contents.size(); x++)
@@ -449,7 +453,6 @@
             	document.querySelector('#btn_edit_team_<% out.print(x); %>').addEventListener("click", function()
             	{
             		document.querySelector('#input_team_name_editmode').value = "<% out.print(html_contents.get(x-1).get("teamname_ID")); %>";
-            		document.querySelector('#select_group_editmode').value = "<% out.print(html_contents.get(x-1).get("organisationseinheitname_ID")); %>";
                     document.querySelector('#select_supervisor_1_editmode').value = "<% out.print(tutors.get(x-1).get("tutor1")); %>";
                     document.querySelector('#select_supervisor_2_editmode').value = "<% out.print(tutors.get(x-1).get("tutor2")); %>";
                     document.querySelector('#input_project_name_editmode').value = "<% out.print(html_contents.get(x-1).get("projekttitel")); %>";
@@ -463,7 +466,6 @@
             	var data = {};
             	data["teamname_ID"] = document.querySelector('#input_team_name_editmode').value;
             	data["projekttitel"] = document.querySelector('#input_project_name_editmode').value;
-            	data["organisationseinheitname_ID"] = document.querySelector('#select_group_editmode').value;
             	data["betreuer1"] = document.querySelector('#select_supervisor_1_editmode').value;
             	data["betreuer2"] = document.querySelector('#select_supervisor_2_editmode').value;
             	post("/pep/handle_db_write_edit_teams", data);
@@ -473,7 +475,6 @@
             function sendPostToDb_create(){
             	var data = {};
             	data["projekttitel"] = document.querySelector('#input_project_name').value;
-            	data["organisationseinheitname_ID"] = document.querySelector('#select_group').value;
             	data["betreuer1"] = document.querySelector('#select_supervisor_1').value;
             	data["betreuer2"] = document.querySelector('#select_supervisor_2').value;
             	post("/pep/handle_db_write_create_teams", data);
