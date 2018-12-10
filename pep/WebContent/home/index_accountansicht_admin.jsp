@@ -93,7 +93,20 @@
 								        <td><% out.print(row.get("accountname_ID")); %></td>
 								        <td><% out.print(row.get("matrikelnummer")); %></td>
 								        <td><% out.print(row.get("studiengangname_ID")); %></td>
-								        <td><% out.print(row.get("lehrstuhlname_ID")); %></td>
+								        <% ArrayList<HashMap<String, String>> lehrstuhlinhaber = datenhaltung.getSubCat("lehrstuhl", "accountname_ID", row.get("accountname_ID"), "lehrstuhlname_ID");
+								        if (!lehrstuhlinhaber.isEmpty())
+								        {
+								        	%>
+								        	<td><% out.print(lehrstuhlinhaber.get(0).get("lehrstuhlname_ID")); %></td>
+								        	<%
+								        }
+								        else
+								       	{
+								        	%>
+								        	<td><% out.print("null"); %></td>
+								        	<%
+								       	}
+								        %>
 							        <% 
 							        String team = "";
 							        ArrayList<HashMap<String, String>> teamname_ID_List = datenhaltung.getSubCat("teammap", "accountname_ID", row.get("accountname_ID"), "teamname_ID");
@@ -273,7 +286,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="input_email_editmode" class="col-form-label">Email:</label>
-                                <input type="text" class="form-control" id="input_email_editmode">
+                                <input type="text" class="form-control" id="input_email_editmode" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="input_matriculation_number_editmode" class="col-form-label">Matrikelnummer:</label>
@@ -294,22 +307,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="select_university_chair_editmode" class="col-form-label">Lehrstuhl:</label>
-                                <select id="select_university_chair_editmode" class="custom-select form-control">
-                                    <%
-                                    for (HashMap<String, String> lehrstuhl : lehrstuehle)
-                                    {
-                                    	%>
-                                    	<option><% out.print(lehrstuhl.get("lehrstuhlname_ID")); %></option>
-                                    	<%
-                                    }
-                                    %>
-                                    <option>null</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label for="select_team_editmode" class="col-form-label">Team:</label>
-                                <select id="select_team_editmode" class="custom-select form-control">
+                                <select id="select_team_editmode" class="custom-select form-control" >
                                     <%
                                     for (HashMap<String, String> team : team_table)
                                     {
@@ -404,8 +403,8 @@
                     document.querySelector('#select_course_of_studies_editmode').value = "<% out.print(html_contents.get(x-1).get("studiengangname_ID")); %>";
                     document.querySelector('#select_university_chair_editmode').value = "<% out.print(html_contents.get(x-1).get("lehrstuhlname_ID")); %>";
                     document.querySelector('#select_team_editmode').value = "<% out.print(teams.get(x-1)); %>"; 
-                    
-                    //TODO Team u. mail in manchen/allen Fällen nicht sichtbar machen
+                    if ((document.querySelector('#select_role_editmode').value == "Tutor") || (document.querySelector('#select_role_editmode').value == "Admin") || (document.querySelector('#select_role_editmode').value == "Juror"))
+                    	document.querySelector('#select_team_editmode').disabled = true;
             	})
             	<%	
             }
@@ -420,8 +419,8 @@
             	data["accountname_ID"] = document.querySelector('#input_email_editmode').value;
             	data["matrikelnummer"] = document.querySelector('#input_matriculation_number_editmode').value;
             	data["studiengangname_ID"] = document.querySelector('#select_course_of_studies_editmode').value;
-            	data["lehrstuhlname_ID"] = document.querySelector('#select_university_chair_editmode').value;
             	data["team"] = document.querySelector('#select_team_editmode').value;
+            	data["lehrstuhlname_ID"] = "";
             	post("/pep/handle_db_write_accounts", data);
             }
             

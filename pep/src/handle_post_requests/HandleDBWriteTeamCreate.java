@@ -51,10 +51,14 @@ public class HandleDBWriteTeamCreate extends HttpServlet {
 			ArrayList<HashMap<String, String>> lehrstuhl_tut_1 = datenhaltung.getSubCat("lehrstuhl", "accountname_ID", push_into_db.get("betreuer1"), "lehrstuhlname_ID");
 			if (!lehrstuhl_tut_1.isEmpty())
 			{
+<<<<<<< HEAD
 				String lehrstuhlname_ID = lehrstuhl_tut_1.get(0).get("lehrstuhlname_ID");
 				String org_einheit_lehrstuhl = datenhaltung.getSubCat("lehrstuhl", "lehrstuhlname_ID", lehrstuhlname_ID, "organisationseinheitname_ID").get(0).get("organisationseinheitname_ID");
 				datenhaltung.createTeam(lehrstuhl_tut_1.get(0).get("lehrstuhlname_ID"), push_into_db.get("projekttitel"), org_einheit_lehrstuhl, push_into_db.get("betreuer1"), push_into_db.get("betreuer2"));
 				
+=======
+				datenhaltung.createTeam(lehrstuhl_tut_1.get(0).get("lehrstuhlname_ID"), push_into_db.get("projekttitel"), push_into_db.get("organisationseinheitname_ID"), push_into_db.get("betreuer1"), push_into_db.get("betreuer2"));
+>>>>>>> branch 'master' of https://github.com/r0xx4/propra-pep.git
 			}
 		} 
 		catch (SQLException e) 
