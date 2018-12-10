@@ -297,7 +297,7 @@
                                             for(HashMap<String, String> teilkriterium : teilkriterien){
                                             	if(teilkriterium.get("hauptkriteriumname_ID").equals(hauptkriterium.get("hauptkriteriumname_ID"))){
                                             %>
-                                                    <div class="list-group-item" id="subCriterion<% out.print(countSub); %>">
+                                                    <div class="list-group-item" id='subCriterion<% out.print(countSub + "_" + countMain); %>'>
 	                                                    <div class="row">
 	                                                        <label class="col-sm-9"><% out.print(teilkriterium.get("teilkriteriumname_ID")); %></label>
 	                                                        <button data-toggle="modal" data-target="#modal_edit_subcriterion" class="btn btn-sm btn-outline-info text-center col-sm" onclick="editSubCriterion(this)">Mehr</button>
@@ -307,8 +307,8 @@
 	                                                    </div>       
                                                 </div> 
                                             <%
-                                            	}
                                             	countSub++;
+                                            	}
                                             }
                                             %>     
                                         </div>
@@ -861,13 +861,15 @@
             	inputItem.name = "fromDB";
             	inputItem.value = "false";
             	var text = document.getElementById("input_name_new_course_of_studies").value;
-            	if(text != "" && text.trim().length != 0){
+            	if(text != "" && text.trim().length != 0 && !elementExists(text, "course_of_studies", "label")){
             		labelItem.innerHTML = text;
 	            	rowItem.appendChild(labelItem);
 	            	rowItem.appendChild(buttonItem);
 	            	rowItem.appendChild(inputItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById("course_of_studies").appendChild(listItem);
+	            	
+	            	
 	            	
 					if("Studiengang_add" in push_to_db){
 						push_to_db["Studiengang_add"] += "%" + text;
@@ -886,6 +888,15 @@
 					}else{
 						push_to_db["Studiengang_del"] = elem.parentNode.children[0].innerHTML;
 					}
+            	}else{
+            		if("Studiengang_add" in push_to_db){
+            			if(push_to_db["Studiengang_add"].includes("%" + elem.parentNode.children[0].innerHTML)){
+            				push_to_db["Studiengang_add"] = push_to_db["Studiengang_add"].replace("%" + elem.parentNode.children[0].innerHTML, "")
+            			}
+            			else if(push_to_db["Sudiengang_add"].includes(elem.parentNode.children[0].innerHTML)){
+            				push_to_db["Studiengang_add"] = push_to_db["Studiengang_add"].replace(elem.parentNode.children[0].innerHTML, "")
+            			}
+            		}
             	}
             	elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
             }
@@ -917,7 +928,7 @@
             	var owner = selectedOwner.options[selectedOwner.selectedIndex].text;
             	var selectedUnit = document.getElementById("input_name_new_university_chair_unit");
             	var unit = selectedUnit.options[selectedUnit.selectedIndex].text;
-            	if(text != "" && text.trim().length != 0){
+            	if(text != "" && text.trim().length != 0 && !elementExists(text, "university_chair", "label")){
             		labelUniversityChair.innerHTML = text;
             		labelUnit.innerHTML = unit;
             		labelOwner.innerHTML = owner;
@@ -942,6 +953,8 @@
             	document.getElementById("input_name_new_university_chair_owner").selectedIndex = "0";
             }
             function deleteUniversityChair(elem){
+            	var unit = elem.parentNode.children[1].innerHTML;
+            	var owner = elem.parentNode.children[2].innerHTML;
             	if(elem.parentNode.querySelector('input[name="fromDB"]').value == "true"){
 					if("Lehrstuhl_del" in push_to_db){
 						push_to_db["Lehrstuhl_del"] += "%" + elem.parentNode.children[0].innerHTML;
@@ -949,7 +962,17 @@
 					}else{
 						push_to_db["Lehrstuhl_del"] = elem.parentNode.children[0].innerHTML;
 					}
+            	}else{
+            		if("Lehrstuhl_add" in push_to_db){
+            			if(push_to_db["Lehrstuhl_add"].includes("%" + elem.parentNode.children[0].innerHTML + ":" + owner + ":" + unit)){
+            				push_to_db["Lehrstuhl_add"] = push_to_db["Lehrstuhl_add"].replace("%" + elem.parentNode.children[0].innerHTML + ":" + owner + ":" + unit, "")
+            			}
+            			else if(push_to_db["Lehrstuhl_add"].includes(elem.parentNode.children[0].innerHTML + ":" + owner + ":" + unit)){
+            				push_to_db["Lehrstuhl_add"] = push_to_db["Lehrstuhl_add"].replace(elem.parentNode.children[0].innerHTML + ":" + owner + ":" + unit, "")
+            			}
+            		}
             	}
+            	
             	elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
             }
 			function dismissUniversityChair(){
@@ -976,7 +999,7 @@
             	inputItem.name = "fromDB";
             	inputItem.value = "false";
             	var text = document.getElementById("input_name_new_main_criterion").value;
-            	if(text != "" && text.trim().length != 0){
+            	if(text != "" && text.trim().length != 0 && !elementExists(text, "list-tab", "a")){
             		aItem.innerHTML = text;
             		listItem.id = "list-mainCriterion" + childs + "-list";
             		listItem.setAttribute("href", "#list-mainCriterion" + childs);
@@ -1068,7 +1091,7 @@
             	inputItem.name = "fromDB";
             	inputItem.value = "false";
             	var text = document.getElementById("input_name_new_subcriterion").value;
-            	if(text != "" && text.trim().length != 0){
+            	if(text != "" && text.trim().length != 0 && !elementExists(text, "nav-tabContent", "label")){
             		labelItem.innerHTML = text;
             		listItem.id = "subCriterion" + childs + "_" + count;
 	            	rowItem.appendChild(labelItem);
@@ -1122,7 +1145,24 @@
 					}else{
 						push_to_db["Bewertung_del"] = elem.parentNode.children[0].innerHTML + ":";
 					}
-				}
+				}else{
+            		if("Bewertung_add" in push_to_db){
+            			if(push_to_db["Bewertung_add"].includes("%")){
+            				var split = push_to_db["Bewertung_add"].split("%");
+            				push_to_db["Bewertung_add"] = "";
+            				for(var i = 0; i < split.length; i++){
+            					if(!split[i].includes(elem.parentNode.children[0].innerHTML + ":")){
+            						i != split.length-1 ? push_to_db["Bewertung_add"] += split[i] + "%" : push_to_db["Bewertung_add"] += split[i];
+            					}
+            				}
+            			}
+            			else if(push_to_db["Bewertung_add"].includes(elem.parentNode.children[0].innerHTML + ":")){
+            				push_to_db["Bewertung_add"] = push_to_db["Bewertung_add"].replace(elem.parentNode.children[0].innerHTML + ":", "")
+            			}
+            		}
+            	}
+				
+				console.log(push_to_db["Bewertung_add"]);
 				
 				var sub = document.getElementById(subcriterion);
 				sub.parentNode.removeChild(sub);
@@ -1142,6 +1182,11 @@
 			}
 			function deleteSubCriterion(){
 				var elem = document.getElementById(document.getElementById("subCriterion-Id").value);
+				var mainCriterion = document.getElementById("update_mainCriterion").value;
+				var subCriterion = document.getElementById("input_name_subcriterion_editmode").value;
+				var minValue = document.getElementById("range_min_valuation_scale").value;
+				var maxValue = document.getElementById("range_max_valuation_scale").value;
+				
 				if(elem.parentNode.parentNode.querySelector('input[name="fromDB"]').value == "true"){
 					if("Bewertung_del" in push_to_db){
 						push_to_db["Bewertung_del"] += "%" + document.getElementById("update_mainCriterion").value 
@@ -1152,8 +1197,15 @@
 														+ ":"
 														+ document.getElementById("input_name_subcriterion_editmode").value;
 					}
+				}else{
+					if(push_to_db["Bewertung_add"].includes("%" + mainCriterion + ":" + subCriterion + "!" + minValue + "#" + maxValue)){
+						push_to_db["Bewertung_add"] = push_to_db["Bewertung_add"].replace("%" + mainCriterion + ":" + subCriterion + "!" + minValue + "#" + maxValue, "");
+					}
+					else if(push_to_db["Bewertung_add"].includes(mainCriterion + ":" + subCriterion + "!" + minValue + "#" + maxValue)){
+						push_to_db["Bewertung_add"] = push_to_db["Bewertung_add"].replace(mainCriterion + ":" + subCriterion + "!" + minValue + "#" + maxValue, "");
+					}
 				}
-				
+				console.log(push_to_db["Bewertung_add"]);
 				elem.parentNode.removeChild(elem);
 			}
 			function saveSubCriterion(){
@@ -1203,6 +1255,16 @@
 											+ "#"
 											+ document.getElementById("input_end_date_valuation_phase").value;
 				post("/pep/handle_db_write_project_settings", push_to_db);
+			}
+			function elementExists(text, id, element){
+				var elements = document.getElementById(id).getElementsByTagName(element);
+				console.log(elements);
+				for(var i = 0; i < elements.length; i++){
+					if(elements[i].innerHTML == text){
+						return true;
+					}
+				}
+				return false;
 			}
         </script>
     </body>
