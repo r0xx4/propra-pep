@@ -182,6 +182,7 @@ public class Driver {
 		String sql = "Select * From " + table + " Where 1";
 		return returnArrayList(sql);
 	}
+
 	//Method get
 
 	public ArrayList<HashMap<String, String>> getScoreForCriterion(String teamname, String teilkriterium) throws SQLException{
@@ -203,7 +204,7 @@ public class Driver {
 		sql.append(
 				"INNER JOIN organisationseinheit ON team.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
 		sql.append("WHERE account.rollename_ID LIKE 'Teilnehmer' AND account.rollename_ID LIKE 'Teamleiter'");
-		sql.append("AND organisationseinheit.organisationseinheitname_ID LIKE '");
+		sql.append("OR organisationseinheit.organisationseinheitname_ID LIKE '");
 		sql.append(group);
 		sql.append("';");
 		return returnArrayList(sql.toString());
