@@ -84,7 +84,7 @@
                            		%>
 	                           		<tr>
 	                                    <th><% out.print("Team " + row.get("teamnummer")); %></th>
-	                                    <td><% out.print(row.get("teamname_ID")); %></th>
+	                                    <td><% out.print(row.get("teamname_ID")); %></td>
 	                                    <% 
 	                                    int counter = 0;
 	                                    ArrayList<HashMap<String, String>> accountsInTeam = datenhaltung.getSubCat("teammap", "teamname_ID", row.get("teamname_ID"), "accountname_ID");

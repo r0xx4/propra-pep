@@ -402,9 +402,8 @@
                     document.querySelector('#input_matriculation_number_editmode').value = "<% out.print(html_contents.get(x-1).get("matrikelnummer")); %>";
                     document.querySelector('#select_course_of_studies_editmode').value = "<% out.print(html_contents.get(x-1).get("studiengangname_ID")); %>";
                     document.querySelector('#select_university_chair_editmode').value = "<% out.print(html_contents.get(x-1).get("lehrstuhlname_ID")); %>";
+                    document.getElementById("select_team_editmode").disabled=true;
                     document.querySelector('#select_team_editmode').value = "<% out.print(teams.get(x-1)); %>"; 
-                    if ((document.querySelector('#select_role_editmode').value == "Tutor") || (document.querySelector('#select_role_editmode').value == "Admin") || (document.querySelector('#select_role_editmode').value == "Juror"))
-                    	document.querySelector('#select_team_editmode').disabled = true;
             	})
             	<%	
             }
