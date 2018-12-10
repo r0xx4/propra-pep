@@ -92,11 +92,14 @@
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
                         <h1 class="h4">Phasen</h1>
                     </div>
+                   	<%
+                    ArrayList<HashMap<String, String>> phasen = datenhaltung.getSubCat("phase");
+                    %>
                     <div>
                         <label>Tragen Sie die Start- und Enddaten für die einzelnen Phasen ein</label>
                         <div class="form-group row">
                             <div class="form-group col-sm-3">
-                                <label>Registrierungs Phase</label>
+                                <label>Registrierungsphase</label>
                             </div> 
                             <div class="form-group col-sm-4">
                                 <label for="input_start_date_registration_phase">Beginn:</label>
@@ -109,7 +112,7 @@
                         </div>  
                         <div class="form-group row">
                             <div class="form-group col-sm-3">
-                                <label>Projekt Anmelde Phase </label>
+                                <label>Projektanmeldephase</label>
                             </div> 
                             <div class="form-group col-sm-4">
                                 <label for="input_start_date_project_registration_phase">Beginn:</label>
@@ -122,7 +125,7 @@
                         </div> 
                         <div class="form-group row">
                             <div class="form-group col-sm-3">
-                                <label>Projekt Erarbeitungs Phase</label>
+                                <label>Projekterarbeitungsphase</label>
                             </div> 
                             <div class="form-group col-sm-4">
                                 <label for="input_start_date_project_phase">Beginn:</label>
@@ -135,7 +138,7 @@
                         </div>   
                         <div class="form-group row">
                             <div class="form-group col-sm-3">
-                                <label>Projekt Bewertungs Phase</label>
+                                <label>Projektbewertungsphase</label>
                             </div> 
                             <div class="form-group col-sm-4">
                                 <label for="input_start_date_valuation_phase">Beginn:</label>
@@ -223,10 +226,10 @@
 											<label class="col-sm-9"><% out.print(lehrstuhl.get("lehrstuhlname_ID")); %></label>
 											<%
 											String lehrstuhlinhaber_mail = datenhaltung.getSubCat("lehrstuhl", "lehrstuhlname_ID", lehrstuhl.get("lehrstuhlname_ID"), "accountname_ID").get(0).get("accountname_ID");
-											String lehrstuhlinhaber_vorname = datenhaltung.getSubCat("account", "accountname_ID",  lehrstuhlinhaber_mail, "vorname").get(0).get("vorname");
-											String lehrstuhlinhaber_nachname = datenhaltung.getSubCat("account", "accountname_ID",  lehrstuhlinhaber_mail, "nachname").get(0).get("nachname");
+											String lehrstuhl_organisationseinheit = datenhaltung.getSubCat("lehrstuhl", "lehrstuhlname_ID", lehrstuhl.get("lehrstuhlname_ID"), "organisationseinheitname_ID").get(0).get("organisationseinheitname_ID");
 											%>
-											<label class="col-sm-9"><%out.print(lehrstuhlinhaber_vorname + " " + lehrstuhlinhaber_nachname); %></label>
+											<label class="col-sm-9"><%out.print(lehrstuhl_organisationseinheit); %></label>
+											<label class="col-sm-9"><%out.print(lehrstuhlinhaber_mail); %></label>
 											<button class="btn btn-sm btn-outline-danger text-center col-sm" onclick="deleteUniversityChair(this)">Löschen</button>
 											<input type="hidden" name="fromDB" value="true">
 										</div>
@@ -445,6 +448,19 @@
                                 <input type="text" class="form-control" id="input_name_new_university_chair">
                             </div>
                             <div class="form-group">
+	                            <label for="input_name_new_university_chair_unit" class="col-form-label">Organisationseinheit:</label>
+	                            <select id="input_name_new_university_chair_unit" class="custom-select form-control">
+                               	<%
+								ArrayList<HashMap<String, String>> all_units = datenhaltung.getSubCat("organisationseinheit");
+                                for (HashMap<String, String> u : all_units)
+                                {
+									String unit = u.get("organisationseinheitname_ID");
+                                    %>
+                                    <option><% out.print(unit); %></option>
+                                    <%
+                                }
+                                %>
+                                </select>
                                 <label for="input_name_new_university_chair_owner" class="col-form-label">Lehrstuhlinhaber:</label>
                                 <select id="input_name_new_university_chair_owner" class="custom-select form-control">
 									<%
@@ -453,11 +469,9 @@
                                     {
                                     	if(datenhaltung.getSubCat("lehrstuhl", "accountname_ID", t.get("accountname_ID"), "lehrstuhlname_ID").isEmpty()){
 											String tutor_mail = t.get("accountname_ID");
-											String tutor_vorname = datenhaltung.getSubCat("account", "accountname_ID",  tutor_mail, "vorname").get(0).get("vorname");
-											String tutor_nachname = datenhaltung.getSubCat("account", "accountname_ID",  tutor_mail, "nachname").get(0).get("nachname");
-	                                        %>
-	                                        <option><% out.print(tutor_vorname + " " + tutor_nachname); %></option>
-	                                        <%
+	                                %>
+	                                        <option><% out.print(tutor_mail); %></option>
+	                               	<%
                                     	}
                                     }
                                     %>                                    
@@ -699,14 +713,32 @@
             }    
 
             //Datum
+            
             var inputStartDateRegistrationPhase = document.getElementById("input_start_date_registration_phase");
+            inputStartDateRegistrationPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Registrierungsphase", "startDatum").get(0).get("startDatum"));%>"
+            
             var inputEndDateRegistrationPhase = document.getElementById("input_end_date_registration_phase");
+            inputEndDateRegistrationPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Registrierungsphase", "endDatum").get(0).get("endDatum"));%>"
+            
             var inputStartDateProjectRegistrationPhase = document.getElementById("input_start_date_project_registration_phase");
+            inputStartDateProjectRegistrationPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Projektanmeldephase", "startDatum").get(0).get("startDatum"));%>"
+            
             var inputEndDateProjectRegistrationPhase = document.getElementById("input_end_date_project_registration_phase");
+            inputEndDateProjectRegistrationPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Projektanmeldephase", "endDatum").get(0).get("endDatum"));%>"
+            
             var inputStartDateProjectPhase = document.getElementById("input_start_date_project_phase");
+            inputStartDateProjectPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Projekterarbeitungsphase", "startDatum").get(0).get("startDatum"));%>"
+            
             var inputEndDateProjectPhase = document.getElementById("input_end_date_project_phase");
+            inputEndDateProjectPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Projekterarbeitungsphase", "endDatum").get(0).get("endDatum"));%>"
+
             var inputStartDateValuationPhase = document.getElementById("input_start_date_valuation_phase");
+            inputStartDateValuationPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Projektbewertungsphase", "startDatum").get(0).get("startDatum"));%>"
+            
             var inputEndDateValuationPhase = document.getElementById("input_end_date_valuation_phase");
+            inputEndDateValuationPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Projektbewertungsphase", "endDatum").get(0).get("endDatum"));%>"
+
+            /*
             var startDateRegistrationPhase;
             var endDateRegistrationPhase;
             var startDateProjectRegistrationPhase;
@@ -762,7 +794,7 @@
                 var split8 = (inputEndDateValuationPhase.value).split("-");
                 endDateValuationPhase = new Date(split1[0], split1[1] - 1, split1[2]);
             }
-
+			*/
             //Ändern Button
             document.querySelector('#btn_submit').addEventListener("click", clickBtnSubmitEvent);
             function clickBtnSubmitEvent(){
@@ -868,6 +900,8 @@
             	rowItem.className = "row";
             	var labelUniversityChair = document.createElement("label");
             	labelUniversityChair.className = "col-sm-9";
+            	var labelUnit = document.createElement("label");
+            	labelUnit.className = "col-sm-9";
             	var labelOwner = document.createElement("label");
             	labelOwner.className = "col-sm-9";
             	var buttonItem = document.createElement("button");
@@ -879,23 +913,29 @@
             	inputItem.name = "fromDB";
             	inputItem.value = "false";
             	var text = document.getElementById("input_name_new_university_chair").value;
-            	var selected = document.getElementById("input_name_new_university_chair_owner");
-            	var owner = selected.options[selected.selectedIndex].text;
+            	var selectedOwner = document.getElementById("input_name_new_university_chair_owner");
+            	var owner = selectedOwner.options[selectedOwner.selectedIndex].text;
+            	var selectedUnit = document.getElementById("input_name_new_university_chair_unit");
+            	var unit = selectedUnit.options[selectedUnit.selectedIndex].text;
             	if(text != "" && text.trim().length != 0){
             		labelUniversityChair.innerHTML = text;
+            		labelUnit.innerHTML = unit;
             		labelOwner.innerHTML = owner;
 	            	rowItem.appendChild(labelUniversityChair);
+	            	rowItem.appendChild(labelUnit);
 	            	rowItem.appendChild(labelOwner);
 	            	rowItem.appendChild(buttonItem);
 	            	rowItem.appendChild(inputItem);
 	            	listItem.appendChild(rowItem);
 	            	document.getElementById("university_chair").appendChild(listItem);
 	            	
+	            	selectedOwner.options[selectedOwner.selectedIndex].remove();
+	            	
 					if("Lehrstuhl_add" in push_to_db){
-						push_to_db["Lehrstuhl_add"] += "%" + text + ":" + owner;
+						push_to_db["Lehrstuhl_add"] += "%" + text + ":" + owner + ":" + unit;
 
 					}else{
-						push_to_db["Lehrstuhl_add"] = text + ":" + owner;
+						push_to_db["Lehrstuhl_add"] = text + ":" + owner + ":" + unit;
 					}
             	}
             	document.getElementById("input_name_new_university_chair").value = "";
@@ -1046,17 +1086,17 @@
 						push_to_db["Bewertung_add"] += "%" + document.getElementById("add_mainCriterion").value 
 													+ ":"
 													+ text
-													+ "$"
+													+ "!"
 													+ document.getElementById("range_min_valuation_scale").value
-													+ "+"
+													+ "#"
 													+ document.getElementById("range_max_valuation_scale").value;
 					}else{
 						push_to_db["Bewertung_add"] = document.getElementById("add_mainCriterion").value 
 													+ ":"
 													+ text
-													+ "$"
+													+ "!"
 													+ document.getElementById("range_min_valuation_scale").value
-													+ "+"
+													+ "#"
 													+ document.getElementById("range_max_valuation_scale").value;
 					}
             	}
@@ -1128,41 +1168,40 @@
 					push_to_db["Bewertung_update"] += "%" + document.getElementById("update_mainCriterion").value 
 													+ ":"
 													+ document.getElementById("input_name_subcriterion_editmode").value
-													+ "$"
+													+ "!"
 													+ document.getElementById("range_min_valuation_scale_editmode").value
-													+ "+"
+													+ "#"
 													+ document.getElementById("range_max_valuation_scale_editmode").value;
 				}else{
 					push_to_db["Bewertung_update"] = document.getElementById("update_mainCriterion").value 
 													+ ":"
 													+ document.getElementById("input_name_subcriterion_editmode").value
-													+ "$"
+													+ "!"
 													+ document.getElementById("range_min_valuation_scale_editmode").value
-													+ "+"
+													+ "#"
 													+ document.getElementById("range_max_valuation_scale_editmode").value;
 				}
 			}
 			document.querySelector('#btn_submit').addEventListener("click", applySettings);
 			function applySettings(){
-				push_to_db["Teilnehmer"] = document.getElementById("range_min_participants").value + "+" + document.getElementById("range_max_participants").value;
+				push_to_db["Teilnehmer"] = document.getElementById("range_min_participants").value + "#" + document.getElementById("range_max_participants").value;
 				push_to_db["Masterkey_tutor"] = document.getElementById("input_masterkey_supervisor").value;
 				push_to_db["Masterkey_juror"] = document.getElementById("input_masterkey_juror").value;
 				push_to_db["Registrierung"] = document.getElementById("input_start_date_registration_phase").value
-												+ "+"
+												+ "#"
 												+ document.getElementById("input_end_date_registration_phase").value;
 				
 				push_to_db["Anmelden"] = document.getElementById("input_start_date_project_registration_phase").value
-										+ "+"
+										+ "#"
 										+ document.getElementById("input_end_date_project_registration_phase").value;
 				
 				push_to_db["Projektphase"] = document.getElementById("input_start_date_project_phase").value
-											+ "+"
+											+ "#"
 											+ document.getElementById("input_end_date_project_phase").value;
 				
 				push_to_db["Bewertung"] = document.getElementById("input_start_date_valuation_phase").value
-											+ "+"
+											+ "#"
 											+ document.getElementById("input_end_date_valuation_phase").value;
-				
 				post("/pep/handle_db_write_project_settings", push_to_db);
 			}
         </script>
