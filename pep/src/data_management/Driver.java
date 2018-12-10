@@ -184,15 +184,15 @@ public class Driver {
 	}
 	//Method get
 
-	public String getScoreForCriterion(String teamname, String teilkriterium) throws SQLException{
-		StringBuilder sql=new StringBuilder("SELECT kriteriumsmap.punkte ");
+	public ArrayList<HashMap<String, String>> getScoreForCriterion(String teamname, String teilkriterium) throws SQLException{
+		StringBuilder sql=new StringBuilder("SELECT * ");
 		sql.append("FROM kriteriumsmap ");
-		sql.append("WHERE teamname_ID LIKE '");
+		sql.append("WHERE kriteriumsmap.teamname_ID LIKE '");
 		sql.append(teamname);
-		sql.append("' AND teilkriteriumname_ID LIKE '");
+		sql.append("' AND kriteriumsmap.teilkriteriumname_ID = '");
 		sql.append(teilkriterium);
 		sql.append("';");
-		return returnArrayList(sql.toString()).get(0).get("punkte");
+		return returnArrayList(sql.toString());
 		
 	}
 	// Method getAccountsInGroup
