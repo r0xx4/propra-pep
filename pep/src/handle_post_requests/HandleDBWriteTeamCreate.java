@@ -52,7 +52,6 @@ public class HandleDBWriteTeamCreate extends HttpServlet {
 			if (!lehrstuhl_tut_1.isEmpty())
 			{
 				datenhaltung.createTeam(lehrstuhl_tut_1.get(0).get("lehrstuhlname_ID"), push_into_db.get("projekttitel"), push_into_db.get("organisationseinheitname_ID"), push_into_db.get("betreuer1"), push_into_db.get("betreuer2"));
-				
 			}
 		} 
 		catch (SQLException e) 
