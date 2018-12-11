@@ -168,10 +168,8 @@
 					</h3>
 				</div>
 				<div>
-					<label>Um die Bewertung durch die Juroren frei zu schalten,
-						drücken Sie den Button</label>
-					<button id="btn_start_valuation_phase" class="btn btn-primary">Bewertungsphase
-						starten</button>
+					<button id="btn_start_valuation_phase" class="btn btn-primary">Bewertungsphase starten</button>
+					<button id="btn_stop_valutaion_phase" class="btn btn-primary">Bewertungsphase beenden</button>
 				</div>
 				<div>
 					<label class="pt-3">Laden Sie hier vor der Siegerehrung die
@@ -197,6 +195,30 @@
 
 	<script>
 		//Hier Javascript Code
+		function post(path, params, method) {
+		    method = method || "post"; // Set method to post by default if not specified.
+
+		    // The rest of this code assumes you are not using a library.
+		    // It can be made less wordy if you use one.
+		    var form = document.createElement("form");
+		    form.setAttribute("method", method);
+		    form.setAttribute("action", path);
+
+		    for(var key in params) {
+		        if(params.hasOwnProperty(key)) {
+		            var hiddenField = document.createElement("input");
+		            hiddenField.setAttribute("type", "hidden");
+		            hiddenField.setAttribute("name", key);
+		            hiddenField.setAttribute("value", params[key]);
+
+		            form.appendChild(hiddenField);
+		        }
+		    }
+
+		    document.body.appendChild(form);
+		    form.submit();
+		}
+		
 		document.querySelector('#link_home').addEventListener("click",
 				klickLinkHomeEvent);
 		function klickLinkHomeEvent() {
@@ -231,6 +253,25 @@
 				"click", klickLinkPersonalSettingsEvent);
 		function klickLinkPersonalSettingsEvent() {
 			window.open("/pep/home/view_personal_info", "_self");
+		}
+		document.querySelector('#btn_start_valuation_phase').addEventListener(
+				"click", setEvaluationPhase);
+		function setEvaluationPhase(){
+			push_to_db ={};
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth()+1;
+			var yyyy = today.getFullYear();
+			if(dd  <10){
+				dd = "0" + dd;
+			}
+			if(mm < 10){
+				mm = "0" + mm;
+			}
+			today = yyyy + "-" + mm + "-" + dd;
+			push_to_db["startDatum"] = today;
+			
+			post("/pep/handle_db_write_set_phase", push_to_db);
 		}
 	</script>
 
