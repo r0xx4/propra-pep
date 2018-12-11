@@ -106,6 +106,13 @@
 				<!-- Hier aktuelle Phase anzeigen -->
 				<!-- Hier Custom HTML einfügen -->
 			</div>
+			<div class="container-fluid px-xl-5">
+			<h3><b>Aufgaben des Jurors</b></h3>
+ 			   <h5>Bewertungs-Phase</h5>
+   				 <p>In der Bewertungsphase haben Sie die Aufgabe, die Ihnen zugeteilten Teams zu bewerten</p>
+   			     - Unter <strong>"Startseite"</strong> finden Sie Termin und Ort fÃ¼r  die Projektvorstellung der Teams<br>
+			
+			</div>
 			<footer
 				class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
 				<div class="container-fluid">
