@@ -105,7 +105,18 @@
 				folgender Phase: <%out.print(datenhaltung.getCurrentPhase());%>
 				<!-- Hier aktuelle Phase anzeigen -->
 				<!-- Hier Custom HTML einfügen -->
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
+					<h3 class="h3">
+						<b>Aufgaben des Jurors:</b>
+					</h3>
+				</div>
+				<div class="pt-1 pb-2">
+					<h5>Bewertungs-Phase:</h5>
+   				 	<p>In der Bewertungsphase haben Sie die Aufgabe, die Ihnen zugeteilten Teams zu bewerten</p>
+   			     	- Unter <strong>"Startseite"</strong> finden Sie Termin und Ort für  die Projektvorstellung der Teams<br>
+				</div>
 			</div>
+			
 			<footer
 				class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
 				<div class="container-fluid">

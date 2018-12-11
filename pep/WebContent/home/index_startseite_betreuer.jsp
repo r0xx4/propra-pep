@@ -117,6 +117,17 @@
 					%>
 				<!-- Hier aktuelle Phase anzeigen -->
 				<!-- Hier Custome HTML einfügen -->
+				
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
+					<h3 class="h3">
+						<b>Aufgaben des Betreuers:</b>
+					</h3>
+				</div>
+				<div class="pt-1 pb-2">
+					<h5>Projekterarbeitungs-Phase</h5>
+   				 	<p>In der Projekterarbeitungs-Phase haben Sie die Aufgabe, die Ihnen zugeteilten Teams zu unterstützen und ihnen Ihre Meinung zum aktuellen Stand der Entwicklung zu geben.</p>
+   				 	<p>Sollte den Teams Fragen aufkommen bei der Bearbeitung sollten diese an den Admin weitergeleitet werden. Die Fragen werden von ihm beantwortet und eine Antwort an sie zurückgeleitet werden.</p>
+				</div>
 			</div>
 			<footer
 				class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
