@@ -122,6 +122,8 @@
 
         <script>   
             //Hier Javascript Code
+            var file_map = {}
+            
             function post(path, params, method) {
                 method = method || "post";
                 var form = document.createElement("form");
@@ -163,8 +165,8 @@
 			
 			function onFileSelected(element) {
 				var filename = element.files[0].name;
-				console.log(element.files[0]);
 				element.parentNode.lastElementChild.innerHTML = filename;
+				
 				
 			}
         </script>
