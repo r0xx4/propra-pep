@@ -136,6 +136,7 @@
                                 <input id="input_end_date_project_phase" type="date" class="form-control">
                             </div> 
                         </div>   
+                        <!-- 
                         <div class="form-group row">
                             <div class="form-group col-sm-3">
                                 <label>Projektbewertungsphase</label>
@@ -148,7 +149,8 @@
                                 <label for="input_end_date_valuation_phase">Ende:</label>
                                 <input id="input_end_date_valuation_phase" type="date" class="form-control">
                             </div> 
-                        </div>                               
+                        </div> 
+                        -->                            
                     </div>
 
                     <!-- Masterkeys -->
@@ -731,13 +733,8 @@
             
             var inputEndDateProjectPhase = document.getElementById("input_end_date_project_phase");
             inputEndDateProjectPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Projekterarbeitungsphase", "endDatum").get(0).get("endDatum"));%>"
-
-            var inputStartDateValuationPhase = document.getElementById("input_start_date_valuation_phase");
-            inputStartDateValuationPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Projektbewertungsphase", "startDatum").get(0).get("startDatum"));%>"
             
-            var inputEndDateValuationPhase = document.getElementById("input_end_date_valuation_phase");
-            inputEndDateValuationPhase.value = "<% out.print(datenhaltung.getSubCat("phase", "phasename_ID", "Projektbewertungsphase", "endDatum").get(0).get("endDatum"));%>"
-
+            
             /*
             var startDateRegistrationPhase;
             var endDateRegistrationPhase;
@@ -794,12 +791,7 @@
                 var split8 = (inputEndDateValuationPhase.value).split("-");
                 endDateValuationPhase = new Date(split1[0], split1[1] - 1, split1[2]);
             }
-			*/
-            //Ändern Button
-            document.querySelector('#btn_submit').addEventListener("click", clickBtnSubmitEvent);
-            function clickBtnSubmitEvent(){
-                
-            }   
+			*/   
 
             //Modal Neues Bewertungskriterium Slider
             var minSliderValuationScale = document.getElementById("range_min_valuation_scale");
@@ -1251,9 +1243,6 @@
 											+ "#"
 											+ document.getElementById("input_end_date_project_phase").value;
 				
-				push_to_db["Bewertung"] = document.getElementById("input_start_date_valuation_phase").value
-											+ "#"
-											+ document.getElementById("input_end_date_valuation_phase").value;
 				post("/pep/handle_db_write_project_settings", push_to_db);
 			}
 			function elementExists(text, id, element){
