@@ -45,7 +45,7 @@ public class TransferLoginData extends HttpServlet {
 			else
 				account_data.put(pair[0], "");
 		}
-		
+		System.out.println(account_data);
 		try 
 		{
 			String pw = Driver.getHash(account_data.get("password").getBytes(StandardCharsets.UTF_8));

@@ -1,5 +1,6 @@
 package data_management;
 
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -28,8 +29,9 @@ public class Driver {
 
 		String kennnummer = generateKennnummer(lehrstuhl);
 		String sql = "Insert Into team (teamname_ID,teamnummer,projekttitel,projektpfad,organisationseinheitname_ID) Values('"
-				+ kennnummer + "','" + kennnummer.substring(7, 9) + "','" + projekttitel + "','" + "/" + kennnummer
-				+ "/data" + "','" + organisationseinheit + "')";
+				+ kennnummer + "','" + kennnummer.substring(2, 4) + "','" + projekttitel + "','" + "/" + kennnummer
+				+ "','" + organisationseinheit + "')";
+		new File("C:/data/" + kennnummer).mkdirs();
 		executeUpdate(sql);
 
 		HashMap<String, String> teammap_row = new HashMap<>();
@@ -343,7 +345,7 @@ public class Driver {
 		int l, t;
 		l = Integer.parseInt(lehrstuhl);
 		t = Integer.parseInt(teamnummer);
-		return "L:" + (l < 10 ? "0" + l : l) + "|T:" + (t < 10 ? "0" + t : t) + "|Y:" + localDate.getYear();
+		return (l < 10 ? "0" + l : l) + "" + (t < 10 ? "0" + t : t) + "" + localDate.getYear();
 	}
 
 	public static String getHash(byte inputBytes[]) throws NoSuchAlgorithmException {

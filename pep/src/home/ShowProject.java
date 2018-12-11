@@ -43,9 +43,9 @@ public class ShowProject extends HttpServlet {
 				String rolle = datenhaltung.getSubCat("account", accountname_ID).get(0).get("rollename_ID");
 				System.out.println(rolle);
 				System.out.println(session_ID);
-				if (rolle.equals("Teilnehmer"))
+				if (rolle.equals("Teilnehmer") || rolle.equals("Teamleiter"))
 				{
-					RequestDispatcher rd = request.getRequestDispatcher("/home/index_projektansicht_student.html");
+					RequestDispatcher rd = request.getRequestDispatcher("/home/index_projektansicht_student.jsp");
 					rd.forward(request,  response);
 				}
 				else
