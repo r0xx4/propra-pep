@@ -106,7 +106,7 @@
 						<b>Aufgaben des Administrators:</b>
 					</h3>
 				</div>
-				<div class="pt-2 pb-2">
+				<div class="pt-1 pb-2">
 					<h5>1. Projekt Setup Phase:</h5>
 					<p>
 						Der Administrator hat noch vor Beginn des Projekts die Aufgabe,

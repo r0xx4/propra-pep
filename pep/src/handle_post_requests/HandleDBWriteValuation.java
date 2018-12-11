@@ -3,6 +3,7 @@ package handle_post_requests;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -46,18 +47,31 @@ public class HandleDBWriteValuation extends HttpServlet {
 		Driver datenhaltung = new Driver();
 		
 		String teamname_ID = push_into_db.get("teamname_ID");
+		String teilkriteriumname_ID = push_into_db.get("teilkriteriumname_ID");
 		push_into_db.remove("teamname_ID");
 		
 		for (String attr : push_into_db.keySet())
 		{
+			ArrayList<HashMap<String, String>> existing_maps;
+			try {
+				existing_maps = datenhaltung.getScoreForCriterion(teamname_ID, attr);
+				for(int i=0; i<existing_maps.size(); i++) {
+					datenhaltung.deleteRow("kriteriumsmap", existing_maps.get(i).get("kriteriumsmapname_ID"));
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			if (!push_into_db.get(attr).equals("-"))
 			{
 				HashMap<String, String> bewertung = new HashMap<>();
 				bewertung.put("teamname_ID", teamname_ID);
 				bewertung.put("teilkriteriumname_ID", attr);
 				bewertung.put("punkte", push_into_db.get(attr));
+				
 				try 
-				{
+				{								
 					datenhaltung.insertHashMap("kriteriumsmap", bewertung);
 				} 
 				catch (SQLException e) 
