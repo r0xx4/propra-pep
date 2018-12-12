@@ -90,7 +90,7 @@ public class HandleDBWriteProjectSettings extends HttpServlet {
 					String[] projektphase_splitted = projektphase.split("#");
 					projektphasedaten.put("startDatum", projektphase_splitted[0]);
 					projektphasedaten.put("endDatum", projektphase_splitted[1]);
-					datenhaltung.updateTable("phase", "Projektbearbeitungsphase", projektphasedaten);
+					datenhaltung.updateTable("phase", "Projekterarbeitungsphase", projektphasedaten);
 				}
 				else if(attribute.equals("Studiengang_add")) {
 					if (!push_into_db.get(attribute).equals("")) {
