@@ -166,7 +166,7 @@
 	                                    <td><% out.print(org_einheit_lehrstuhl); %></td>
 	                                    <td><% out.print(row.get("projekttitel")); %></td>
 	                                    <td><button id="btn_valuation_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_valuation" class="btn btn-sm btn-outline-secondary text-center col-sm">Bewertung</button></td>
-                                    	<td><button id="btn_edit_team_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_team" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button></td>
+                                    	<td><button id="btn_team_<% out.print(tutors.size()); %>" data-toggle="modal" data-target="#modal_team" class="btn btn-sm btn-outline-info text-center col-sm">Mehr</button></td>
 	                                </tr>
                            			<%
                            		}
@@ -454,41 +454,74 @@
 			function klickLinkPersonalSettingsEvent() {
 				window.open("/pep/home/view_personal_info", "_self");
 			}
-
-            document.querySelector('#btn_team_1').addEventListener("click", klickBtnTeam1);
-            function klickBtnTeam1(){
-                document.querySelector('#lbl_team_name').innerHTML = "Team 1";
-                document.querySelector('#lbl_team_id').innerHTML = "010118";
-                document.querySelector('#lbl_group').innerHTML = "Gruppe 1";
-                document.querySelector('#lbl_supervisor_1').innerHTML = "Karl Günther";
-                document.querySelector('#lbl_supervisor_2').innerHTML = "Sandra Delinger";
-                document.querySelector('#lbl_project').innerHTML = "Projekt 1";
-                document.querySelector('#lbl_team_chairman').innerHTML = "Markus Söder";
-                document.querySelector('#lbl_team_member').innerHTML = "Christian Lindner</br>Angela Merkel</br>Horst Seehofer</br>Andrea Nahles</br>";
-            }
-            document.querySelector('#btn_team_2').addEventListener("click", klickBtnTeam2);
-            function klickBtnTeam2(){
-                document.querySelector('#lbl_team_name').innerHTML = "Team 2";
-                document.querySelector('#lbl_team_id').innerHTML = "010218";
-                document.querySelector('#lbl_group').innerHTML = "Gruppe 1";
-                document.querySelector('#lbl_supervisor_1').innerHTML = "Betina Bäcker";
-                document.querySelector('#lbl_supervisor_2').innerHTML = "Jochen Schenker";
-                document.querySelector('#lbl_project').innerHTML = "Projekt 2";
-                document.querySelector('#lbl_team_chairman').innerHTML = "Phillip Lahm";
-                document.querySelector('#lbl_team_member').innerHTML = "Manuel Neuer</br>Thomas Müller";
-            }
-            document.querySelector('#btn_team_3').addEventListener("click", klickBtnTeam3);
-            function klickBtnTeam3(){
-                document.querySelector('#lbl_team_name').innerHTML = "Team 3";
-                document.querySelector('#lbl_team_id').innerHTML = "020118";
-                document.querySelector('#lbl_group').innerHTML = "Gruppe 2";
-                document.querySelector('#lbl_supervisor_1').innerHTML = "Karl Günther";
-                document.querySelector('#lbl_supervisor_2').innerHTML = "Thorsten Ebert";
-                document.querySelector('#lbl_project').innerHTML = "Projekt 3";
-                document.querySelector('#lbl_team_chairman').innerHTML = "Tom Cruise";
-                document.querySelector('#lbl_team_member').innerHTML = "Helene Fischer</br>Daniel Craig</br>Samuel Jackson</br>Morgan Freeman";
-            }
-
+			
+			<%
+			for (int x = 0; x < html_contents.size(); x++){
+				%>
+				document.querySelector('#btn_team_<% out.print(x+1); %>').addEventListener("click", function(){
+					document.querySelector('#lbl_team_name').innerHTML = "<% out.print("Team " + html_contents.get(x).get("teamnummer")); %>";
+	                document.querySelector('#lbl_team_id').innerHTML = "<% out.print(html_contents.get(x).get("teamname_ID")); %>";
+	                document.querySelector('#lbl_group').innerHTML = "<% out.print(html_contents.get(x).get("organisationseinheitname_ID")); %>";
+	                <%
+	                ArrayList<HashMap<String, String>> accounts_in_team = datenhaltung.getSubCat("teammap", "teamname_ID", html_contents.get(x).get("teamname_ID"), "accountname_ID");
+                    String tutor_1 = null;
+                    for (HashMap<String, String> account : accounts_in_team)
+                    {
+                    	if (datenhaltung.getSubCat("account", "accountname_ID", account.get("accountname_ID"), "rollename_ID").get(0).get("rollename_ID").equals("Tutor"))
+                    	{
+                    		tutor_1 = account.get("accountname_ID");
+                    		tutors.get(tutors.size()-1).put("tutor1", tutor_1);
+                    		break;
+                    	}
+                    }
+	                %>
+	                document.querySelector('#lbl_supervisor_1').innerHTML = "<% out.print(tutor_1); %>";
+	                <%
+	                String tutor_2 = null;
+                    boolean appeared = false;
+                    for (HashMap<String, String> account : accounts_in_team)
+                    {
+                    	if (datenhaltung.getSubCat("account", "accountname_ID", account.get("accountname_ID"), "rollename_ID").get(0).get("rollename_ID").equals("Tutor"))
+                    	{
+                    		if (appeared)
+                    		{
+                    			tutor_2 = account.get("accountname_ID");
+                    			tutors.get(tutors.size()-1).put("tutor2", tutor_2);
+                        		break;
+                    		}
+                    		appeared = true;
+                    	}
+                    }
+	                %>
+	                document.querySelector('#lbl_supervisor_2').innerHTML = "<% out.print(tutor_2); %>";
+	                document.querySelector('#lbl_project').innerHTML = "<% out.print(html_contents.get(x).get("projekttitel")); %>";
+	                <%
+	            	String teamleiter = "-";
+	                for(int i=0; i<accounts_in_team.size(); i++){
+	                	if(datenhaltung.getSubCat("account", "accountname_ID", accounts_in_team.get(i).get("accountname_ID"), "rollename_ID").get(0).get("rollename_ID").equals("Teamleiter" + "")){
+							teamleiter = datenhaltung.getSubCat("account", "accountname_ID", accounts_in_team.get(i).get("accountname_ID"), "vorname").get(0).get("vorname") + " " + datenhaltung.getSubCat("account", "accountname_ID", accounts_in_team.get(i).get("accountname_ID"), "nachname").get(0).get("nachname");
+						}
+	                }
+	                %>
+	                document.querySelector('#lbl_team_chairman').innerHTML = "<% out.print(teamleiter); %>";
+	                <%
+	                String teammitglieder = "";
+	                for(int i=0; i<accounts_in_team.size(); i++){
+	                	if(datenhaltung.getSubCat("account", "accountname_ID", accounts_in_team.get(i).get("accountname_ID"), "rollename_ID").get(0).get("rollename_ID").equals("Teilnehmer" + "")){
+							teammitglieder = teammitglieder + datenhaltung.getSubCat("account", "accountname_ID", accounts_in_team.get(i).get("accountname_ID"), "vorname").get(0).get("vorname") + " " + datenhaltung.getSubCat("account", "accountname_ID", accounts_in_team.get(i).get("accountname_ID"), "nachname").get(0).get("nachname") + "</br>";
+						}
+	                }
+	                if(teammitglieder.equals("")){
+	                	teammitglieder = "-";
+	                }
+	                %>
+	                document.querySelector('#lbl_team_member').innerHTML = "<% out.print(teammitglieder); %>";
+				})
+	            
+				<%
+       		}
+			%>
+            
             document.querySelector('#link_download_documentation').addEventListener("click", klickLinkDownloadDocumentation);
             function klickLinkDownloadDocumentation(){
                 //Hier Code für Download von Dokumentation

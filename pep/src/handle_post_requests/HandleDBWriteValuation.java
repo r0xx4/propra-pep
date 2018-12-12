@@ -47,7 +47,7 @@ public class HandleDBWriteValuation extends HttpServlet {
 		Driver datenhaltung = new Driver();
 		
 		String teamname_ID = push_into_db.get("teamname_ID");
-		String teilkriteriumname_ID = push_into_db.get("teilkriteriumname_ID");
+		
 		push_into_db.remove("teamname_ID");
 		
 		for (String attr : push_into_db.keySet())
