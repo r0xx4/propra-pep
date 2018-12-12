@@ -452,12 +452,10 @@
         				<%
         				tk_count++;
         			}
-        			%>
-        			data["note_ID"] = document.querySelector('#input_grade').value;
-        			<%
         			hk_count++;
         		}
-            	%>           	
+        		%>
+    			data["note_ID"] = document.querySelector('#input_grade').value;         	
             	post("/pep/set_grades", data);
             }
 			

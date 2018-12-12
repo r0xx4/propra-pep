@@ -323,7 +323,18 @@
                                 	c_hk++;
                                 }
                             	%>
-                          	</div>  
+                          	</div> 
+                          	<div class="form-group">
+                                <label><strong>Endnote:</strong></label>
+                                <div class="form-group row">
+                                    <div class="col-sm-7">
+                                        <label class="col-form-label">Note</label>
+                                    </div>
+                                    <div class="col-sm-5 row">
+                                        <input id="input_grade" type="text" class="form-control">
+                                    </div>    
+                                </div>
+                            </div>  
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -418,6 +429,13 @@
             			}
             			hk_count++;
             		}
+            		String grade = datenhaltung.getSubCat("team", "teamname_ID", html_contents.get(x).get("teamname_ID"), "note").get(0).get("note") + "";
+            		if(grade.equals("null")){
+            			%>document.querySelector('#input_grade').value = "";<%
+            		}
+            		else{
+            			%>document.querySelector('#input_grade').value = "<% out.print(datenhaltung.getSubCat("team", "teamname_ID", html_contents.get(x).get("teamname_ID"), "note").get(0).get("note")); %>";<%
+            		}
             		%>
             	})
             	<%
@@ -443,6 +461,7 @@
         			hk_count++;
         		}
             	%>
+            	data["note_ID"] = document.querySelector('#input_grade').value;   
             	post("/pep/set_grades", data);
             }
             

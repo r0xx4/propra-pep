@@ -129,7 +129,7 @@
 									teams.add(team);
 							        %>
 								        <td><% out.print(team); %></td>
-	                                    <td><button id="btn_edit_account_<% out.print(counter); %>" data-toggle="modal" data-target="#modal_edit_account" class="btn btn-sm btn-outline-secondary text-right">Bearbeiten</button></td>
+	                                    <td><button id="btn_edit_account_<% out.print(counter); %>" data-toggle="modal" data-target="#modal_edit_account" class="btn btn-sm btn-outline-secondary text-center col-sm">Bearbeiten</button></td>
 							    	</tr>
 									<%
 								}
