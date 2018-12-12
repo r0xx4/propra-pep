@@ -51,7 +51,7 @@ public class ShowTeams extends HttpServlet {
 				}
 				else if (rolle.equals("Juror"))
 				{
-					RequestDispatcher rd = request.getRequestDispatcher("/home/index_teamansicht_juror.html");
+					RequestDispatcher rd = request.getRequestDispatcher("/home/index_teamansicht_juror.jsp");
 					rd.forward(request,  response);
 				}
 				else if (rolle.equals("Tutor"))
