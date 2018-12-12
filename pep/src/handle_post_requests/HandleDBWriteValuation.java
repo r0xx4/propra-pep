@@ -47,8 +47,28 @@ public class HandleDBWriteValuation extends HttpServlet {
 		Driver datenhaltung = new Driver();
 		
 		String teamname_ID = push_into_db.get("teamname_ID");
+		String note = push_into_db.get("note_ID");
 		
 		push_into_db.remove("teamname_ID");
+		push_into_db.remove("note_ID");
+		
+		
+		HashMap<String, String> grade = new HashMap<>();
+		
+		if(!note.equals("")) {
+			grade.put("note", note);	
+		}
+		else {
+			grade.put("note", "null");
+		}
+		
+		try {
+			datenhaltung.updateTable("team", teamname_ID, grade);
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
 		
 		for (String attr : push_into_db.keySet())
 		{

@@ -291,127 +291,45 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="form-group">
-                                <label><strong>Dokumentation:</strong></label>
-                                <div class="form-group row">
-                                    <div class="col-sm-7">
-                                        <label class="col-form-label">Ablaufplan (0/13)</label>
-                                    </div>
-                                    <div class="col-sm-5 row">
-                                        <select id="select_valuation_1_1" class="custom-select form-control">
-                                            <option selected>-</option>
-                                            <option>0</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                            <option>11</option>
-                                            <option>12</option>
-                                            <option>13</option>
-                                        </select>
-                                    </div>    
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-7">
-                                        <label class="col-form-label">Literraturrecherche (5/15)</label>
-                                    </div>
-                                    <div class="col-sm-5 row">
-                                        <select id="select_valuation_1_2" class="custom-select form-control">
-                                            <option selected>-</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                            <option>11</option>
-                                            <option>12</option>
-                                            <option>13</option>
-                                            <option>14</option>
-                                            <option>15</option>
-                                        </select>
-                                    </div>    
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label><strong>Präsentation:</strong></label>
-                                <div class="form-group row">
-                                    <div class="col-sm-7">
-                                        <label class="col-form-label">Sprachstil (0/10)</label>
-                                    </div>
-                                    <div class="col-sm-5 row">
-                                        <select id="select_valuation_2_1" class="custom-select form-control">
-                                            <option selected>-</option>
-                                            <option>0</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                        </select>
-                                    </div>    
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-7">
-                                        <label class="col-form-label">Zeitaufteilung (0/1)</label>
-                                    </div>
-                                    <div class="col-sm-5 row">
-                                        <select id="select_valuation_2_2" class="custom-select form-control">
-                                            <option selected>-</option>
-                                            <option>0</option>
-                                            <option>1</option>
-                                        </select>
-                                    </div>    
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label><strong>Poster:</strong></label>
-                                <div class="form-group row">
-                                    <div class="col-sm-7">
-                                        <label class="col-form-label">Bilderqualität (0/8)</label>
-                                    </div>
-                                    <div class="col-sm-5 row">
-                                        <select id="select_valuation_3_1" class="custom-select form-control">
-                                            <option selected>-</option>
-                                            <option>0</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                        </select>
-                                    </div>    
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-7">
-                                        <label class="col-form-label">Information über Vollständigkeit (0/3)</label>
-                                    </div>
-                                    <div class="col-sm-5 row">
-                                        <select id="select_valuation_3_2" class="custom-select form-control">
-                                            <option selected>-</option>
-                                            <option>0</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                        </select>
-                                    </div>    
-                                </div>
-                            </div>
-                            <div class="form-group">
+                            	<%
+                            	int c_hk = 1;
+                            	ArrayList<HashMap<String, String>> hauptkriterien = datenhaltung.getSubCat("hauptkriterium");
+	                           	for (HashMap<String, String> hauptkriterium : hauptkriterien)
+                             	{
+                                	%>
+                                	<div class="form-group">
+		                                <label><strong><% out.print(hauptkriterium.get("hauptkriteriumname_ID")); %></strong></label>
+		                                <% 
+		                                int c_tk = 1;
+		                                ArrayList<HashMap<String, String>> teilkriterien = datenhaltung.getSubCat("teilkriterium", "hauptkriteriumname_ID", hauptkriterium.get("hauptkriteriumname_ID"));
+		                                for (HashMap<String, String> teilkriterium : teilkriterien)
+		                                {
+		                               		 %>
+		                                	<div class="form-group row">
+		                                		<div class="col-sm-7">
+		                                        	<label class="col-form-label"><% out.print(teilkriterium.get("teilkriteriumname_ID")); %> (<% out.print(teilkriterium.get("skala_Min")); %>/<% out.print(teilkriterium.get("skala_Max")); %>)</label>
+		                                    	</div>
+		                                    	<div class="col-sm-5 row">
+		                                        	<select id="select_valuation_<% out.print(c_hk); %>_<% out.print(c_tk); %>" class="custom-select form-control">
+		                                        		<option selected>-</option>
+		                                        		<%
+		                                        		for(int i = Integer.parseInt(teilkriterium.get("skala_Min")); i <= Integer.parseInt(teilkriterium.get("skala_Max")); i++){
+		                                        			%>
+		                                        			<option><% out.print(i); %></option>
+		                                        			<%
+		                                        		}
+		                                        		%>
+		                                        	</select>
+		                                        </div>
+		                                	</div>
+		                                	<%
+		                                	c_tk++;
+		                                }
+                                	c_hk++;
+                                }
+                            	%>
+                          	</div> 
+                          	<div class="form-group">
                                 <label><strong>Endnote:</strong></label>
                                 <div class="form-group row">
                                     <div class="col-sm-7">
@@ -421,12 +339,12 @@
                                         <input id="input_grade" type="text" class="form-control">
                                     </div>    
                                 </div>
-                            </div>
+                            </div> 
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button id="btn_break" type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                        <button id="btn_save" type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
+                        <button id="btn_save_valuation" type="button" class="btn btn-primary" data-dismiss="modal">Speichern</button>
                     </div>
                 </div>
             </div>
@@ -434,6 +352,27 @@
 
         <script>   
             //Hier Javascript Code
+            function post(path, params, method) {
+                method = method || "post";
+                var form = document.createElement("form");
+                form.setAttribute("method", method);
+                form.setAttribute("action", path);
+
+                for(var key in params) {
+                    if(params.hasOwnProperty(key)) {
+                        var hiddenField = document.createElement("input");
+                        hiddenField.setAttribute("type", "hidden");
+                        hiddenField.setAttribute("name", key);
+                        hiddenField.setAttribute("value", params[key]);
+                        form.appendChild(hiddenField);
+                    }
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+            
+            
             document.querySelector('#link_home').addEventListener("click",
 				klickLinkHomeEvent);
 			function klickLinkHomeEvent() {
@@ -454,6 +393,74 @@
 			function klickLinkPersonalSettingsEvent() {
 				window.open("/pep/home/view_personal_info", "_self");
 			}
+			
+			var current_html_content;
+             
+            <%
+            for (int x = 0; x < html_contents.size(); x++){
+             	%>
+            	document.querySelector('#btn_valuation_<% out.print(x+1); %>').addEventListener("click", function(){
+            		current_html_content = "<% out.print(html_contents.get(x).get("teamname_ID")); %>";
+            		<%
+            		int hk_count = 0;
+            		for (HashMap<String, String> hauptkriterium : hauptkriterien){
+            			ArrayList<HashMap<String, String>> teilkriterien = datenhaltung.getSubCat("teilkriterium", "hauptkriteriumname_ID", hauptkriterium.get("hauptkriteriumname_ID"));
+            			int tk_count = 0;
+            			for (HashMap<String, String> teilkriterium : teilkriterien){
+            				ArrayList<HashMap<String, String>> kriteriumsmap = datenhaltung.getScoreForCriterion(html_contents.get(x).get("teamname_ID"), teilkriterium.get("teilkriteriumname_ID"));
+            				if(kriteriumsmap.isEmpty() == false){
+            					%>
+            					document.querySelector('#select_valuation_<% out.print(hk_count+1); %>_<% out.print(tk_count+1); %>').value = "<% out.print(kriteriumsmap.get(0).get("punkte")); %>";
+            					<%
+            				}
+            				else{
+            					%>
+            					document.querySelector('#select_valuation_<% out.print(hk_count+1); %>_<% out.print(tk_count+1); %>').value = "<% out.print("-"); %>";
+            					<%
+            				}
+            				tk_count++;
+            			}
+            			hk_count++;
+            		}
+            		String grade = datenhaltung.getSubCat("team", "teamname_ID", html_contents.get(x).get("teamname_ID"), "note").get(0).get("note") + "";
+            		if(grade.equals("null")){
+            			%>document.querySelector('#input_grade').value = "";<%
+            		}
+            		else{
+            			%>document.querySelector('#input_grade').value = "<% out.print(datenhaltung.getSubCat("team", "teamname_ID", html_contents.get(x).get("teamname_ID"), "note").get(0).get("note")); %>";<%
+            		}
+            		%>
+            		
+            	})
+            	<%
+            }
+            
+            %>
+            
+            document.querySelector('#btn_save_valuation').addEventListener("click", sendPostToDb_valuation);
+            function sendPostToDb_valuation(){
+            	var data = {};
+            	data["teamname_ID"] = current_html_content;
+            	<%
+            	int hk_count = 0;
+        		for (HashMap<String, String> hauptkriterium : hauptkriterien){
+        			ArrayList<HashMap<String, String>> teilkriterien = datenhaltung.getSubCat("teilkriterium", "hauptkriteriumname_ID", hauptkriterium.get("hauptkriteriumname_ID"));
+        			int tk_count = 0;
+        			for (HashMap<String, String> teilkriterium : teilkriterien){
+        				%>
+        				data["<% out.print(teilkriterium.get("teilkriteriumname_ID")); %>"] = document.querySelector('#select_valuation_<% out.print(hk_count+1); %>_<% out.print(tk_count+1); %>').value; 
+        				<%
+        				tk_count++;
+        			}
+        			%>
+        			data["note_ID"] = document.querySelector('#input_grade').value;
+        			<%
+        			hk_count++;
+        		}
+            	%>           	
+            	post("/pep/set_grades", data);
+            }
+			
 			
 			<%
 			for (int x = 0; x < html_contents.size(); x++){
@@ -541,42 +548,6 @@
             function klickLinkDownloadSummary(){
                 //Hier Code für Download von Summary
                 window.alert("Downloaded Summary")
-            }
-
-            document.querySelector('#btn_valuation_team_1').addEventListener("click", klickBtnValuationTeam1);
-            function klickBtnValuationTeam1(){
-                document.querySelector('#select_valuation_1_1').value = "12";
-                document.querySelector('#select_valuation_1_2').value = "10";
-                document.querySelector('#select_valuation_2_1').value = "4";
-                document.querySelector('#select_valuation_2_2').value = "1";
-                document.querySelector('#select_valuation_3_1').value = "5";
-                document.querySelector('#select_valuation_3_2').value = "2";
-                document.querySelector('#input_grade').value = "2,2";
-            }
-            document.querySelector('#btn_valuation_team_2').addEventListener("click", klickBtnValuationTeam2);
-            function klickBtnValuationTeam2(){
-                document.querySelector('#select_valuation_1_1').value = "-";
-                document.querySelector('#select_valuation_1_2').value = "-";
-                document.querySelector('#select_valuation_2_1').value = "9";
-                document.querySelector('#select_valuation_2_2').value = "0";
-                document.querySelector('#select_valuation_3_1').value = "-";
-                document.querySelector('#select_valuation_3_2').value = "2";
-                document.querySelector('#input_grade').value = "";
-            }
-            document.querySelector('#btn_valuation_team_3').addEventListener("click", klickBtnValuationTeam3);
-            function klickBtnValuationTeam3(){
-                document.querySelector('#select_valuation_1_1').value = "-";
-                document.querySelector('#select_valuation_1_2').value = "-";
-                document.querySelector('#select_valuation_2_1').value = "-";
-                document.querySelector('#select_valuation_2_2').value = "-";
-                document.querySelector('#select_valuation_3_1').value = "-";
-                document.querySelector('#select_valuation_3_2').value = "-";
-                document.querySelector('#input_grade').value = "";
-            }
-
-            document.querySelector('#btn_save').addEventListener("click", klickBtnSave);
-            function klickBtnSave(){
-                window.alert("Änderungen werden in Datenbank geschrieben");
             }
         </script>
     </body>
