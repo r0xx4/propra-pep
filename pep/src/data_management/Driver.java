@@ -120,6 +120,17 @@ public class Driver {
 		return executeUpdate(sql.toString());
 	}
 
+	public boolean deleteRow(String table, String iDA, String iDV) throws SQLException {
+		StringBuilder sql = new StringBuilder("DELETE FROM ");
+		sql.append(table);
+		sql.append(" WHERE ");
+		sql.append(iDA);
+		sql.append(" LIKE '");
+		sql.append(iDV);
+		sql.append("';");
+		return executeUpdate(sql.toString());
+	}
+
 	public boolean insertHashMap(String table, HashMap<String, String> hashMap) throws SQLException {
 		Set<String> keys = hashMap.keySet();
 		StringBuilder sql = new StringBuilder("INSERT INTO ");
@@ -199,10 +210,11 @@ public class Driver {
 		return returnArrayList(sql);
 	}
 
-	//Method get
+	// Method get
 
-	public ArrayList<HashMap<String, String>> getScoreForCriterion(String teamname, String teilkriterium) throws SQLException{
-		StringBuilder sql=new StringBuilder("SELECT * ");
+	public ArrayList<HashMap<String, String>> getScoreForCriterion(String teamname, String teilkriterium)
+			throws SQLException {
+		StringBuilder sql = new StringBuilder("SELECT * ");
 		sql.append("FROM kriteriumsmap ");
 		sql.append("WHERE kriteriumsmap.teamname_ID LIKE '");
 		sql.append(teamname);
@@ -210,17 +222,21 @@ public class Driver {
 		sql.append(teilkriterium);
 		sql.append("';");
 		return returnArrayList(sql.toString());
-		
+
 	}
+
 	// Method getAccountsInGroup
 	public ArrayList<HashMap<String, String>> getAccountsInGroup(String group) throws SQLException {
-		StringBuilder sql = new StringBuilder("SELECT account.accountname_ID FROM account ");
+		StringBuilder sql = new StringBuilder("SELECT account.accountname_ID FROM account  ");
 		sql.append("INNER JOIN teammap ON account.accountname_ID=teammap.accountname_ID ");
 		sql.append("INNER JOIN team ON teammap.teamname_ID=team.teamname_ID ");
 		sql.append(
 				"INNER JOIN organisationseinheit ON team.organisationseinheitname_ID=organisationseinheit.organisationseinheitname_ID ");
-		sql.append("WHERE account.rollename_ID LIKE 'Teilnehmer' OR account.rollename_ID LIKE 'Teamleiter'");
-		sql.append("AND organisationseinheit.organisationseinheitname_ID LIKE '");
+		sql.append(
+				"WHERE account.rollename_ID LIKE 'Teilnehmer' AND organisationseinheit.organisationseinheitname_ID LIKE '");
+		sql.append(group);
+		sql.append(
+				"' OR account.rollename_ID LIKE 'Teamleiter' AND organisationseinheit.organisationseinheitname_ID LIKE '");
 		sql.append(group);
 		sql.append("';");
 		return returnArrayList(sql.toString());
@@ -251,28 +267,38 @@ public class Driver {
 		ArrayList<HashMap<String, String>> list = returnArrayList(sql.toString());
 		return list.isEmpty() ? null : list.get(0).get("phasename_ID");
 	}
-	
+
 	// Method insertNewGroup
-	public boolean insertNewGroup() throws SQLException {
-		StringBuilder sql=new StringBuilder("SELECT organisationseinheitname_ID FROM organisationseinheit;");
-		ArrayList<HashMap<String, String>> gruppen=returnArrayList(sql.toString());
+	public boolean insertNewGroup(ArrayList<HashMap<String, String>> juroren) throws SQLException {
+		StringBuilder sql = new StringBuilder("SELECT organisationseinheitname_ID FROM organisationseinheit;");
+		ArrayList<HashMap<String, String>> gruppen = returnArrayList(sql.toString());
 		sql.setLength(0);
 		sql.append("INSERT INTO organisationseinheit ");
 		sql.append("(organisationseinheitname_ID) VALUES ('");
-		int i=0;
-		for(HashMap<String, String> gruppe: gruppen) {
+		int i = 0;
+		boolean clause = false;
+		for (HashMap<String, String> gruppe : gruppen) {
 			i++;
-			if(!gruppe.get("organisationseinheitname_ID").contains(i+"")) {
-				sql.append("Gruppe "+i);
+			if (!gruppe.get("organisationseinheitname_ID").contains(i + "")) {
+				sql.append("Gruppe " + i);
 				sql.append("');");
-				return executeUpdate(sql.toString());
-			}		
+				executeUpdate(sql.toString());
+				clause = true;
+				break;
+			}
 		}
-		i++;
-		sql.append("Gruppe "+i);
-		sql.append("');");
-
-		return executeUpdate(sql.toString());
+		if (!clause) {
+			i++;
+			sql.append("Gruppe " + i);
+			sql.append("');");
+			executeUpdate(sql.toString());
+		}
+		for(HashMap<String, String> juror:juroren) {
+			juror.put("organisationseinheitname_ID", "Gruppe "+i);
+			insertHashMap("jurormap",juror);
+		}
+			
+		return true;
 	}
 
 	////////////// Hilfsmethoden//////////////////////////////////
