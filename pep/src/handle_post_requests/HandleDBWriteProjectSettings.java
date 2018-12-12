@@ -76,15 +76,7 @@ public class HandleDBWriteProjectSettings extends HttpServlet {
 					registrierungsphasedaten.put("endDatum", registrierung_splitted[1]);
 					datenhaltung.updateTable("phase", "Registrierungsphase", registrierungsphasedaten);
 				}
-				else if(attribute.equals("Bewertung")) {
-					HashMap<String, String> bewertungsphasedaten = new HashMap<String, String>();
-					String bewertung = push_into_db.get(attribute);
-					String[] bewertung_splitted = bewertung.split("#");
-					bewertungsphasedaten.put("startDatum", bewertung_splitted[0]);
-					bewertungsphasedaten.put("endDatum", bewertung_splitted[1]);
-					datenhaltung.updateTable("phase", "Projektbewertungsphase", bewertungsphasedaten);
-				}
-				else if(attribute.equals("Anmeldung")) {
+				else if(attribute.equals("Anmelden")) {
 					HashMap<String, String> anmeldungsphasedaten = new HashMap<String, String>();
 					String anmeldung = push_into_db.get(attribute);
 					String[] anmeldung_splitted = anmeldung.split("#");
