@@ -56,6 +56,9 @@
                         <h1 class="h4">Dein Team:</h1>
                     </div>
                     <div>
+                    <% 
+                    
+                    %>
                         1. Boris Bäcker (boris.bäcker@student.uni-siegen.de)</br>
                         2. Anette Schwermer (anette.schwermer@student.uni-siegen.de)</br>
                         3. Thomas Gottschalk (thomas.gottschalk@student.uni-siegen.de)</br>
@@ -64,55 +67,51 @@
                         <h1 class="h4">Dateien</h1>
                     </div>
                     <div>
-                        <label>Laden Sie Ihre Projektdateien vor ablauf der Frist als PDF Datei hier hoch</label>
-                        <form method = POST action = "/pep/file_upload" enctype=multipart/form-data>
-                            <div class="form-group row">
-                                <div class="col-sm-3"><label>Bericht/Dokumentation</label></div>
-                                <div class="col-sm-9">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="input_file_project_participant_project_registration_phase" name="file" accept=".pdf" onchange="onFileSelected(this)">    
-                                        <input name="filetype" value="Bericht" hidden> 
-                                        <label class="custom-file-label" for="customFile">PDF Datei suchen</label>                                                                                                                                                        
-                                    </div>
+                    	<label>Laden Sie Ihre Projektdateien vor Ablauf der Frist als PDF Datei hier hoch</label>
+                    	<div class="form-group row">
+                            <div class="col-sm-3"><label>Bericht/Dokumentation</label></div>
+                            <div class="col-sm-9">
+                                <div class="custom-file">
+                                	<form method = "post" action = "/pep/file_upload" enctype=multipart/form-data>
+                                		<input type="file" class="custom-file-input" name="Bericht" accept=".pdf" onchange="onFileSelected(this)">     
+                                    </form>
+                                    <label class="custom-file-label" for="customFile">PDF Datei suchen</label>                                                                                                                                                  
                                 </div>
                             </div>
-                        </form>
-                        <form method = POST action = "/pep/file_upload" enctype=multipart/form-data>
-                            <div class="form-group row">
-                                <div class="col-sm-3"><label>Projekt Präsentation</label></div>
-                                <div class="col-sm-9">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="input_file_project_participant_project_phase" name="file" accept=".pdf" onchange="onFileSelected(this)">    
-                                        <input name="filetype" value="Praesentation" hidden> 
-                                        <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
-                                    </div>
-                                </div>
-                            </div>                                                                
-                        </form>
-                        <form method = POST action = "/pep/file_upload" enctype=multipart/form-data>
-                            <div class="form-group row">
-                                <div class="col-sm-3"><label>Poster</label></div>
-                                <div class="col-sm-9">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="input_file_team_chairman_project_registration_phase" name="file" accept=".pdf" onchange="onFileSelected(this)">    
-                                        <input name="filetype" value="Poster" hidden> 
-                                        <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
-                                    </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3"><label>Projekt Präsentation</label></div>
+                            <div class="col-sm-9">
+                                <div class="custom-file">
+                                	<form method = "post" action = "/pep/file_upload" enctype=multipart/form-data>
+                                		<input type="file" class="custom-file-input" name="Praesentation" accept=".pdf" onchange="onFileSelected(this)">     
+                                    </form>
+                                    <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
                                 </div>
                             </div>
-                        </form>
-                        <form method = POST action = "/pep/file_upload" enctype=multipart/form-data>
-                            <div class="form-group row">
-                                <div class="col-sm-3"><label>Einseitige Zusammenfassung</label></div>
-                                <div class="col-sm-9">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="input_file_supervisor_general" name="file" accept=".pdf" onchange="onFileSelected(this)">    
-                                        <input name="filetype" value="Zusammenfassung" hidden> 
-                                        <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
-                                    </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3"><label>Poster</label></div>
+                            <div class="col-sm-9">
+                                <div class="custom-file">
+                                	<form method = "post" action = "/pep/file_upload" enctype=multipart/form-data>
+                                		<input type="file" class="custom-file-input" name="Poster" accept=".pdf" onchange="onFileSelected(this)">     
+                                    </form> 
+                                    <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+	                    <div class="form-group row">
+	                        <div class="col-sm-3"><label>Einseitige Zusammenfassung</label></div>
+	                        <div class="col-sm-9">
+	                            <div class="custom-file">
+	                            	<form method = "post" action = "/pep/file_upload" enctype=multipart/form-data>
+                                		<input type="file" class="custom-file-input" name="Zusammenfassung" accept=".pdf" onchange="onFileSelected(this)">     
+                                    </form>
+	                                <label class="custom-file-label" for="customFile">PDF Datei suchen</label>
+	                            </div>
+	                        </div>
+	                    </div>
                     </div>
                     <!-- Button Ändern -->
                     <div class="float-sm-right btn-toolbar mb-md-0 pt-3 pb-3">
@@ -156,8 +155,9 @@
 			
 			function onFileSelected(element) {
 				var file = element.files[0];
-				element.parentNode.lastElementChild.innerHTML = file.name;
-				form_list.push(element.parentNode.parentNode.parentNode.parentNode);
+				element.parentNode.parentNode.lastElementChild.innerHTML = file.name;
+				form_list.push(element.parentNode);
+				console.log(form_list);
 			}
 			
 			document.querySelector('#btn_submit').addEventListener("click", sendPostForm);

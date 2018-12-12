@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,6 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+
 import data_management.Driver;
 
 /**
@@ -28,6 +36,7 @@ import data_management.Driver;
 @MultipartConfig
 public class HandleFileUpload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ServletFileUpload uploader;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,7 +44,14 @@ public class HandleFileUpload extends HttpServlet {
     public HandleFileUpload() {
         super();
     }
-
+    
+    @Override 
+    public void init() throws ServletException{
+		DiskFileItemFactory filefactory = new DiskFileItemFactory();
+		filefactory.setRepository((File) getServletContext().getAttribute("FILES_DIR_FILE"));
+		this.uploader = new ServletFileUpload(filefactory);
+	}
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -65,15 +81,33 @@ public class HandleFileUpload extends HttpServlet {
 			{
 				String team = team_db_format.get(0).get("teamname_ID");
 				String dateipfad_team = datenhaltung.getSubCat("team", "teamname_ID", team, "projektpfad").get(0).get("projektpfad");
-				
-				Part filePart = request.getPart("file");
-				InputStream fileContent = filePart.getInputStream();
-				byte[] buffer = new byte[fileContent.available()];
-				 
-				File target = new File("C:/data/" + dateipfad_team + "/" + request.getParameter("filetype") + ".pdf");
-				OutputStream outStream = new FileOutputStream(target);
-			    outStream.write(buffer);
-			    outStream.close();
+				try
+				{
+					List<FileItem> fileItemsList = uploader.parseRequest(request);
+					
+					Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
+					while(fileItemsIterator.hasNext())
+					{
+						FileItem fileItem = fileItemsIterator.next();
+						String pathname = "C:/data" + dateipfad_team + "/" + fileItem.getFieldName() + ".pdf";
+						File target = new File(pathname);
+						System.out.println(fileItem);
+						fileItem.write(target);
+					}
+				}
+				catch (Exception e) 
+				{
+					e.printStackTrace();
+				}
+					
+//				Part filePart = request.getPart("file");
+//				InputStream fileContent = filePart.getInputStream();
+//				byte[] buffer = new byte[fileContent.available()];
+//				 
+//				File target = new File("C:/data/" + dateipfad_team + "/" + request.getParameter("filetype") + ".pdf");
+//				OutputStream outStream = new FileOutputStream(target);
+//			    outStream.write(buffer);
+//			    outStream.close();
 				
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
