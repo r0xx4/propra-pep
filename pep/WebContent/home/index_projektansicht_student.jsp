@@ -74,7 +74,7 @@
                         		count++;
                     			HashMap<String, String> accountdata = datenhaltung.getSubCat("account", mail).get(0);
                     			%>
-                    			<% out.print(count + ". " + accountdata.get("vorname") + " " + accountdata.get("nachname") + " (" + mail + ")"); %>
+                    			<% out.print(count + ". " + accountdata.get("vorname") + " " + accountdata.get("nachname") + " (" + mail + ")"); %></br>
                     			<%
                     		}
                     	}
