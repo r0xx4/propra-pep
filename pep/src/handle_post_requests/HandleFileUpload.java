@@ -99,15 +99,6 @@ public class HandleFileUpload extends HttpServlet {
 				{
 					e.printStackTrace();
 				}
-					
-//				Part filePart = request.getPart("file");
-//				InputStream fileContent = filePart.getInputStream();
-//				byte[] buffer = new byte[fileContent.available()];
-//				 
-//				File target = new File("C:/data/" + dateipfad_team + "/" + request.getParameter("filetype") + ".pdf");
-//				OutputStream outStream = new FileOutputStream(target);
-//			    outStream.write(buffer);
-//			    outStream.close();
 				
 				PrintWriter out = response.getWriter();
 				out.println("<script>");

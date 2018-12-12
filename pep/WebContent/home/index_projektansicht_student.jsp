@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, data_management.Driver"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -57,11 +57,29 @@
                     </div>
                     <div>
                     <% 
-                    
-                    %>
-                        1. Boris Bäcker (boris.bäcker@student.uni-siegen.de)</br>
-                        2. Anette Schwermer (anette.schwermer@student.uni-siegen.de)</br>
-                        3. Thomas Gottschalk (thomas.gottschalk@student.uni-siegen.de)</br>
+                    Driver datenhaltung = new Driver();
+                    String session_ID = (String)(session.getAttribute("session_id"));
+                    String accountname_ID = datenhaltung.getSubCat("sessionmap", session_ID).get(0).get("accountname_ID");
+                    ArrayList<HashMap<String, String>> teamname_ID = datenhaltung.getSubCat("teammap", "accountname_ID", accountname_ID, "teamname_ID");
+                    if (!teamname_ID.isEmpty())
+                    {
+                    	ArrayList<HashMap<String, String>> teammitglieder = datenhaltung.getSubCat("teammap", "teamname_ID", teamname_ID.get(0).get("teamname_ID"), "accountname_ID");
+                    	int count = 0;
+                    	for (HashMap<String, String> teammitglied : teammitglieder)
+                    	{ 	
+                    		String mail = teammitglied.get("accountname_ID");
+                    		String rolle = datenhaltung.getSubCat("account", mail).get(0).get("rollename_ID");
+                    		if (!rolle.equals("Tutor"))
+                    		{
+                        		count++;
+                    			HashMap<String, String> accountdata = datenhaltung.getSubCat("account", mail).get(0);
+                    			%>
+                    			<% out.print(count + ". " + accountdata.get("vorname") + " " + accountdata.get("nachname") + " (" + mail + ")"); %>
+                    			<%
+                    		}
+                    	}
+                    }
+                   	%>
                     </div>
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
                         <h1 class="h4">Dateien</h1>
