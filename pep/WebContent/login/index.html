@@ -92,6 +92,26 @@
         
         <script>   
             //Hier Javascript Code
+            function post(path, params, method) {
+                method = method || "post";
+                var form = document.createElement("form");
+                form.setAttribute("method", method);
+                form.setAttribute("action", path);
+
+                for(var key in params) {
+                    if(params.hasOwnProperty(key)) {
+                        var hiddenField = document.createElement("input");
+                        hiddenField.setAttribute("type", "hidden");
+                        hiddenField.setAttribute("name", key);
+                        hiddenField.setAttribute("value", params[key]);
+                        form.appendChild(hiddenField);
+                    }
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+            
             var email; 
             var password;
 
@@ -100,7 +120,12 @@
                 //Hier Code für Btn-Einloggen gedrückt 
                 email = document.querySelector("#inputEmail").value;
                 password = document.querySelector("#inputPassword").value;
-                window.open("/pep/login/transfer_login_data?" + "accountname_ID=" + email + "&password=" + password, "_self");
+                
+                var login_map = {};
+                login_map["accountname_ID"] = email;
+                login_map["password"] = password;
+                
+                post("/pep/login/transfer_login_data", login_map);
             }    
 
             document.querySelector('#btnRegister').addEventListener('click', btnRegisterEvent);  

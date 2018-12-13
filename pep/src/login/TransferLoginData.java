@@ -33,18 +33,19 @@ public class TransferLoginData extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Driver datenhaltung = new Driver();
-		String query = request.getQueryString();
-		String[] args = query.split("&");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HashMap<String, String> account_data = new HashMap<>();
-		for (String x:args)
+		for (String key : request.getParameterMap().keySet())
 		{
-			String[] pair = x.split("=");
-			if (pair.length == 2)
-				account_data.put(pair[0], pair[1]);
-			else
-				account_data.put(pair[0], "");
+			account_data.put(key, request.getParameterMap().get(key)[0]);
 		}
+		Driver datenhaltung = new Driver();
+		
 		try 
 		{
 			String pw = Driver.getHash(account_data.get("password").getBytes(StandardCharsets.UTF_8));
@@ -73,12 +74,4 @@ public class TransferLoginData extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-
 }

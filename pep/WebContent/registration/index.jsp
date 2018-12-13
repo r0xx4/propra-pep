@@ -125,6 +125,26 @@
 
         <script>   
             //Hier Javascript Code
+            function post(path, params, method) {
+                method = method || "post";
+                var form = document.createElement("form");
+                form.setAttribute("method", method);
+                form.setAttribute("action", path);
+
+                for(var key in params) {
+                    if(params.hasOwnProperty(key)) {
+                        var hiddenField = document.createElement("input");
+                        hiddenField.setAttribute("type", "hidden");
+                        hiddenField.setAttribute("name", key);
+                        hiddenField.setAttribute("value", params[key]);
+                        form.appendChild(hiddenField);
+                    }
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+            
             var role;
             var firstName;
             var lastName;
@@ -202,16 +222,16 @@
                 else if ((role == "Tutor" || role == "Juror") && masterkey == "")
                 	window.alert("Bitte passenden Masterkey angeben!");
                 else
-          			window.open("/pep/registration/transfer_account_data?"
-          						+ "vorname=" + firstName 
-          						+ "&nachname=" + lastName 
-          						+ "&accountname_ID=" + email 
-          						+ "&password=" + password 
-          						+ "&rollename_ID=" + role 
-          						+ "&studiengangname_ID=" + courseOfStudies 
-          						+ "&lehrstuhlname_ID=" + universityChair 
-          						+ "&matrikelnummer=" + matriculationNumber 
-          						+ "&masterkey=" + masterkey, "_self");
+                	var registration_map = {};
+                	registration_map["vorname"] = firstName;
+                	registration_map["nachname"] = lastName;
+                	registration_map["accountname_ID"] = email;
+                	registration_map["password"] = password;
+                	registration_map["rollename_ID"] = role;
+                	registration_map["studiengangname_ID"] = courseOfStudies;
+                	registration_map["matrikelnummer"] = matriculationNumber;
+                	registration_map["masterkey"] = masterkey;
+                	post("/pep/registration/transfer_account_data", registration_map);
             }    
 
             document.querySelector('#btnLogIn').addEventListener('click', btnLogInEvent);  
