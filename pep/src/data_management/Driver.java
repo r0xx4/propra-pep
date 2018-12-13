@@ -1,9 +1,5 @@
 package data_management;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -27,24 +23,13 @@ public class Driver {
 	private static final byte salt[] = DatatypeConverter.parseHexBinary("DE358A58A8769EB4A370A7EE9EC54CDE76CE64C2");
 
 	// Method createTeam
-	public boolean createTeam(String lehrstuhl, String projekttitel, String organisationseinheit, String betreuer1,
+	public String createTeam(String lehrstuhl, String projekttitel, String organisationseinheit, String betreuer1,
 			String betreuer2) throws SQLException {
 
 		String kennnummer = generateKennnummer(lehrstuhl);
 		String sql = "Insert Into team (teamname_ID,teamnummer,projekttitel,projektpfad,organisationseinheitname_ID) Values('"
 				+ kennnummer + "','" + kennnummer.substring(2, 4) + "','" + projekttitel + "','" + "/" + kennnummer
 				+ "','" + organisationseinheit + "')";
-		
-		Path path = Paths.get("C:/data");
-		if (!Files.exists(path))
-		{
-			new File("C:/data").mkdirs();
-			new File("C:/data/" + kennnummer).mkdirs();
-		}
-		else
-		{
-			new File("C:/data/" + kennnummer).mkdirs();
-		}
 		
 		executeUpdate(sql);
 
@@ -58,7 +43,7 @@ public class Driver {
 		teammap_row2.put("teamname_ID", kennnummer);
 		this.insertHashMap("teammap", teammap_row2);
 
-		return true;
+		return kennnummer;
 	}
 
 	// Method setTeamLeader
