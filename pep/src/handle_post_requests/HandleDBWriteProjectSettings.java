@@ -119,14 +119,20 @@ public class HandleDBWriteProjectSettings extends HttpServlet {
 				}
 				else if(attribute.equals("Studiengang_del")) {
 					if (!push_into_db.get(attribute).equals("")) {
-						String studiengang = push_into_db.get(attribute);
-						datenhaltung.deleteRow("studiengang", studiengang);
+						String[] studiengaenge_del = push_into_db.get(attribute).split("%");
+						for (String studiengang_del : studiengaenge_del)
+						{
+							datenhaltung.deleteRow("studiengang", studiengang_del);
+						}
 					}
 				}
 				else if(attribute.equals("Lehrstuhl_del")) {
 					if (!push_into_db.get(attribute).equals("")) {
-						String lehrstuhl = push_into_db.get(attribute);
-						datenhaltung.deleteRow("lehrstuhl", lehrstuhl);
+						String[] lehrstuehle_del = push_into_db.get(attribute).split("%");
+						for (String lehrstuhl_del : lehrstuehle_del)
+						{
+							datenhaltung.deleteRow("studiengang", lehrstuhl_del);
+						}
 					}
 				}
 				else if(attribute.equals("Bewertung_add")) {
