@@ -330,27 +330,6 @@
 			<%
    		}
 		%>
-            
-            document.querySelector('#link_download_documentation').addEventListener("click", klickLinkDownloadDocumentation);
-            function klickLinkDownloadDocumentation(){
-                //Hier Code für Download von Dokumentation
-                window.alert("Downloaded Dokumentation")
-            }
-            document.querySelector('#link_download_presentation').addEventListener("click", klickLinkDownloadPresentation);
-            function klickLinkDownloadPresentation(){
-                //Hier Code für Download von Presentation
-                window.alert("Downloaded Presentation")
-            }
-            document.querySelector('#link_download_poster').addEventListener("click", klickLinkDownloadPoster);
-            function klickLinkDownloadPoster(){
-                //Hier Code für Download von Poster
-                window.alert("Downloaded Poster")
-            }
-            document.querySelector('#link_download_summary').addEventListener("click", klickLinkDownloadSummary);
-            function klickLinkDownloadSummary(){
-                //Hier Code für Download von Summary
-                window.alert("Downloaded Summary")
-            }
 
             document.querySelector('#link_home').addEventListener("click",
     				klickLinkHomeEvent);

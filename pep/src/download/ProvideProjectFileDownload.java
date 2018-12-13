@@ -37,7 +37,7 @@ public class ProvideProjectFileDownload extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Driver datenhaltung = new Driver();
-		response.setContentType("application/pdf");
+		
         String file = "";
         String path;
 		
@@ -47,9 +47,6 @@ public class ProvideProjectFileDownload extends HttpServlet {
 		String filetype = split1.split("=")[1];
 		String team = split2.split("=")[1];
 		String teamPath = "";
-		System.out.println(filetype);
-		System.out.println(team);
-		
 		if(filetype.equals("documentation")){
 			file = "Bericht.pdf";
 		}
@@ -74,35 +71,41 @@ public class ProvideProjectFileDownload extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println(teamPath);
         path = "C:/data"+ teamPath +"/";
-        System.out.println(path);
-        response.setContentType("APPLICATION/OCTET-STREAM");
-        response.setHeader("Content-Disposition", "attachment; filename=\""+file+"\"");
+
+        PrintWriter out = response.getWriter();
 
         try {
-        	File datei = new File(path+"hi");
-        	if(datei.exists()) {
-        		file = "a";
-        	}
-        	PrintWriter out = response.getWriter();
-        	FileInputStream fileInputStream;
-        	fileInputStream = new FileInputStream(path+file);
-        	System.out.println(path+file);;
         	
-    		int i;
-            while((i = fileInputStream.read()) != -1) {
-                out.write(i);
-            }
-            
-            
-            fileInputStream.close();
-            out.close();
+        	File datei = new File(path+file);
+        	if(datei.exists()) {
+        		response.setContentType("application/pdf");
+        		response.setContentType("APPLICATION/OCTET-STREAM");
+                response.setHeader("Content-Disposition", "attachment; filename=\""+file+"\"");
+        		
+            	FileInputStream fileInputStream;
+            	fileInputStream = new FileInputStream(path+file);
+            	System.out.println(path+file);
+            	
+        		int i;
+                while((i = fileInputStream.read()) != -1) {
+                    out.write(i);
+                }
+                
+                fileInputStream.close();
+                out.close();
+        	}
+        	else {
+        		out.println("<script>");
+        		out.println("window.open(\"/pep/home/show_teams\", \"_self\")");
+        		out.println("</script>");
+        		out.close();
+        	}
         	
         }catch(FileNotFoundException e) {
         	
         }
-        
+		
     }
 
 	/**
