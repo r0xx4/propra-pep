@@ -18,11 +18,11 @@ public class GetData {
 	private int[] mod=new int[3];
 	private String inhalt;
 	
-	public GetData(String speicherort) throws IOException
+	public GetData() throws IOException
 
 	{
-		fr = new FileReader(speicherort);
-		br = new BufferedReader(fr);
+		//fr = new FileReader(speicherort);
+		//br = new BufferedReader(fr);
 		rgb[0]=0;
 		rgb[1]=0;
 		rgb[2]=0;
@@ -34,7 +34,7 @@ public class GetData {
 		
 	  
 	}
-	public void readLines() throws IOException
+	private void readLines() throws IOException
 	{
 		String ausgabe=br.readLine();
 		if(ausgabe==null)
@@ -46,7 +46,7 @@ public class GetData {
 			inhalt= ausgabe;
 		}
 	}
-	public String getLine()
+	private String getLine()
 	{
 		return inhalt;
 	}

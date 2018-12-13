@@ -80,24 +80,25 @@ public class Pdfcreator {
 	public void createabschlusspraesentation(String speicherort,List<Gruppe>gruppen, String hin) {
 		int lastelem=0;
 		platz=3;
+		String rein=speicherort;
 		try {
 			OutputStream out = new FileOutputStream(new File(hin+File.separator+"abschlusspraesentation.pdf"));
 			Document document = new Document(PageSize.A4.rotate());
 			PdfWriter writer = PdfWriter.getInstance(document, out);
 			document.open();
 			addMetaData(document);
-			GetData inhalt=new GetData(speicherort);
-			inhalt.readLines();
+			GetData inhalt=new GetData();
+			//inhalt.readLines();
 			Paragraph preface = new Paragraph();
 			preface.setFont(new Font(Font.FontFamily.TIMES_ROMAN,18, Font.NORMAL));
 			preface.setAlignment(Element.ALIGN_CENTER);
 			preface.setLeading(0, 1);
-			String schreib;
+			String schreib = rein;
 			document.newPage();
 			document.add(new Chunk(""));
-			for(;inhalt.getLine()!=null;inhalt.readLines())
+			for(;!schreib.equals("");)
 			{
-				schreib=inhalt.getLine();
+				
 				
 				for(int metadatabeginn=schreib.indexOf("<");metadatabeginn>=0;metadatabeginn=schreib.indexOf("<"))
 				{
@@ -128,13 +129,14 @@ public class Pdfcreator {
 					case "/u":preface.setFont(inhalt.removemod(2));break;
 					case "spacing":float space=newspace(notmetadata);if(space<-0.5)preface.add(notmetadata); else {preface.setLeading(0, space);}
 					case "newPage": document.newPage();  		document.add(new Chunk("")); break;
+					case "newLine" :document.add(Chunk.NEWLINE);break;
 					case "gruppenansage":List<String>a=new ArrayList<String>();
-					for(int k=schreib.indexOf("</gruppenansage>");k==-1;k=schreib.indexOf("</gruppenansage>"))
-					{
-						a.add(schreib);
-						inhalt.readLines();
-						schreib=inhalt.getLine();
-					}
+					//for(int k=schreib.indexOf("</gruppenansage>");k==-1;k=schreib.indexOf("</gruppenansage>"))
+				//	{
+				//		a.add(schreib);
+				//		inhalt.readLines();
+				//		schreib=inhalt.getLine();
+				//	}
 					a.add(schreib.substring(0, schreib.indexOf("</gruppenansage>")));
 					
 					lastelem=gruppenansage(document, a,gruppen,lastelem,inhalt.getFont(),inhalt);
@@ -205,13 +207,13 @@ public class Pdfcreator {
 				case "spacing":float space=newspace(notmetadata);if(space<-0.5)preface.add(notmetadata); else {preface.setLeading(0, space);}break;
 				case "newPage": document.newPage();  		document.add(new Chunk("")); break;
 				case "group":preface.add("Gruppe "+gruppen.get(l).getGruppennr());break;
+				case "newLine" :document.add(Chunk.NEWLINE);break;
 				case "place":switch(gruppen.get(l).getPlatz())
 							{
 								case 1: preface.add("Erster Platz"); break;
 								case 2:preface.add("Zweiter Platz");break;
 								case 3:preface.add("Dritter Platz");break;
 							}break;
-				case "groupdescription":preface.add( gruppen.get(l).getDisc());break;
 				case "name":preface.add( gruppen.get(l).getName());break;
 				case "/gruppenansage":k=a.size()+1;break;
 				default:preface.add(notmetadata);break;
