@@ -78,7 +78,7 @@
                            		ArrayList<HashMap<String, String>> html_contents = datenhaltung.getSubCat("team");
                            	
                            		String user=datenhaltung.getSessionUser(request.getSession().getAttribute("session_id").toString());
-                           		ArrayList<HashMap<String, String>> check=datenhaltung.getSubCat("teammap", "accountname_ID", user, "teamname_ID");
+                           		ArrayList<HashMap<String, String>> check = datenhaltung.getSubCat("teammap", "accountname_ID", user, "teamname_ID");
                   
                            		for(HashMap<String,String> team:html_contents){
                            			if(check.isEmpty()){

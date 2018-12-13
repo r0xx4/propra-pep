@@ -1,5 +1,6 @@
 package download;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,8 +37,7 @@ public class ProvideProjectFileDownload extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Driver datenhaltung = new Driver();
-		response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+		response.setContentType("application/pdf");
         String file = "";
         String path;
 		
@@ -62,6 +62,9 @@ public class ProvideProjectFileDownload extends HttpServlet {
 		else if(filetype.equals("summary")){
 			file = "Zusammenfassung.pdf";
 		}
+		else {
+			file = "null";
+		}
 		
 		
 		
@@ -78,10 +81,16 @@ public class ProvideProjectFileDownload extends HttpServlet {
         response.setHeader("Content-Disposition", "attachment; filename=\""+file+"\"");
 
         try {
+        	File datei = new File(path+"hi");
+        	if(datei.exists()) {
+        		file = "a";
+        	}
+        	PrintWriter out = response.getWriter();
         	FileInputStream fileInputStream;
         	fileInputStream = new FileInputStream(path+file);
+        	System.out.println(path+file);;
         	
-        	int i;
+    		int i;
             while((i = fileInputStream.read()) != -1) {
                 out.write(i);
             }
@@ -89,6 +98,7 @@ public class ProvideProjectFileDownload extends HttpServlet {
             
             fileInputStream.close();
             out.close();
+        	
         }catch(FileNotFoundException e) {
         	
         }

@@ -61,13 +61,58 @@
                     					<%
 						Driver datenhaltung = new Driver();
 						String user = datenhaltung.getSessionUser(request.getSession().getAttribute("session_id").toString());
+						String rolle = datenhaltung.getSubCat("account", user).get(0).get("rollename_ID");
+						System.out.println(rolle);
 						HashMap<String, String> html_contents = datenhaltung.getSubCat("account", user).get(0);
 					%>
 				</div>
 				<h5>Hallo <%out.print(html_contents.get("vorname"));%> <%out.print(html_contents.get("nachname"));%>,</h5>
 				Das Planungs und Entwicklunsprojekt beefindet sich momentan in
 				folgender Phase: <%out.print(datenhaltung.getCurrentPhase());%>
-                    <!-- Hier Custome HTML einfügen -->
+				<div class="pt-3 pb-2">
+                <%
+                String currentPhase = datenhaltung.getCurrentPhase();
+                if(currentPhase == null){
+                	
+                }
+                else if(currentPhase.equals("Registrierungsphase")){
+                	%>
+                    <strong>Herlichen Glückwunsch! Sie haben es geschafft sich zu regestrieren!</strong><br>
+                    - Warten Sie auf die nächste Phase und somit auf neue Anweisungen, die Sie hier einsehen können<br>
+                    <%
+                }
+                else if(currentPhase.equals("Projektanmeldephase")){
+                	if(rolle == null){
+                		
+                	}
+                	else if(rolle.equals("Teilnehmer")){
+                		%>
+                    	<strong>Ihre Aufgaben während der Anmelde-Phase:</strong><br>
+            			- Ihr Teamleiter sollte sich mit einem Formular melden, das Sie unterschreiben müssen, um für das PEP angemeldet zu werden
+                    	<%
+                	}
+                	else if(rolle.equals("Teamleiter")){
+                		%>
+                		<strong>Herlichen Glückwunsch! Sie wurden zum Teamleiter gewählt!</strong><br>
+        				- Drucken Sie unter <strong >"Startseite"</strong> das Formular aus, lassen Sie es von ihren Teammitgliedern unterschreiben und geben Sie es im Prüfungsamt ab<br>
+        				<label class="pt-2">Laden Sie hier das Anmeldeformular für das Projekt herunter und lassen Sie es von allen Teammitgliedern unterschreiben: <a href="/pep/team_list_pdf?<% out.print(user); %>">Anmeldeformular</a></label></br>
+                		<%
+                	}
+                }
+                else if(currentPhase.equals("Projekterarbeitungsphase")){
+                	%>
+                	<strong>Ihre Aufgaben während der Projekterarbeitungs-Phase:</strong><br>
+        			- Unter <strong>"Projekt"</strong> sollten Sie den Speicher nutzen, um ihre Projektdateien hochzuladen<br>
+        			- <strong>Achtung!</strong> Die von Ihnnen zuletzt hochgeladene Datei wird Überschrieben!
+                	<%
+                }
+                else if(currentPhase.equals("Projektbewertungsphase")){
+                	%>
+                	<strong>In der Bewertungsphase haben Sie die Aufgabe, ihr Projet vorzustellen</strong>
+                    <%
+                }
+                %>
+                </div>
                 </div>
                 <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
                     <div class="container-fluid">
