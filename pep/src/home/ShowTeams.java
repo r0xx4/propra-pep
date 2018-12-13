@@ -1,6 +1,7 @@
 package home;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.itextpdf.text.log.SysoCounter;
 
 import data_management.Driver;
 
@@ -42,6 +45,8 @@ public class ShowTeams extends HttpServlet {
 			{
 				String accountname_ID = datenhaltung.getSubCat("sessionmap", session_ID).get(0).get("accountname_ID");
 				String rolle = datenhaltung.getSubCat("account", accountname_ID).get(0).get("rollename_ID");
+				String currentPhase = datenhaltung.getCurrentPhase();
+				System.out.println(currentPhase);
 				System.out.println(rolle);
 				System.out.println(session_ID);
 				if (rolle.equals("Admin"))
@@ -51,8 +56,16 @@ public class ShowTeams extends HttpServlet {
 				}
 				else if (rolle.equals("Juror"))
 				{
-					RequestDispatcher rd = request.getRequestDispatcher("/home/index_teamansicht_juror.jsp");
-					rd.forward(request,  response);
+					if(currentPhase == null || !currentPhase.equals("Projektbewertungsphase")){
+						RequestDispatcher rd = request.getRequestDispatcher("/home/index_teamansicht_juror_fehlermeldung.html");
+						rd.forward(request,  response);
+					}
+					
+					else {
+						RequestDispatcher rd = request.getRequestDispatcher("/home/index_teamansicht_juror.jsp");
+						rd.forward(request,  response);
+					}
+					
 				}
 				else if (rolle.equals("Tutor"))
 				{

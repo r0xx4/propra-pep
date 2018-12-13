@@ -1242,7 +1242,7 @@
 				push_to_db["Projektphase"] = document.getElementById("input_start_date_project_phase").value
 											+ "#"
 											+ document.getElementById("input_end_date_project_phase").value;
-				
+				console.log(push_to_db);
 				post("/pep/handle_db_write_project_settings", push_to_db);
 			}
 			function elementExists(text, id, element){
