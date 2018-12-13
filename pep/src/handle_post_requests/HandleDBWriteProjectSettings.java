@@ -98,7 +98,7 @@ public class HandleDBWriteProjectSettings extends HttpServlet {
 						for (String studiengang : studiengaenge)
 						{
 							HashMap<String, String> plus_studiengang = new HashMap<>();
-							plus_studiengang.put("studiengangname_ID", push_into_db.get(attribute));
+							plus_studiengang.put("studiengangname_ID", studiengang);
 							datenhaltung.insertHashMap("studiengang", plus_studiengang);
 						}
 					}
@@ -109,7 +109,7 @@ public class HandleDBWriteProjectSettings extends HttpServlet {
 						for (String lehrstuhl : lehrstuehle)
 						{
 							HashMap<String, String> plus_lehrstuhl = new HashMap<>();
-							String[] lehrstuhlinfo = push_into_db.get(attribute).split(":");
+							String[] lehrstuhlinfo = lehrstuhl.split(":");
 							plus_lehrstuhl.put("lehrstuhlname_ID", lehrstuhlinfo[0]);
 							plus_lehrstuhl.put("accountname_ID", lehrstuhlinfo[1]);
 							plus_lehrstuhl.put("organisationseinheitname_ID", lehrstuhlinfo[2]);
