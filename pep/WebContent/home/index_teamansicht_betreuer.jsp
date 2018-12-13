@@ -76,6 +76,16 @@
                             	<% 	
                            		Driver datenhaltung = new Driver();
                            		ArrayList<HashMap<String, String>> html_contents = datenhaltung.getSubCat("team");
+                           	
+                           		String user=datenhaltung.getSessionUser(request.getSession().getAttribute("session_id").toString());
+                           		ArrayList<HashMap<String, String>> check=datenhaltung.getSubCat("teammap", "accountname_ID", user, "teamname_ID");
+                           		
+                           		for(HashMap<String,String> team:html_contents){
+                           			if(!team.get("teamname_ID").equals(check.get(0).get("teamname_ID"))) 
+                           				html_contents.remove(team);
+                           		}
+                           	
+                           		
                            		ArrayList<HashMap<String, String>> criterions = datenhaltung.getSubCat("teilkriterium");
                            		ArrayList<HashMap<String, String>> tutors = new ArrayList<>();
                            		for (HashMap<String, String> row : html_contents)

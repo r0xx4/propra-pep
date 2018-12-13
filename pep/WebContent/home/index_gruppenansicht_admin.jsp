@@ -171,7 +171,7 @@
 						<div class="form-group">
 							<label for="input_name_new_group" class="col-form-label">Name:</label>
 							<input type="text" class="form-control" readonly
-								id="input_name_new_group" placeholder="<%out.print(datenhaltung.getSubCat("organisationseinheit").size()+1);%>">
+								id="input_name_new_group" placeholder="Gruppe <%out.print(datenhaltung.getSubCat("organisationseinheit").size()+1);%>">
 						</div>
 						<div class="form-group">
 							<label for="select_juror_1" class="col-form-label">Juror
