@@ -81,8 +81,7 @@ public class HandleBestRanked extends HttpServlet {
 			ArrayList<String> teamNames = new ArrayList<String>();
 			for(String g : teams.keySet()) {
 				int i = 0;
-				//TODO 
-				for(; i < 2 && teams.get(g).iterator().hasNext(); i++) {
+				for(; i < (teams.get(g).size() < 3 ? teams.get(g).size() : 3); i++) {
 					teamNames.add(teams.get(g).get(i).keySet().iterator().next());
 				}
 				if(i != 0)
