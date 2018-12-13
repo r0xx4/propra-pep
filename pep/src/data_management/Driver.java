@@ -370,7 +370,7 @@ public class Driver {
 		int l, t;
 		l = Integer.parseInt(lehrstuhl);
 		t = Integer.parseInt(teamnummer);
-		return (l < 10 ? "0" + l : l) + "" + (t < 10 ? "0" + t : t) + "" + localDate.getYear();
+		return "L:"+(l < 10 ? "0" + l : l) + "T:" + (t < 10 ? "0" + t : t) + "Y: " + localDate.getYear();
 	}
 
 	public static String getHash(byte inputBytes[]) throws NoSuchAlgorithmException {

@@ -1,3 +1,4 @@
+<%@page import="org.w3c.dom.html.HTMLCollection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="java.util.*, data_management.Driver" %>
 <!DOCTYPE html>
 <html>
@@ -521,32 +522,15 @@
 	                }
 	                %>
 	                document.querySelector('#lbl_team_member').innerHTML = "<% out.print(teammitglieder); %>";
+	                document.querySelector('#link_download_documentation').href="/pep/provide_project_file_download?filetype=documentation&team=<% out.print(html_contents.get(x).get("teamname_ID")); %>";
+	                document.querySelector('#link_download_presentation').href="/pep/provide_project_file_download?filetype=presentation&team=<% out.print(html_contents.get(x).get("teamname_ID")); %>";
+	                document.querySelector('#link_download_poster').href="/pep/provide_project_file_download?filetype=poster&team=<% out.print(html_contents.get(x).get("teamname_ID")); %>";
+	                document.querySelector('#link_download_summary').href="/pep/provide_project_file_download?filetype=summary&team=<% out.print(html_contents.get(x).get("teamname_ID")); %>";
 				})
 	            
 				<%
        		}
 			%>
-            
-            document.querySelector('#link_download_documentation').addEventListener("click", klickLinkDownloadDocumentation);
-            function klickLinkDownloadDocumentation(){
-                //Hier Code für Download von Dokumentation
-                window.alert("Downloaded Dokumentation")
-            }
-            document.querySelector('#link_download_presentation').addEventListener("click", klickLinkDownloadPresentation);
-            function klickLinkDownloadPresentation(){
-                //Hier Code für Download von Presentation
-                window.alert("Downloaded Presentation")
-            }
-            document.querySelector('#link_download_poster').addEventListener("click", klickLinkDownloadPoster);
-            function klickLinkDownloadPoster(){
-                //Hier Code für Download von Poster
-                window.alert("Downloaded Poster")
-            }
-            document.querySelector('#link_download_summary').addEventListener("click", klickLinkDownloadSummary);
-            function klickLinkDownloadSummary(){
-                //Hier Code für Download von Summary
-                window.alert("Downloaded Summary")
-            }
         </script>
     </body>
 </html>
