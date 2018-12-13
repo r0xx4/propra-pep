@@ -79,8 +79,12 @@
                            	
                            		String user=datenhaltung.getSessionUser(request.getSession().getAttribute("session_id").toString());
                            		ArrayList<HashMap<String, String>> check=datenhaltung.getSubCat("teammap", "accountname_ID", user, "teamname_ID");
-                           		
+                  
                            		for(HashMap<String,String> team:html_contents){
+                           			if(check.isEmpty()){
+                           				html_contents.removeAll(html_contents);
+                           				break;
+                           			}
                            			if(!team.get("teamname_ID").equals(check.get(0).get("teamname_ID"))) 
                            				html_contents.remove(team);
                            		}
