@@ -173,7 +173,7 @@
 				</div>
 				<div>
 					<label class="pt-3">Laden Sie hier vor der Siegerehrung die
-						Liste mit den Bestplazierten herunter: <a href="#">Bestplaziertenliste</a>
+						Liste mit den Bestplazierten herunter: <a href="/pep/best_ranked_pdf">Bestplaziertenliste</a>
 					</label></br> <label class="pt-3">Laden Sie hier die Präsentation für
 						die Siegerehrung herunter: <a href="#">Präsentation</a>
 					</label></br>
@@ -195,6 +195,8 @@
 
 	<script>
 		//Hier Javascript Code
+		push_to_db ={};
+		
 		function post(path, params, method) {
 		    method = method || "post"; // Set method to post by default if not specified.
 
@@ -255,9 +257,8 @@
 			window.open("/pep/home/view_personal_info", "_self");
 		}
 		document.querySelector('#btn_start_valuation_phase').addEventListener(
-				"click", setEvaluationPhase);
-		function setEvaluationPhase(){
-			push_to_db ={};
+				"click", setEvaluationPhaseStart);
+		function setEvaluationPhaseStart(){
 			var today = new Date();
 			var dd = today.getDate();
 			var mm = today.getMonth()+1;
@@ -270,6 +271,25 @@
 			}
 			today = yyyy + "-" + mm + "-" + dd;
 			push_to_db["startDatum"] = today;
+			
+			post("/pep/handle_db_write_set_phase", push_to_db);
+		}
+		document.querySelector('#btn_stop_valutaion_phase').addEventListener(
+				"click", setEvaluationPhaseEnd);
+		function setEvaluationPhaseEnd(){
+			push_to_db ={};
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth()+1;
+			var yyyy = today.getFullYear();
+			if(dd  <10){
+				dd = "0" + dd;
+			}
+			if(mm < 10){
+				mm = "0" + mm;
+			}
+			today = yyyy + "-" + mm + "-" + dd;
+			push_to_db["endDatum"] = today;
 			
 			post("/pep/handle_db_write_set_phase", push_to_db);
 		}

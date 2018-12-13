@@ -43,10 +43,14 @@ public class HandleDBWriteSetPhase extends HttpServlet {
 		{
 			push_into_db.put(key, request.getParameterMap().get(key)[0]);
 		}
-		push_into_db.put("endDatum", "2100-01-01");
+		if(push_into_db.containsKey("startDatum"))
+			push_into_db.put("endDatum", "2100-01-01");
 		System.out.println(push_into_db);
 		try {
-			datenhaltung.updateTable("phase", "Projektbewertungsphase", push_into_db);
+			if(push_into_db.containsKey("startDatum"))
+				datenhaltung.updateTable("phase", "Projektbewertungsphase", push_into_db);
+			else if(push_into_db.containsKey("endDatum"))
+				datenhaltung.updateTable("phase", "Projektbewertungsphase", push_into_db);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
