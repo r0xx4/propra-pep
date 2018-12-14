@@ -175,7 +175,7 @@
 					<label class="pt-3">Laden Sie hier vor der Siegerehrung die
 						Liste mit den Bestplazierten herunter: <a href="/pep/best_ranked_pdf">Bestplaziertenliste</a>
 					</label></br> <label class="pt-3">Laden Sie hier die Präsentation für
-						die Siegerehrung herunter: <a href="#">Präsentation</a>
+						die Siegerehrung herunter: <a href="/pep/presentation_pdf">Präsentation</a>
 					</label></br>
 				</div>
 			</div>

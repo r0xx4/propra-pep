@@ -24,16 +24,16 @@ import data_management.Driver;
 import pdf_creator.*;
 
 /**
- * Servlet implementation class HandleBestRanked
+ * Servlet implementation class HandlePresentation
  */
-@WebServlet("/best_ranked_pdf")
-public class HandleBestRanked extends HttpServlet {
+@WebServlet("/presentation_pdf")
+public class HandlePresentation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HandleBestRanked() {
+    public HandlePresentation() {
         super();
     }
 
@@ -41,16 +41,13 @@ public class HandleBestRanked extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		Driver datenhaltung = new Driver();
 		
 		Path path = Paths.get("c:/data/Abschlusspraesentation");
 		if(!Files.exists(path)) {
 			new File("c:/data/Abschlusspraesentation").mkdirs();
 		}
-		
 		try {
-			int anzahl = datenhaltung.getSubCat("organisationseinheit").size();
 			ArrayList<HashMap<String, String>> units = datenhaltung.getSubCat("organisationseinheit");
 			LinkedHashMap<String, ArrayList<HashMap<String, String>>> teams = new LinkedHashMap<String, ArrayList<HashMap<String, String>>>();
 			for(HashMap<String, String> u : units) {
@@ -76,33 +73,46 @@ public class HandleBestRanked extends HttpServlet {
 					}
 				});
 			}
-			ArrayList<Integer> winnerTeams = new ArrayList<Integer>();
-			ArrayList<String> teamNames = new ArrayList<String>();
+			
+			ArrayList<Gruppe> winner = new ArrayList<Gruppe>();
+			ArrayList<Gruppe> place1 = new ArrayList<Gruppe>();
+			ArrayList<Gruppe> place2 = new ArrayList<Gruppe>();
+			ArrayList<Gruppe> place3 = new ArrayList<Gruppe>();
+			
 			for(String g : teams.keySet()) {
+				int grpNr = Integer.valueOf(g.replaceAll("Gruppe ", ""));
 				ArrayList<String> temp = new ArrayList<String>();
-				int i = 0;
-				for(; i < (teams.get(g).size() < 3 ? teams.get(g).size() : 3); i++) {
+				for(int i = 0; i < (teams.get(g).size() < 3 ? teams.get(g).size() : 3); i++) {
 					temp.add(teams.get(g).get(i).keySet().iterator().next());
 				}
 				Collections.reverse(temp);
-				teamNames.addAll(temp);
-				if(i != 0)
-					winnerTeams.add(i);
+				int platz = (teams.get(g).size() < 3 ? teams.get(g).size() : 3);
+				int i = 1;
+				for(String s : temp) {
+					Gruppe group = new Gruppe(grpNr, platz--, s);
+					switch(i) {
+					case 1:
+						place3.add(group);
+						break;
+					case 2:
+						place2.add(group);
+						break;
+					case 3:
+						place1.add(group);
+						break;
+					}
+					i++;
+				}
 			}
-			
-			
-
-			
-			System.out.println(teams);
-			System.out.println(winnerTeams);
-			System.out.println(teamNames);
-			
+			winner.addAll(place3);
+			winner.addAll(place2);
+			winner.addAll(place1);
 			Pdfcreator pdf = new Pdfcreator();
-			pdf.creategewinnerliste(anzahl, winnerTeams, teamNames, path.toString());
+			pdf.createabschlusspraesentation("Siegerehrung", winner, path.toString());
 			
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
-			String file = "Gewinnerliste.pdf";
+			String file = "abschlusspraesentation.pdf";
 			response.setContentType("APPLICATION/OCTET-STREAM");
 			response.setHeader("Content-Disposition", "attachment; filename=\""+file+"\"");
 			
@@ -114,6 +124,7 @@ public class HandleBestRanked extends HttpServlet {
 			}
 			fileInputStream.close();
 			out.close();
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

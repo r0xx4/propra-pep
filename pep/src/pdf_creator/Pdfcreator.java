@@ -158,6 +158,7 @@ public class Pdfcreator {
 			document.close();
 			out.flush();
 			out.close();
+			System.out.println("Test");
 			
 			
 					} catch (Exception e) {
