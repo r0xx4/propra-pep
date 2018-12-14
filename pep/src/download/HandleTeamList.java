@@ -47,7 +47,7 @@ public class HandleTeamList extends HttpServlet {
 		if(!teamID.isEmpty()) {
 			HashMap<String, String> team = datenhaltung.getSubCat("team", teamID.get(0).get("teamname_ID")).get(0);
 			String pathTeam = team.get("projektpfad");
-			String projectTitle = "Name des Projekts: " + team.get("projekttitel");
+			String projectTitle = team.get("projekttitel");
 			ArrayList<HashMap<String, String>> teammitglieder = datenhaltung.getSubCat("teammap", "teamname_ID", teamID.get(0).get("teamname_ID"), "accountname_ID");
 			ArrayList<String> teammitgliednamen = new ArrayList<String>();
 			for(HashMap<String, String> teammitglied : teammitglieder) {
