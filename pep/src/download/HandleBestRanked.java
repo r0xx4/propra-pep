@@ -86,8 +86,7 @@ public class HandleBestRanked extends HttpServlet {
 				}
 				Collections.reverse(temp);
 				teamNames.addAll(temp);
-				if(i != 0)
-					winnerTeams.add(i);
+				winnerTeams.add(i);
 			}
 			
 			
