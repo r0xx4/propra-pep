@@ -22,6 +22,17 @@ public class Driver {
 
 	private static final byte salt[] = DatatypeConverter.parseHexBinary("DE358A58A8769EB4A370A7EE9EC54CDE76CE64C2");
 
+	
+	//Methode getTutorTeams
+	public ArrayList<HashMap<String,String>> getTutorTeams(String user) throws SQLException{
+		StringBuilder sql=new StringBuilder("SELECT team.* FROM team ");
+		sql.append("INNER JOIN teammap ON team.teamname_ID=teammap.teamname_ID ");
+		sql.append("WHERE teammap.accountname_ID LIKE '");
+		sql.append(user);
+		sql.append("';");
+
+		return returnArrayList(sql.toString());
+	}
 	// Method createTeam
 	public String createTeam(String lehrstuhl, String projekttitel, String organisationseinheit, String betreuer1,
 			String betreuer2) throws SQLException {
@@ -370,7 +381,7 @@ public class Driver {
 		int l, t;
 		l = Integer.parseInt(lehrstuhl);
 		t = Integer.parseInt(teamnummer);
-		return "L:"+(l < 10 ? "0" + l : l) + "|T:" + (t < 10 ? "0" + t : t) + "|Y:" + localDate.getYear();
+		return ""+(l < 10 ? "0" + l : l) + "" + (t < 10 ? "0" + t : t) + "" + localDate.getYear();
 	}
 
 	public static String getHash(byte inputBytes[]) throws NoSuchAlgorithmException {

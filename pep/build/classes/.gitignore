@@ -1,17 +1,7 @@
-<<<<<<< HEAD
-/handle_post_requests/
-=======
+/data_management/
+/download/
 /handle_post_requests/
 /home/
-<<<<<<< HEAD
-/download/
-=======
->>>>>>> branch 'master' of https://github.com/r0xx4/propra-pep.git
-/data_management/
-<<<<<<< HEAD
 /login/
-/registration/
-=======
->>>>>>> branch 'master' of https://github.com/r0xx4/propra-pep.git
->>>>>>> branch 'master' of https://github.com/r0xx4/propra-pep.git
 /pdf_creator/
+/registration/
