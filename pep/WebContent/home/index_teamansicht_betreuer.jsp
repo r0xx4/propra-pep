@@ -75,23 +75,13 @@
                             <tbody>
                             	<% 	
                            		Driver datenhaltung = new Driver();
-                           		ArrayList<HashMap<String, String>> html_contents = datenhaltung.getSubCat("team");
-                           	
-                           		String user=datenhaltung.getSessionUser(request.getSession().getAttribute("session_id").toString());
-                           		ArrayList<HashMap<String, String>> check = datenhaltung.getSubCat("teammap", "accountname_ID", user, "teamname_ID");
-                  
-                           		for(HashMap<String,String> team:html_contents){
-                           			if(check.isEmpty()){
-                           				html_contents.removeAll(html_contents);
-                           				break;
-                           			}
-                           			if(!team.get("teamname_ID").equals(check.get(0).get("teamname_ID"))) 
-                           				html_contents.remove(team);
-                           		}
-                           	
                            		
+                           		String user=datenhaltung.getSessionUser(request.getSession().getAttribute("session_id").toString());
+                           		ArrayList<HashMap<String, String>> html_contents = datenhaltung.getTutorTeams(user);
+
                            		ArrayList<HashMap<String, String>> criterions = datenhaltung.getSubCat("teilkriterium");
                            		ArrayList<HashMap<String, String>> tutors = new ArrayList<>();
+                        
                            		for (HashMap<String, String> row : html_contents)
                            		{
                            			tutors.add(new HashMap<String, String>());
@@ -325,6 +315,10 @@
                 }
                 %>
                 document.querySelector('#lbl_team_member').innerHTML = "<% out.print(teammitglieder); %>";
+                document.querySelector('#link_download_documentation').href="/pep/provide_project_file_download?filetype=documentation&team=<% out.print(html_contents.get(x).get("teamname_ID")); %>";
+                document.querySelector('#link_download_presentation').href="/pep/provide_project_file_download?filetype=presentation&team=<% out.print(html_contents.get(x).get("teamname_ID")); %>";
+                document.querySelector('#link_download_poster').href="/pep/provide_project_file_download?filetype=poster&team=<% out.print(html_contents.get(x).get("teamname_ID")); %>";
+                document.querySelector('#link_download_summary').href="/pep/provide_project_file_download?filetype=summary&team=<% out.print(html_contents.get(x).get("teamname_ID")); %>";
 			})
             
 			<%
