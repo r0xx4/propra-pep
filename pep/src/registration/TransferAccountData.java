@@ -46,7 +46,7 @@ public class TransferAccountData extends HttpServlet {
 			if (!request.getParameterMap().get(key)[0].equals(""))
 				account_data.put(key, request.getParameterMap().get(key)[0]);
 			else
-				account_data.put(key, request.getParameterMap().get(key)[0]);
+				account_data.put(key, null);
 		}
 		Driver datenhaltung = new Driver();
 		try 
@@ -57,7 +57,6 @@ public class TransferAccountData extends HttpServlet {
 		{
 			e1.printStackTrace();
 		}
-		
 		try 
 		{
 			if (account_data.get("rollename_ID").equals("Teilnehmer") || account_data.get("masterkey").equals(datenhaltung.getMasterPassword(account_data.get("rollename_ID"))))

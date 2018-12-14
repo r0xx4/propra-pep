@@ -84,7 +84,6 @@ public class HandleFileUpload extends HttpServlet {
 				try
 				{
 					List<FileItem> fileItemsList = uploader.parseRequest(request);
-					
 					Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
 					while(fileItemsIterator.hasNext())
 					{
