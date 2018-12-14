@@ -108,7 +108,7 @@ public class HandlePresentation extends HttpServlet {
 			winner.addAll(place2);
 			winner.addAll(place1);
 			Pdfcreator pdf = new Pdfcreator();
-			pdf.createabschlusspraesentation("Siegerehrung", winner, path.toString());
+			pdf.createabschlusspraesentation("c:/data/Abschlusspraesentation/t.txt", winner, path.toString());
 			
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();

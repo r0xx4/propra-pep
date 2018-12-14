@@ -63,11 +63,11 @@ public class HandleDBWriteTeamCreate extends HttpServlet {
 				if (!Files.exists(path))
 				{
 					new File("C:/data").mkdirs();
-					new File("C:/data" + kennnummer).mkdirs();
+					new File("C:/data/" + kennnummer).mkdirs();
 				}
 				else
 				{
-					new File("C:/data" + kennnummer).mkdirs();
+					new File("C:/data/" + kennnummer).mkdirs();
 				}
 			}
 		} 
